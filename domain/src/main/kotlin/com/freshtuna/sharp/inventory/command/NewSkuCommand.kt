@@ -1,0 +1,34 @@
+package com.freshtuna.sharp.inventory.command
+
+import com.freshtuna.sharp.oh.Oh
+import com.freshtuna.sharp.price.Price
+import com.freshtuna.sharp.spec.Spec
+
+class NewSkuCommand(
+    val name: String,
+    val barcode: String,
+    val description: String = "",
+
+    val price: Price,
+
+    /**
+     * specific
+     */
+    val spec: Spec,
+) {
+    init {
+        validate()
+    }
+
+    private fun validate() {
+        val msgMap = HashMap<String, String>()
+
+        if(name.isNullOrEmpty())
+            msgMap["name"] = "이름을 입력해주세요"
+        if(barcode.isNullOrEmpty())
+            msgMap["barcode"] = "바코드를 입력해주세요"
+
+        if (msgMap.isNotEmpty())
+            Oh.formValidationError(msgMap)
+    }
+}
