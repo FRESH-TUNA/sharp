@@ -1,10 +1,9 @@
 package com.freshtuna.sharp.inventory.adapter
 
-import com.freshtuna.sharp.inventory.SKU
 import com.freshtuna.sharp.inventory.command.NewSkuCommand
 import com.freshtuna.sharp.inventory.entity.MariaDBSKU
 import com.freshtuna.sharp.inventory.outgoing.NewSkuPort
-import com.freshtuna.sharp.inventory.repository.MariaDBSKURepository
+import com.freshtuna.sharp.inventory.repository.SKURepository
 import com.freshtuna.sharp.price.Currency
 import com.freshtuna.sharp.price.Price
 import com.freshtuna.sharp.price.entity.MariaDBPrice
@@ -22,7 +21,7 @@ import java.math.BigDecimal
 
 class NewSkuAdapterTest {
 
-    private val repository: MariaDBSKURepository = mockk()
+    private val repository: SKURepository = mockk()
 
     private val adapter: NewSkuPort = NewSkuAdapter(repository)
 
@@ -36,7 +35,7 @@ class NewSkuAdapterTest {
             name = "newsku",
             barcode = "barcode",
             description = "description",
-            price = Price(BigDecimal.TEN, Currency.KOW),
+            price = Price(BigDecimal.TEN, Currency.KRW),
             spec = Spec(
                 Weight(BigDecimal.TEN, WeightScale.GRAM),
                 Dimension(BigDecimal.TEN, BigDecimal.TEN, BigDecimal.TEN, DimensionScale.CM)
@@ -47,7 +46,7 @@ class NewSkuAdapterTest {
             name = "newsku",
             barcode = "barcode",
             description = "description",
-            price = MariaDBPrice(BigDecimal.TEN, Currency.KOW),
+            price = MariaDBPrice(BigDecimal.TEN, Currency.KRW),
             specification = MariaDBSpecification(
                 MariaDBWeight(BigDecimal.TEN, WeightScale.GRAM),
                 MariaDBDimension(BigDecimal.TEN, BigDecimal.TEN, BigDecimal.TEN, DimensionScale.CM)
@@ -62,6 +61,6 @@ class NewSkuAdapterTest {
         /**
          * then
          */
-        assertEquals(adapter.new(command) is SKU, true)
+        adapter.new(command)
     }
 }

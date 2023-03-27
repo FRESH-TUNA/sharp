@@ -7,6 +7,7 @@ plugins {
     kotlin("jvm") version "1.8.10"
     kotlin("plugin.spring") version "1.8.10"
     kotlin("plugin.jpa") version "1.8.10"
+    kotlin("kapt") version "1.8.10"
 }
 
 group = "com.freshtuna"
@@ -34,8 +35,17 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
-    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+    /**
+     * querydsl
+     */
+    implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
+    kapt("com.querydsl:querydsl-apt:5.0.0:jakarta")
+    kapt("jakarta.persistence:jakarta.persistence-api")
+    kapt("jakarta.annotation:jakarta.annotation-api")
 
+    /**
+     * test
+     */
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
@@ -53,4 +63,11 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+kapt {
+    // Enable field accessors
+    arguments {
+        arg("querydsl.fieldAccessors", "true")
+    }
 }

@@ -1,6 +1,6 @@
 package com.freshtuna.sharp.page
 
-enum class SortOrder {
+enum class SharpSortDirection {
     ASC,
     DESC
 }

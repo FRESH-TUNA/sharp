@@ -6,15 +6,15 @@ import com.freshtuna.sharp.inventory.SKU
 import com.freshtuna.sharp.inventory.command.NewSkuCommand
 import com.freshtuna.sharp.price.entity.MariaDBPrice
 import com.freshtuna.sharp.price.entity.toEntity
-import com.freshtuna.sharp.spec.entity.MariaDBDimension
 import com.freshtuna.sharp.spec.entity.MariaDBSpecification
-import com.freshtuna.sharp.spec.entity.MariaDBWeight
 import com.freshtuna.sharp.spec.entity.toEntity
 
 import jakarta.persistence.Embedded
 import jakarta.persistence.Entity
+import jakarta.persistence.Table
 
 @Entity
+@Table(name = "sku")
 class MariaDBSKU(
     val name: String,
 

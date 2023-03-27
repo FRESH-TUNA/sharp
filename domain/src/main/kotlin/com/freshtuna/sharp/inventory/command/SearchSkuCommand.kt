@@ -1,9 +1,8 @@
 package com.freshtuna.sharp.inventory.command
 
-import com.freshtuna.sharp.id.PublicId
-import com.freshtuna.sharp.page.Page
+import com.freshtuna.sharp.page.SharpPageRequest
 
 class SearchSkuCommand(
-    val page: Page,
-    val publicId: PublicId
+    val query: String = "",
+    val sharpPageRequest: SharpPageRequest
 )
