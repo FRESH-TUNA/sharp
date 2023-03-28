@@ -11,6 +11,7 @@ import com.freshtuna.sharp.spec.entity.toEntity
 
 import jakarta.persistence.Embedded
 import jakarta.persistence.Entity
+import jakarta.persistence.OneToMany
 import jakarta.persistence.Table
 
 @Entity
@@ -28,6 +29,11 @@ class MariaDBSKU(
     @Embedded
     val specification: MariaDBSpecification
 ) : MariaDBDefaultEntity() {
+
+    @OneToMany(mappedBy = "sku")
+    private var _stocks: MutableList<MariaDBStock> = mutableListOf()
+    val stocks: List<MariaDBStock>
+        get() = _stocks.toList()
 
     fun toDomain() = SKU(
         id = PublicId(id.toString()),

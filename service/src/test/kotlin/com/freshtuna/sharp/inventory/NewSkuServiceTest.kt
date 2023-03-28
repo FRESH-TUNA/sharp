@@ -31,7 +31,7 @@ class NewSkuServiceTest {
             name = "newsku",
             barcode = "barcode",
             description = "description",
-            price = Price(BigDecimal.TEN, Currency.KOW),
+            price = Price(BigDecimal.TEN, Currency.KRW),
             spec = Spec(
                 Weight(BigDecimal.TEN, WeightScale.GRAM),
                 Dimension(BigDecimal.TEN, BigDecimal.TEN, BigDecimal.TEN, DimensionScale.CM)
@@ -43,7 +43,7 @@ class NewSkuServiceTest {
             name = "newsku",
             barcode = "barcode",
             description = "description",
-            price = Price(BigDecimal.TEN, Currency.KOW),
+            price = Price(BigDecimal.TEN, Currency.KRW),
             spec = Spec(
                 Weight(BigDecimal.TEN, WeightScale.GRAM),
                 Dimension(BigDecimal.TEN, BigDecimal.TEN, BigDecimal.TEN, DimensionScale.CM)
