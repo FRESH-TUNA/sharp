@@ -1,6 +1,7 @@
 package com.freshtuna.sharp.inventory
 
 import com.freshtuna.sharp.id.PublicId
+import com.freshtuna.sharp.inventory.result.NewSkuResult
 import com.freshtuna.sharp.price.Price
 import com.freshtuna.sharp.spec.Spec
 
@@ -17,4 +18,6 @@ class SKU(
      * specific
      */
     val spec: Spec
-)
+) {
+    fun toResult() = NewSkuResult(id.toString())
+}

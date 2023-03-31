@@ -6,6 +6,7 @@ import com.freshtuna.sharp.inventory.outgoing.NewSkuPort
 import com.freshtuna.sharp.price.Currency
 import com.freshtuna.sharp.price.Price
 import com.freshtuna.sharp.spec.*
+import io.mockk.InternalPlatformDsl.toStr
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Test
@@ -35,7 +36,8 @@ class NewSkuServiceTest {
             spec = Spec(
                 Weight(BigDecimal.TEN, WeightScale.GRAM),
                 Dimension(BigDecimal.TEN, BigDecimal.TEN, BigDecimal.TEN, DimensionScale.CM)
-            )
+            ),
+            sellerId = PublicId("sellerId")
         )
 
         val newSKU = SKU(
@@ -58,6 +60,6 @@ class NewSkuServiceTest {
         /**
          * then
          */
-        assertEquals(service.new(command), newSKU)
+        assertEquals(service.new(command).id, newSKU.id.toStr())
     }
 }

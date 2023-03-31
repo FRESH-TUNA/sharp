@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "3.0.4"
+    id("org.springframework.boot") version "3.0.2"
     id("io.spring.dependency-management") version "1.1.0"
 
     kotlin("jvm") version "1.8.10"
@@ -26,7 +26,6 @@ allOpen {
 
 dependencies {
     implementation(project(":domain"))
-    implementation(project(":common"))
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.mariadb.jdbc:mariadb-java-client")

@@ -1,10 +1,16 @@
 package com.freshtuna.sharp.adapter.external
 
+import com.freshtuna.sharp.config.const.Url
 import com.freshtuna.sharp.inventory.incoming.NewSkuUseCase
 import com.freshtuna.sharp.request.NewSkuRequest
+import com.freshtuna.sharp.security.userDetail.UserDetailManager
 import com.freshtuna.sharp.spec.NewSkuSpec
-import com.freshtuna.tooth.api.response.BasicResponse
-import com.freshtuna.tooth.api.response.MessageResponse
+import com.freshtuna.sharp.api.response.BasicResponse
+import com.freshtuna.sharp.api.response.DataResponse
+import io.github.oshai.KotlinLogging
+
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -12,8 +18,13 @@ class NewSkuController(
     private val useCase: NewSkuUseCase
 ) : NewSkuSpec {
 
-    override fun new(request: NewSkuRequest): BasicResponse {
-        useCase.new(request.toCommand())
-        return MessageResponse.OK
+    val log = KotlinLogging.logger {  }
+
+    @PostMapping(Url.EXTERNAL.SKU)
+    override fun new(@RequestBody request: NewSkuRequest): BasicResponse {
+        log.info("hello?")
+        val result = useCase.new(request.toCommand(UserDetailManager.get().id))
+        log.info(result.id)
+        return DataResponse.of(result)
     }
 }

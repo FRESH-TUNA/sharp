@@ -13,10 +13,14 @@ import jakarta.persistence.Embedded
 import jakarta.persistence.Entity
 import jakarta.persistence.OneToMany
 import jakarta.persistence.Table
+import java.util.*
 
 @Entity
 @Table(name = "sku")
 class MariaDBSKU(
+
+    val sellerId: UUID,
+
     val name: String,
 
     val barcode: String,
@@ -53,5 +57,6 @@ fun NewSkuCommand.toEntity() = MariaDBSKU(
     barcode = this.barcode,
     description = this.description,
     price = this.price.toEntity(),
-    specification = this.spec.toEntity()
+    specification = this.spec.toEntity(),
+    sellerId = UUID.fromString(sellerId.toString())
 )

@@ -12,5 +12,5 @@ class NewSkuService(
     private val newSkuPort: NewSkuPort
 ) : NewSkuUseCase {
 
-    override fun new(command: NewSkuCommand) = newSkuPort.new(command)
+    override fun new(command: NewSkuCommand) = newSkuPort.new(command).toResult()
 }

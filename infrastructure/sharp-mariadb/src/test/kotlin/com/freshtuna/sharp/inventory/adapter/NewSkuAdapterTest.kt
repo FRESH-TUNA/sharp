@@ -1,5 +1,6 @@
 package com.freshtuna.sharp.inventory.adapter
 
+import com.freshtuna.sharp.id.PublicId
 import com.freshtuna.sharp.inventory.command.NewSkuCommand
 import com.freshtuna.sharp.inventory.entity.MariaDBSKU
 import com.freshtuna.sharp.inventory.outgoing.NewSkuPort
@@ -18,6 +19,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.DisplayName
 import java.math.BigDecimal
+import java.util.*
 
 class NewSkuAdapterTest {
 
@@ -39,7 +41,8 @@ class NewSkuAdapterTest {
             spec = Spec(
                 Weight(BigDecimal.TEN, WeightScale.GRAM),
                 Dimension(BigDecimal.TEN, BigDecimal.TEN, BigDecimal.TEN, DimensionScale.CM)
-            )
+            ),
+            sellerId = PublicId(UUID.randomUUID().toString())
         )
 
         val newMariaDBSKU = MariaDBSKU(
@@ -50,7 +53,8 @@ class NewSkuAdapterTest {
             specification = MariaDBSpecification(
                 MariaDBWeight(BigDecimal.TEN, WeightScale.GRAM),
                 MariaDBDimension(BigDecimal.TEN, BigDecimal.TEN, BigDecimal.TEN, DimensionScale.CM)
-            )
+            ),
+            sellerId = UUID.fromString(command.sellerId.toString())
         )
 
         /**

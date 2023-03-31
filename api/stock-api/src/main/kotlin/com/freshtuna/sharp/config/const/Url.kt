@@ -12,10 +12,15 @@ class Url {
 
         companion object {
 
+            private const val ROOT = "/inventory"
+
             /**
-             * jwt local member signin
+             * sku
              */
-            const val STOCK_IN = "/sign-in/jwt/local"
+            const val SKU = "/inventory/sku"
+
+
+            const val STOCK = "/inventory/stock"
         }
     }
 }
