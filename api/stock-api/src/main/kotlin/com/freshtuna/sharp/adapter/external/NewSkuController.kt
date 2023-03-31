@@ -22,9 +22,7 @@ class NewSkuController(
 
     @PostMapping(Url.EXTERNAL.SKU)
     override fun new(@RequestBody request: NewSkuRequest): BasicResponse {
-        log.info("hello?")
-        val result = useCase.new(request.toCommand(UserDetailManager.get().id))
-        log.info(result.id)
+        val result = useCase.new(request.toCommand(UserDetailManager.getUserDetail().id))
         return DataResponse.of(result)
     }
 }

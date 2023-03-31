@@ -13,6 +13,8 @@ enum class Oh(
      */
     FORM_VALIDATION_ERROR("SHARP-C1", "form 검증에 실패했습니다."),
     AUTHENTICATION_ERROR("SHARP-C2", "인증에 실패앴습니다."),
+    BAD_REQUEST("SHARP-C3", "잘못된 요청입니다"),
+
     /**
      * internal server error
      */
@@ -24,8 +26,11 @@ enum class Oh(
         }
 
         fun authenticationError(msg: String): Nothing {
-
             throw SharpException(AUTHENTICATION_ERROR)
+        }
+
+        fun badRequest(): Nothing {
+            throw SharpException(BAD_REQUEST)
         }
     }
 }

@@ -14,11 +14,8 @@ class StockInAdapter(
 ) : StockInPort {
 
     override fun stockIn(command: StockInCommand) {
-        val sku = skuRepository.getReferenceById(command.skuId.toString().toLong())
-        val newStocks = ArrayList<MariaDBStock>(command.count.toInt())
-
-        for (i in 1..command.count)
-            newStocks.add(MariaDBStock(sku))
+        val sku = skuRepository.findById(command.skuId.toString().toLong()).get()
+        val newStocks = List(command.count.toInt()) { MariaDBStock(sku) }
 
         stockRepository.saveAll(newStocks)
     }

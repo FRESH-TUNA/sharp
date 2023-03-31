@@ -41,6 +41,7 @@ class MariaDBSKU(
 
     fun toDomain() = SKU(
         id = PublicId(id.toString()),
+        sellerId = PublicId(sellerId),
         name = name,
         barcode = barcode,
         description = description,
