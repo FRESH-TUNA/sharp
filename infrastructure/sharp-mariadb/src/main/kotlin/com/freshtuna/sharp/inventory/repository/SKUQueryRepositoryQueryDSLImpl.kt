@@ -17,6 +17,7 @@ import com.querydsl.core.types.dsl.PathBuilder
 import com.querydsl.core.types.dsl.Wildcard
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.stereotype.Component
+import java.util.*
 
 @Component
 class SKUQueryRepositoryQueryDSLImpl(
@@ -31,11 +32,13 @@ class SKUQueryRepositoryQueryDSLImpl(
         val count = queryFactory
             .select(Wildcard.count)
             .from(sku)
+            .where(sku.sellerId.eq(UUID.fromString(commend.sellerId.toString())))
             .where(wherePredicate)
             .fetchOne()
 
         val data = queryFactory
             .selectFrom(sku)
+            .where(sku.sellerId.eq(UUID.fromString(commend.sellerId.toString())))
             .where(wherePredicate)
             .orderBy(*orderBys(commend.sharpPageRequest.sharpSort).toTypedArray())
             .offset(offset(commend.sharpPageRequest))
@@ -49,15 +52,12 @@ class SKUQueryRepositoryQueryDSLImpl(
      * helpers
      */
     private fun generateSearchSkuPredicate(command: SearchSkuCommand): Predicate {
-        var predicate: BooleanExpression = Expressions.asBoolean(true).isTrue
+        if(command.query.isBlank())
+            return Expressions.asBoolean(true).isTrue
 
-        if (command.query.isNotBlank()) {
-            predicate = predicate
+        return Expressions.asBoolean(true).isFalse
                 .or(sku.name.startsWith(command.query))
                 .or(sku.barcode.startsWith(command.query))
-        }
-
-        return predicate
     }
 
     /**

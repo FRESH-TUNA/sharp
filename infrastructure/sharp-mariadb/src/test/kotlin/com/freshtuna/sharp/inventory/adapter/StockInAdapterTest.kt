@@ -27,7 +27,7 @@ class StockInAdapterTest {
          */
         val skuId = PublicId("1")
         val count = 5L
-        val stockInCommand = StockInCommand(skuId, count)
+        val stockInCommand = StockInCommand(mockk(), skuId, count)
 
         val sku: MariaDBSKU = mockk()
 

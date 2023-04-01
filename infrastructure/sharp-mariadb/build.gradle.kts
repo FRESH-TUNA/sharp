@@ -45,6 +45,7 @@ dependencies {
     /**
      * test
      */
+    testImplementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")

@@ -1,11 +1,11 @@
 package com.freshtuna.sharp.page
 
 class SharpPage<T>(
-    val data: List<T>,
+    val page: List<T>,
     val count: Long,
 
     val pageNumber: Long,
-    val pageCount: Long,
+    val pageSize: Long,
 
     val totalPageCount: Long,
     val totalCount: Long,
@@ -13,16 +13,16 @@ class SharpPage<T>(
 
     constructor(
         data: List<T>,
-        totalSize: Long,
+        totalCount: Long,
         pageRequest: SharpPageRequest
     ) : this(
-        data = data,
+        page = data,
         count = data.size.toLong(),
 
         pageNumber = pageRequest.pageNumber,
-        pageCount = pageRequest.pageSize,
+        pageSize = pageRequest.pageSize,
 
-        totalPageCount = totalSize / pageRequest.pageSize,
-        totalCount = totalSize,
+        totalPageCount = totalCount / pageRequest.pageSize,
+        totalCount = totalCount,
     )
 }
