@@ -19,6 +19,7 @@ class StockInService(
     private val logger = KotlinLogging.logger{}
 
     override fun stockIn(command: StockInCommand) {
+
         val sku = findSkuPort.find(command.skuId)
 
         if(!sku.checkSameSeller(command.sellerId))

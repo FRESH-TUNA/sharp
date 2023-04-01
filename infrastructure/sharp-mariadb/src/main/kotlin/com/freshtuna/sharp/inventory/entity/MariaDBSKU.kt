@@ -4,6 +4,7 @@ import com.freshtuna.sharp.entity.MariaDBDefaultEntity
 import com.freshtuna.sharp.id.PublicId
 import com.freshtuna.sharp.inventory.SKU
 import com.freshtuna.sharp.inventory.command.NewSkuCommand
+import com.freshtuna.sharp.inventory.command.UpdateSkuCommand
 import com.freshtuna.sharp.price.entity.MariaDBPrice
 import com.freshtuna.sharp.price.entity.toEntity
 import com.freshtuna.sharp.spec.entity.MariaDBSpecification
@@ -21,17 +22,17 @@ class MariaDBSKU(
 
     val sellerId: UUID,
 
-    val name: String,
+    var name: String,
 
-    val barcode: String,
+    var barcode: String,
 
-    val description: String,
-
-    @Embedded
-    val price: MariaDBPrice,
+    var description: String,
 
     @Embedded
-    val specification: MariaDBSpecification
+    var price: MariaDBPrice,
+
+    @Embedded
+    var specification: MariaDBSpecification
 ) : MariaDBDefaultEntity() {
 
     @OneToMany(mappedBy = "sku")
@@ -48,6 +49,14 @@ class MariaDBSKU(
         spec = specification.toDomain(),
         price = price.toDomain(),
     )
+
+    fun update(command: UpdateSkuCommand) {
+        name = command.name
+        barcode = command.barcode
+        description = command.description
+        specification = command.spec.toEntity()
+        price = command.price.toEntity()
+    }
 }
 
 /**

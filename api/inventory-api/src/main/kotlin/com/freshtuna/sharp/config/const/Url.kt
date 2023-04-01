@@ -5,6 +5,10 @@ package com.freshtuna.sharp.config.const
  */
 class Url {
 
+    companion object {
+        private const val ID = "/{id}"
+    }
+
     /**
      * external api 설정
      */
@@ -17,10 +21,11 @@ class Url {
             /**
              * sku
              */
-            const val SKU = "/inventory/sku"
+            const val SKU = "$ROOT/sku"
 
+            const val SKU_ID = "$ROOT/sku$ID"
 
-            const val STOCK = "/inventory/stock"
+            const val STOCK = "$ROOT/stock"
         }
     }
 }
