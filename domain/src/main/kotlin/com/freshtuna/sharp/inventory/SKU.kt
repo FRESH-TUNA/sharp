@@ -2,6 +2,7 @@ package com.freshtuna.sharp.inventory
 
 import com.freshtuna.sharp.id.PublicId
 import com.freshtuna.sharp.inventory.result.SkuDetailResult
+import com.freshtuna.sharp.inventory.result.SkuSearchResult
 import com.freshtuna.sharp.inventory.result.UpdateSkuResult
 import com.freshtuna.sharp.price.Price
 import com.freshtuna.sharp.spec.Spec
@@ -34,5 +35,13 @@ class SKU(
         spec
     )
 
-    fun toUpdateSkuResult() = UpdateSkuResult(id)
+    fun toSearchResult() = SkuSearchResult(
+        id.toString(),
+        sellerId.toString(),
+        name,
+        price,
+        barcode,
+        description,
+        spec
+    )
 }
