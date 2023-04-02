@@ -13,5 +13,4 @@ class NewSkuAdapter(
 
     override fun new(command: NewSkuCommand)
         = repository.save(command.toEntity()).toDomain()
-
 }

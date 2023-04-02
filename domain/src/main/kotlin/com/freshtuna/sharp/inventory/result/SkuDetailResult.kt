@@ -14,5 +14,6 @@ class SkuDetailResult(
 
     val description: String,
 
-    val spec: Spec
+    val spec: Spec,
+    val count: Long
 )

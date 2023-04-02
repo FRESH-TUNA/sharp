@@ -4,7 +4,6 @@ import com.freshtuna.sharp.inventory.command.UpdateSkuCommand
 import com.freshtuna.sharp.inventory.incoming.UpdateSkuUseCase
 import com.freshtuna.sharp.inventory.outgoing.FindSkuPort
 import com.freshtuna.sharp.inventory.outgoing.UpdateSkuPort
-import com.freshtuna.sharp.inventory.result.SkuDetailResult
 
 import com.freshtuna.sharp.oh.Oh
 import org.springframework.stereotype.Service
@@ -17,13 +16,13 @@ class UpdateSkuService(
     private val findSkuPort: FindSkuPort
 ) : UpdateSkuUseCase{
 
-    override fun update(command: UpdateSkuCommand): SkuDetailResult {
+    override fun update(command: UpdateSkuCommand) {
 
         val sku = findSkuPort.find(command.skuId)
 
         if(!sku.checkSameSeller(command.sellerId))
             Oh.badRequest()
 
-        return updateSkuPort.update(command).toResult()
+        updateSkuPort.update(command)
     }
 }

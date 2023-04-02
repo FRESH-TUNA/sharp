@@ -40,6 +40,14 @@ class MariaDBSKU(
     val stocks: List<MariaDBStock>
         get() = _stocks.toList()
 
+    fun update(command: UpdateSkuCommand) {
+        name = command.name
+        barcode = command.barcode
+        description = command.description
+        specification = command.spec.toEntity()
+        price = command.price.toEntity()
+    }
+
     fun toDomain() = SKU(
         id = PublicId(id.toString()),
         sellerId = PublicId(sellerId),
@@ -48,15 +56,8 @@ class MariaDBSKU(
         description = description,
         spec = specification.toDomain(),
         price = price.toDomain(),
+        count = stocks.size.toLong()
     )
-
-    fun update(command: UpdateSkuCommand) {
-        name = command.name
-        barcode = command.barcode
-        description = command.description
-        specification = command.spec.toEntity()
-        price = command.price.toEntity()
-    }
 }
 
 /**

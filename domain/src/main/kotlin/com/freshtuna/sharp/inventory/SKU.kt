@@ -1,9 +1,10 @@
 package com.freshtuna.sharp.inventory
 
 import com.freshtuna.sharp.id.PublicId
+import com.freshtuna.sharp.inventory.result.NewSkuResult
 import com.freshtuna.sharp.inventory.result.SkuDetailResult
 import com.freshtuna.sharp.inventory.result.SkuSearchResult
-import com.freshtuna.sharp.inventory.result.UpdateSkuResult
+
 import com.freshtuna.sharp.price.Price
 import com.freshtuna.sharp.spec.Spec
 
@@ -21,7 +22,8 @@ class SKU(
     /**
      * specific
      */
-    val spec: Spec
+    val spec: Spec,
+    val count: Long // 새로 생성된 sku는 count가 Null이다.
 ) {
     fun checkSameSeller(id: PublicId)
         = sellerId == id
@@ -32,8 +34,11 @@ class SKU(
         price,
         barcode,
         description,
-        spec
+        spec,
+        count
     )
+
+    fun toNewResult() = NewSkuResult(id.toString())
 
     fun toSearchResult() = SkuSearchResult(
         id.toString(),
@@ -42,6 +47,7 @@ class SKU(
         price,
         barcode,
         description,
-        spec
+        spec,
+        count
     )
 }

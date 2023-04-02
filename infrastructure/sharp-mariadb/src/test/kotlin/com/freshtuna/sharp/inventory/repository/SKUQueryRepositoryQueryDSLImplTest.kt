@@ -77,7 +77,7 @@ class SKUQueryRepositoryQueryDSLImplTest {
          * then
          */
         results.page.stream().forEach {
-            data -> assertEquals(true, data.name.startsWith(query))
+            data -> assertEquals(true, data.sku.name.startsWith(query))
         }
     }
 
@@ -104,7 +104,7 @@ class SKUQueryRepositoryQueryDSLImplTest {
          * then
          */
         results.page.stream().forEach {
-                data -> assertEquals(true, data.barcode.startsWith(query))
+                data -> assertEquals(true, data.sku.barcode.startsWith(query))
         }
     }
 }

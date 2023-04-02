@@ -12,7 +12,6 @@ class SearchSkuAdapter(
     private val repository: SKUQueryRepository
 ) : SearchSkuPort {
 
-
     override fun search(command: SearchSkuCommand): SharpPage<SKU> {
 
         val result = repository.search(command)
