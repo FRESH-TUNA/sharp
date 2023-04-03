@@ -4,3 +4,4 @@ interface NewOrderUseCase {
 
     fun new()
 }
+

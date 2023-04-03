@@ -2,13 +2,8 @@ package com.freshtuna.sharp.adapter.external
 
 import com.freshtuna.sharp.StockApiApplication
 import com.freshtuna.sharp.api.response.BasicResponse
-import com.freshtuna.sharp.api.response.DataResponse
 import com.freshtuna.sharp.config.const.Url
-import com.freshtuna.sharp.inventory.repository.SKURepository
-import com.freshtuna.sharp.inventory.repository.StockRepository
-import com.freshtuna.sharp.price.Currency
-import com.freshtuna.sharp.spec.DimensionScale
-import com.freshtuna.sharp.spec.WeightScale
+
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 
@@ -45,7 +40,13 @@ class StockInControllerSystemTest {
          */
         val requestBody = mapOf(
             "skuId" to "1",
-            "count" to 3
+            "count" to 3,
+
+            "hasExpire" to "true",
+            "expireDate" to "2024-04-03T00:00:00.000Z",
+
+            "hasManufacture" to "true",
+            "manufactureDate" to "2023-04-03T00:00:00.000Z"
         )
 
         val headers = HttpHeaders()
