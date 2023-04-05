@@ -1,7 +1,7 @@
 package com.freshtuna.sharp.inventory.entity
 
 import com.freshtuna.sharp.entity.MariaDBDefaultEntity
-import com.freshtuna.sharp.inventory.command.StockInCommand
+import com.freshtuna.sharp.inventory.command.SKUStockInCommand
 import jakarta.persistence.Entity
 import jakarta.persistence.ManyToOne
 import jakarta.persistence.Table
@@ -23,7 +23,7 @@ class MariaDBStock(
 ) : MariaDBDefaultEntity() {
 
     companion object {
-        fun of(sku: MariaDBSKU, command: StockInCommand)
+        fun of(sku: MariaDBSKU, command: SKUStockInCommand)
             = MariaDBStock(
                 sku,
                 command.hasExpire,

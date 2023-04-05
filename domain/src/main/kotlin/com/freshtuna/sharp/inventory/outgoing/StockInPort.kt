@@ -1,8 +1,8 @@
 package com.freshtuna.sharp.inventory.outgoing
 
-import com.freshtuna.sharp.inventory.command.StockInCommand
+import com.freshtuna.sharp.inventory.command.SKUStockInCommand
 
 interface StockInPort {
 
-    fun stockIn(command: StockInCommand)
+    fun stockIn(command: SKUStockInCommand)
 }

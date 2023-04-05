@@ -3,8 +3,9 @@ package com.freshtuna.sharp.inventory.command
 import com.freshtuna.sharp.id.PublicId
 import java.time.LocalDateTime
 
-class StockInCommand(
+class SKUStockInCommand(
     val sellerId: PublicId,
+
     val skuId: PublicId,
     val count: Long,
 

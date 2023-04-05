@@ -1,7 +1,7 @@
 package com.freshtuna.sharp.inventory.adapter
 
 import com.freshtuna.sharp.id.PublicId
-import com.freshtuna.sharp.inventory.command.StockInCommand
+import com.freshtuna.sharp.inventory.command.SKUStockInCommand
 import com.freshtuna.sharp.inventory.entity.MariaDBSKU
 import com.freshtuna.sharp.inventory.entity.MariaDBStock
 import com.freshtuna.sharp.inventory.outgoing.StockInPort
@@ -27,7 +27,7 @@ class StockInAdapterTest {
          */
         val skuId = PublicId("1")
         val count = 5L
-        val stockInCommand = StockInCommand(mockk(), skuId, count)
+        val SKUStockInCommand = SKUStockInCommand(mockk(), skuId, count)
 
         val sku: MariaDBSKU = mockk()
 
@@ -40,6 +40,6 @@ class StockInAdapterTest {
         /**
          * then
          */
-        stockInPort.stockIn(stockInCommand)
+        stockInPort.stockIn(SKUStockInCommand)
     }
 }

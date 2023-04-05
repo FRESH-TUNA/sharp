@@ -1,11 +1,10 @@
 package com.freshtuna.sharp.request
 
 import com.freshtuna.sharp.id.PublicId
-import com.freshtuna.sharp.inventory.command.StockInCommand
+import com.freshtuna.sharp.inventory.command.SKUStockInCommand
 import java.time.LocalDateTime
 
-class StockInRequest(
-    private val skuId: String,
+class SkuStockInRequest(
     private val count: Long,
 
     private val hasExpire: Boolean,
@@ -14,10 +13,10 @@ class StockInRequest(
     private val hasManufacture: Boolean,
     private val manufactureDate: LocalDateTime?
 ) {
-    fun toCommand(sellerId: PublicId)
-        = StockInCommand(
+    fun toCommand(sellerId: PublicId, skuId: PublicId)
+        = SKUStockInCommand(
             sellerId,
-            PublicId(skuId),
+            skuId,
             count,
             hasExpire,
             if(hasExpire) expireDate!! else LocalDateTime.MIN,

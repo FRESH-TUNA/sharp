@@ -24,7 +24,7 @@ import org.springframework.test.context.ActiveProfiles
     classes = [StockApiApplication::class]
 )
 @ActiveProfiles("test")
-class StockInControllerSystemTest {
+class SKUStockInControllerSystemTest {
 
     @Autowired
     lateinit var restTemplate: TestRestTemplate
@@ -33,13 +33,12 @@ class StockInControllerSystemTest {
     private lateinit var accessToken: String
 
     @Test
-    @DisplayName("재고 입고 시스템 테스트")
+    @DisplayName("SKU에 재고 입고 시스템 테스트")
     fun stockIn() {
         /**
          * given
          */
         val requestBody = mapOf(
-            "skuId" to "1",
             "count" to 3,
 
             "hasExpire" to "true",
@@ -58,7 +57,7 @@ class StockInControllerSystemTest {
          * when
          */
         val response = restTemplate.postForEntity(
-            Url.EXTERNAL.STOCK, entity, BasicResponse::class.java)
+            "/inventory/sku/1/stock", entity, BasicResponse::class.java)
 
         /**
          * then
