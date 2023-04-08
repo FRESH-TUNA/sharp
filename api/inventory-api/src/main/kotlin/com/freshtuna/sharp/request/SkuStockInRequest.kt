@@ -13,9 +13,8 @@ class SkuStockInRequest(
     private val hasManufacture: Boolean,
     private val manufactureDate: LocalDateTime?
 ) {
-    fun toCommand(sellerId: PublicId, skuId: PublicId)
+    fun toCommand(skuId: PublicId)
         = SKUStockInCommand(
-            sellerId,
             skuId,
             count,
             hasExpire,

@@ -4,7 +4,6 @@ import com.freshtuna.sharp.id.PublicId
 import java.time.LocalDateTime
 
 class SKUStockInCommand(
-    val sellerId: PublicId,
 
     val skuId: PublicId,
     val count: Long,

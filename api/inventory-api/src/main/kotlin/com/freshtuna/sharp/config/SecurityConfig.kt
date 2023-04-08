@@ -39,6 +39,8 @@ class SecurityConfig(
             .exceptionHandling() /* 유효한 자격증명을 제공하지 않는 경우 */
             .and() /* URI 기반 인증/인가 설정 */
             .authorizeHttpRequests()
+            .requestMatchers("/swagger-ui/**").permitAll()
+            .requestMatchers("/v3/api-docs/**").permitAll()
             .anyRequest().hasAnyAuthority(Role.ADMIN.name, Role.SELLER.name)
             .and()
             .addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter::class.java)

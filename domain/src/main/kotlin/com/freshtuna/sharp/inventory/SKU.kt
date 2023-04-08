@@ -23,7 +23,7 @@ class SKU(
      * specific
      */
     val spec: Spec,
-    val count: Long // 새로 생성된 sku는 count가 Null이다.
+    val count: Long = 0
 ) {
     fun checkSameSeller(id: PublicId)
         = sellerId == id

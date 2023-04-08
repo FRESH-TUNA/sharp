@@ -8,11 +8,13 @@ import com.freshtuna.sharp.spec.NewSkuSpec
 import com.freshtuna.sharp.api.response.BasicResponse
 import com.freshtuna.sharp.api.response.DataResponse
 import io.github.oshai.KotlinLogging
+import io.swagger.v3.oas.annotations.tags.Tag
 
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
+@Tag(name = "신규 SKU 등록")
 @RestController
 class NewSkuController(
     private val useCase: NewSkuUseCase

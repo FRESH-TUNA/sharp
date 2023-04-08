@@ -10,12 +10,14 @@ import com.freshtuna.sharp.security.userDetail.UserDetailManager
 
 import com.freshtuna.sharp.spec.SearchSkuSpec
 import io.github.oshai.KotlinLogging
+import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.data.domain.Pageable
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
 
 import org.springframework.web.bind.annotation.RestController
 
+@Tag(name = "SKU 조회")
 @RestController
 class SearchSkuController(
     private val useCase: SearchSkuUseCase

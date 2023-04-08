@@ -4,7 +4,7 @@ import com.freshtuna.sharp.inventory.command.SKUStockInCommand
 import com.freshtuna.sharp.inventory.entity.MariaDBStock
 import com.freshtuna.sharp.inventory.outgoing.StockInPort
 import com.freshtuna.sharp.inventory.repository.SKURepository
-import com.freshtuna.sharp.inventory.repository.StockRepository
+import com.freshtuna.sharp.inventory.repository.stock.StockRepository
 import org.springframework.stereotype.Component
 
 @Component

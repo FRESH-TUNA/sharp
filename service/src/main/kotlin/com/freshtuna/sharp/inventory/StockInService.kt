@@ -1,5 +1,6 @@
 package com.freshtuna.sharp.inventory
 
+import com.freshtuna.sharp.id.PublicId
 import com.freshtuna.sharp.inventory.command.SKUStockInCommand
 import com.freshtuna.sharp.inventory.incoming.StockInUseCase
 import com.freshtuna.sharp.inventory.outgoing.FindSkuPort
@@ -18,11 +19,11 @@ class StockInService(
 
     private val logger = KotlinLogging.logger{}
 
-    override fun stockIn(command: SKUStockInCommand) {
+    override fun stockIn(command: SKUStockInCommand, sellerId: PublicId) {
 
         val sku = findSkuPort.find(command.skuId)
 
-        if(!sku.checkSameSeller(command.sellerId))
+        if(!sku.checkSameSeller(sellerId))
             Oh.badRequest()
 
         stockInPort.stockIn(command)

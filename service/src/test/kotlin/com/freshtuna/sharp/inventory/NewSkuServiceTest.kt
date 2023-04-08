@@ -49,7 +49,8 @@ class NewSkuServiceTest {
             spec = Spec(
                 Weight(BigDecimal.TEN, WeightScale.GRAM),
                 Dimension(BigDecimal.TEN, BigDecimal.TEN, BigDecimal.TEN, DimensionScale.CM)
-            )
+            ),
+            sellerId = PublicId("sellerId")
         )
 
         /**

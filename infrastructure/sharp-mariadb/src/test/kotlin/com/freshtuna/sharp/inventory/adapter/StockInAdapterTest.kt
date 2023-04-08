@@ -6,11 +6,13 @@ import com.freshtuna.sharp.inventory.entity.MariaDBSKU
 import com.freshtuna.sharp.inventory.entity.MariaDBStock
 import com.freshtuna.sharp.inventory.outgoing.StockInPort
 import com.freshtuna.sharp.inventory.repository.SKURepository
-import com.freshtuna.sharp.inventory.repository.StockRepository
+import com.freshtuna.sharp.inventory.repository.stock.StockRepository
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import java.time.LocalDateTime
+import java.util.*
 
 class StockInAdapterTest {
 
@@ -27,19 +29,28 @@ class StockInAdapterTest {
          */
         val skuId = PublicId("1")
         val count = 5L
-        val SKUStockInCommand = SKUStockInCommand(mockk(), skuId, count)
+        val skuStockInCommand = SKUStockInCommand(
+            skuId = skuId,
+            count = count,
+
+            hasExpire = true,
+            expireDate = LocalDateTime.now(),
+
+            hasManufacture = true,
+            manufactureDate = LocalDateTime.MIN,
+        )
 
         val sku: MariaDBSKU = mockk()
 
         /**
          * when
          */
-        every { skuRepository.getReferenceById(skuId.toString().toLong()) } returns sku
+        every { skuRepository.findById(skuId.toString().toLong()) } returns Optional.of(sku)
         every { stockRepository.saveAll(any<List<MariaDBStock>>()) } returns listOf()
 
         /**
          * then
          */
-        stockInPort.stockIn(SKUStockInCommand)
+        stockInPort.stockIn(skuStockInCommand)
     }
 }
