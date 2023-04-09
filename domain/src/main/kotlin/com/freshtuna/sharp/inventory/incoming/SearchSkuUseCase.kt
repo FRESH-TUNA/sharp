@@ -8,5 +8,5 @@ import com.freshtuna.sharp.page.SharpPage
 
 interface SearchSkuUseCase {
 
-    fun search(command: SearchSkuCommand): SharpPage<SkuSearchResult>
+    fun search(command: SearchSkuCommand, sellerId: PublicId): SharpPage<SkuSearchResult>
 }

@@ -23,8 +23,10 @@ class SKU(
      * specific
      */
     val spec: Spec,
-    val count: Long = 0
+    val availableCount: Long = 0,
+    val totalCount: Long = 0
 ) {
+
     fun checkSameSeller(id: PublicId)
         = sellerId == id
     fun toResult() = SkuDetailResult(
@@ -35,7 +37,8 @@ class SKU(
         barcode,
         description,
         spec,
-        count
+        availableCount,
+        totalCount
     )
 
     fun toNewResult() = NewSkuResult(id.toString())
@@ -48,6 +51,7 @@ class SKU(
         barcode,
         description,
         spec,
-        count
+        availableCount,
+        totalCount
     )
 }

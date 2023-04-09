@@ -2,11 +2,13 @@ package com.freshtuna.sharp.inventory.dto
 
 import com.freshtuna.sharp.id.PublicId
 import com.freshtuna.sharp.inventory.SKU
+import com.freshtuna.sharp.inventory.StockStatus
 import com.freshtuna.sharp.inventory.entity.MariaDBSKU
+import com.freshtuna.sharp.inventory.entity.MariaDBStock
 
-class SkuWithCountDTO(
+class SkuWithStocksDTO(
     val sku: MariaDBSKU,
-    val count: Int
+    val stocks: MutableList<MariaDBStock> = mutableListOf(),
 ) {
 
     fun toDomain() = SKU(
@@ -17,6 +19,8 @@ class SkuWithCountDTO(
         description = sku.description,
         spec = sku.specification.toDomain(),
         price = sku.price.toDomain(),
-        count = count.toLong()
+
+        availableCount = stocks.filter { stock -> stock.status == StockStatus.AVAILABLE }.size.toLong(),
+        totalCount = stocks.size.toLong()
     )
 }

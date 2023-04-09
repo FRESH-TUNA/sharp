@@ -3,6 +3,7 @@ package com.freshtuna.sharp.inventory.entity
 import com.freshtuna.sharp.entity.MariaDBDefaultEntity
 import com.freshtuna.sharp.id.PublicId
 import com.freshtuna.sharp.inventory.SKU
+import com.freshtuna.sharp.inventory.StockStatus
 import com.freshtuna.sharp.inventory.command.NewSkuCommand
 import com.freshtuna.sharp.inventory.command.UpdateSkuCommand
 import com.freshtuna.sharp.price.entity.MariaDBPrice
@@ -56,7 +57,8 @@ class MariaDBSKU(
         description = description,
         spec = specification.toDomain(),
         price = price.toDomain(),
-        count = stocks.size.toLong()
+        availableCount = stocks.filter { stock -> stock.status == StockStatus.AVAILABLE }.size.toLong(),
+        totalCount = stocks.size.toLong()
     )
 }
 

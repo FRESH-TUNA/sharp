@@ -2,9 +2,13 @@ package com.freshtuna.sharp.inventory.repository
 
 import com.freshtuna.sharp.id.PublicId
 import com.freshtuna.sharp.inventory.command.SearchSkuCommand
-import com.freshtuna.sharp.inventory.dto.SkuWithCountDTO
+
+import com.freshtuna.sharp.inventory.dto.SkuWithStocksDTO
 import com.freshtuna.sharp.inventory.entity.MariaDBSKU
+import com.freshtuna.sharp.inventory.entity.MariaDBStock
 import com.freshtuna.sharp.inventory.entity.QMariaDBSKU
+import com.freshtuna.sharp.inventory.entity.QMariaDBStock
+
 import com.freshtuna.sharp.page.SharpPage
 import com.freshtuna.sharp.page.SharpPageRequest
 import com.freshtuna.sharp.page.SharpSort
@@ -14,9 +18,11 @@ import com.querydsl.core.types.*
 import com.querydsl.core.types.dsl.Expressions
 import com.querydsl.core.types.dsl.PathBuilder
 import com.querydsl.core.types.dsl.Wildcard
+
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.stereotype.Component
 import java.util.*
+import kotlin.streams.toList
 
 @Component
 class SKUQueryRepositoryQueryDSLImpl(
@@ -24,27 +30,22 @@ class SKUQueryRepositoryQueryDSLImpl(
 ) : SKUQueryRepository {
 
     private val sku = QMariaDBSKU.mariaDBSKU
+    private val stock = QMariaDBStock.mariaDBStock
 
-    override fun search(commend: SearchSkuCommand): SharpPage<SkuWithCountDTO> {
+    override fun search(commend: SearchSkuCommand, sellerId: PublicId): SharpPage<MariaDBSKU> {
         val wherePredicate = generateSearchSkuPredicate(commend)
 
         val count = queryFactory
             .select(Wildcard.count)
             .from(sku)
-            .where(sku.sellerId.eq(UUID.fromString(commend.sellerId.toString())))
+            .where(sku.sellerId.eq(UUID.fromString(sellerId.toString())))
             .where(wherePredicate)
             .fetchOne()
 
         val data = queryFactory
-            .select(
-                Projections.constructor(
-                    SkuWithCountDTO::class.java,
-                    sku,
-                    sku._stocks.size()
-                )
-            )
+            .select(sku)
             .from(sku)
-            .where(sku.sellerId.eq(UUID.fromString(commend.sellerId.toString())))
+            .where(sku.sellerId.eq(UUID.fromString(sellerId.toString())))
             .where(wherePredicate)
             .orderBy(*orderBys(commend.sharpPageRequest.sharpSort).toTypedArray())
             .offset(offset(commend.sharpPageRequest))
@@ -54,19 +55,36 @@ class SKUQueryRepositoryQueryDSLImpl(
         return SharpPage(data, count!!, commend.sharpPageRequest)
     }
 
-    override fun findById(id: PublicId): SkuWithCountDTO {
+    override fun skuWithStocks(skus: List<MariaDBSKU>): List<SkuWithStocksDTO> {
+
+        val result = skus.stream().map { sku -> SkuWithStocksDTO(sku) }.toList()
+
+        val stocks = queryFactory
+            .select(stock)
+            .from(stock)
+            .where(stock.sku.`in`(skus))
+            .fetch()
+
+        for(stock in stocks) {
+            for(dto in result) {
+                if(dto.sku == stock.sku) {
+                    dto.stocks.add(stock)
+                    break
+                }
+            }
+        }
+
+        return result
+    }
+
+    override fun findById(id: PublicId): MariaDBSKU {
         return queryFactory
-            .select(
-                Projections.constructor(
-                    SkuWithCountDTO::class.java,
-                    sku,
-                    sku._stocks.size()
-                )
-            )
+            .select(sku)
             .from(sku)
             .where(sku.id.eq(id.toString().toLong()))
             .fetchOne()!!
     }
+
 
     /**
      * helpers

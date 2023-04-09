@@ -42,7 +42,7 @@ class SKUQueryRepositoryQueryDSLImplTest {
         /**
          * when
          */
-        val results = skuQueryRepository.search(command)
+        val results = skuQueryRepository.search(command, sellerId)
 
         /**
          * then
@@ -71,13 +71,13 @@ class SKUQueryRepositoryQueryDSLImplTest {
         /**
          * when
          */
-        val results = skuQueryRepository.search(command)
+        val results = skuQueryRepository.search(command, sellerId)
 
         /**
          * then
          */
         results.page.stream().forEach {
-            data -> assertEquals(true, data.sku.name.startsWith(query))
+            data -> assertEquals(true, data.name.startsWith(query))
         }
     }
 
@@ -98,13 +98,13 @@ class SKUQueryRepositoryQueryDSLImplTest {
         /**
          * when
          */
-        val results = skuQueryRepository.search(command)
+        val results = skuQueryRepository.search(command, sellerId)
 
         /**
          * then
          */
         results.page.stream().forEach {
-                data -> assertEquals(true, data.sku.barcode.startsWith(query))
+                data -> assertEquals(true, data.barcode.startsWith(query))
         }
     }
 }
