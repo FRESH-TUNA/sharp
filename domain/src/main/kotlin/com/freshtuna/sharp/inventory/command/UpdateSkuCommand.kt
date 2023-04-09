@@ -12,6 +12,5 @@ class UpdateSkuCommand(
     val price: Price,
     val spec: Spec,
 
-    val skuId: PublicId,
-    val sellerId: PublicId
+    val skuId: PublicId
 )

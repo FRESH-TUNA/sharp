@@ -3,6 +3,5 @@ package com.freshtuna.sharp.inventory.command
 import com.freshtuna.sharp.id.PublicId
 
 class DeleteSkuCommand(
-    val skuId: PublicId,
-    val sellerId: PublicId
+    val skuId: PublicId
 )

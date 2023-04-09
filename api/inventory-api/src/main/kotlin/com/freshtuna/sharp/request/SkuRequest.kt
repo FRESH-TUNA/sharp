@@ -34,7 +34,7 @@ class SkuRequest(
         sellerId = sellerId
     )
 
-    fun toUpdateCommand(sellerId: PublicId, skuId: PublicId) = UpdateSkuCommand(
+    fun toUpdateCommand(skuId: PublicId) = UpdateSkuCommand(
         name = name,
         barcode = barcode,
         description = description,
@@ -42,7 +42,6 @@ class SkuRequest(
         price = Price(cost, currency),
         spec = Spec(Weight(weight, weightScale), Dimension(width, height, depth, dimensionScale)),
 
-        skuId = skuId,
-        sellerId = sellerId
+        skuId = skuId
     )
 }

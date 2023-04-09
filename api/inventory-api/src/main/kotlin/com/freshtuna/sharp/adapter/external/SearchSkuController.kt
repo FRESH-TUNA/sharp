@@ -28,6 +28,6 @@ class SearchSkuController(
     @GetMapping(Url.EXTERNAL.SKU)
     override fun search(@ModelAttribute request: SearchSkuRequest, pageable: Pageable): BasicResponse {
 
-        return DataResponse.of(useCase.search(request.toCommand(pageable, UserDetailManager.getPublicId()), UserDetailManager.getPublicId()))
+        return DataResponse.of(useCase.search(request.toCommand(pageable), UserDetailManager.getPublicId()))
     }
 }

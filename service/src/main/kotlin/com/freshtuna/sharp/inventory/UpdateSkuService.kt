@@ -1,5 +1,6 @@
 package com.freshtuna.sharp.inventory
 
+import com.freshtuna.sharp.id.PublicId
 import com.freshtuna.sharp.inventory.command.UpdateSkuCommand
 import com.freshtuna.sharp.inventory.incoming.UpdateSkuUseCase
 import com.freshtuna.sharp.inventory.outgoing.FindSkuPort
@@ -16,11 +17,11 @@ class UpdateSkuService(
     private val findSkuPort: FindSkuPort
 ) : UpdateSkuUseCase{
 
-    override fun update(command: UpdateSkuCommand) {
+    override fun update(command: UpdateSkuCommand, sellerId: PublicId) {
 
         val sku = findSkuPort.find(command.skuId)
 
-        if(!sku.checkSameSeller(command.sellerId))
+        if(!sku.checkSameSeller(sellerId))
             Oh.badRequest()
 
         updateSkuPort.update(command)

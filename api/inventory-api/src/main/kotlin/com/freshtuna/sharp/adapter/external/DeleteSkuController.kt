@@ -22,12 +22,9 @@ class DeleteSkuController(
 
     @DeleteMapping(Url.EXTERNAL.SKU_ID)
     override fun delete(@Parameter(description = "SKU 아이디") @PathVariable id: String): BasicResponse {
-        val command = DeleteSkuCommand(
-            PublicId(id),
-            UserDetailManager.getPublicId()
-        )
 
-        useCase.delete(command)
+        val command = DeleteSkuCommand(PublicId(id))
+        useCase.delete(command, UserDetailManager.getPublicId())
         return MessageResponse.OK
     }
 }

@@ -24,7 +24,7 @@ class NewSkuController(
 
     @PostMapping(Url.EXTERNAL.SKU)
     override fun new(@RequestBody request: SkuRequest): BasicResponse {
-        val result = useCase.new(request.toCommand(UserDetailManager.getUserDetail().id))
+        val result = useCase.new(request.toCommand(UserDetailManager.getPublicId()))
         return DataResponse.of(result)
     }
 }

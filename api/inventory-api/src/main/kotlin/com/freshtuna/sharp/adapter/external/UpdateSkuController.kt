@@ -25,7 +25,7 @@ class UpdateSkuController(
     @PutMapping(Url.EXTERNAL.SKU_ID)
     override fun update(@RequestBody request: SkuRequest,
                         @Parameter(description = "SKU 아이디") @PathVariable id: String): BasicResponse {
-        useCase.update(request.toUpdateCommand(UserDetailManager.getPublicId(), PublicId(id)))
+        useCase.update(request.toUpdateCommand(PublicId(id)), UserDetailManager.getPublicId())
         return MessageResponse.OK
     }
 }

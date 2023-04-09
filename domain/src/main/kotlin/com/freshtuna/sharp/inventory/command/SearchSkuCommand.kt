@@ -5,6 +5,5 @@ import com.freshtuna.sharp.page.SharpPageRequest
 
 class SearchSkuCommand(
     val query: String = "",
-    val sharpPageRequest: SharpPageRequest,
-    val sellerId: PublicId
+    val sharpPageRequest: SharpPageRequest
 )

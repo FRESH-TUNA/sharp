@@ -24,11 +24,9 @@ class SkuDetailController(
 
     @GetMapping(Url.EXTERNAL.SKU_ID)
     override fun detail(@Parameter(description = "SKU 아이디") @PathVariable id: String): BasicResponse {
-        val command = DetailSkuCommand(
-            PublicId(id),
-            UserDetailManager.getPublicId()
-        )
 
-        return DataResponse.of(skuDetailUseCase.detail(command))
+        val command = DetailSkuCommand(PublicId(id))
+
+        return DataResponse.of(skuDetailUseCase.detail(command, UserDetailManager.getPublicId()))
     }
 }
