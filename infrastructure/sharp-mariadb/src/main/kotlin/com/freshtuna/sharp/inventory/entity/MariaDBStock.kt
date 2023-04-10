@@ -13,26 +13,30 @@ class MariaDBStock(
     @ManyToOne
     val sku: MariaDBSKU,
 
+    @Enumerated(EnumType.STRING)
+    val status: StockStatus,
+
+    @ManyToOne
+    val info: MariaDBStockInfo,
+
     val hasExpire: Boolean,
     val expireDate: LocalDateTime,
 
     val hasManufacture: Boolean,
     val manufactureDate: LocalDateTime,
 
-    @Enumerated(EnumType.STRING)
-    val status: StockStatus
-
-) : MariaDBDefaultEntity() {
+    ) : MariaDBDefaultEntity() {
 
     companion object {
-        fun newStock(sku: MariaDBSKU, command: SKUStockInCommand)
+        fun newStock(sku: MariaDBSKU, info: MariaDBStockInfo, command: SKUStockInCommand)
             = MariaDBStock(
                 sku,
+                StockStatus.AVAILABLE,
+                info,
                 command.hasExpire,
                 command.expireDate,
                 command.hasManufacture,
-                command.manufactureDate,
-                StockStatus.AVAILABLE
+                command.manufactureDate
             )
     }
 }
