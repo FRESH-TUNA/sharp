@@ -21,9 +21,9 @@ class StockInAdapter(
 
         val sku = skuRepository.findById(command.skuId.toString().toLong()).get()
 
-        val info = MariaDBStockInfo(sku, StockRequestStatus.COMPLETE)
+        var info = MariaDBStockInfo.of(sku, command, StockRequestStatus.COMPLETE)
 
-        stockInfoRepository.save(info)
+        info = stockInfoRepository.save(info)
 
         val newStocks = List(command.count.toInt()) { MariaDBStock.newStock(sku, info, command) }
 

@@ -1,7 +1,7 @@
 package com.freshtuna.sharp.inventory
 
 import com.freshtuna.sharp.id.PublicId
-import com.freshtuna.sharp.inventory.command.SearchSkuCommand
+import com.freshtuna.sharp.inventory.command.sku.SearchSkuCommand
 import com.freshtuna.sharp.inventory.incoming.SearchSkuUseCase
 import com.freshtuna.sharp.inventory.outgoing.SearchSkuPort
 import com.freshtuna.sharp.inventory.result.SkuSearchResult

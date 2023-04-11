@@ -2,7 +2,7 @@ package com.freshtuna.sharp.inventory.repository
 
 import com.freshtuna.sharp.config.JPAQueryFactoryBeanConfig
 import com.freshtuna.sharp.id.PublicId
-import com.freshtuna.sharp.inventory.command.SearchSkuCommand
+import com.freshtuna.sharp.inventory.command.sku.SearchSkuCommand
 import com.freshtuna.sharp.page.SharpPageRequest
 import com.freshtuna.sharp.page.SharpSort
 

@@ -1,11 +1,10 @@
 package com.freshtuna.sharp.inventory.repository
 
 import com.freshtuna.sharp.id.PublicId
-import com.freshtuna.sharp.inventory.command.SearchSkuCommand
+import com.freshtuna.sharp.inventory.command.sku.SearchSkuCommand
 
 import com.freshtuna.sharp.inventory.dto.SkuWithStocksDTO
 import com.freshtuna.sharp.inventory.entity.MariaDBSKU
-import com.freshtuna.sharp.inventory.entity.MariaDBStock
 import com.freshtuna.sharp.inventory.entity.QMariaDBSKU
 import com.freshtuna.sharp.inventory.entity.QMariaDBStock
 
@@ -22,7 +21,6 @@ import com.querydsl.core.types.dsl.Wildcard
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.stereotype.Component
 import java.util.*
-import kotlin.streams.toList
 
 @Component
 class SKUQueryRepositoryQueryDSLImpl(

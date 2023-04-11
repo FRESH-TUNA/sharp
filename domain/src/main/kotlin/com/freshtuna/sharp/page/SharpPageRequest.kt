@@ -4,5 +4,5 @@ data class SharpPageRequest(
     val pageNumber: Long = 0,
     val pageSize: Long = 10,
 
-    val sharpSort: SharpSort
+    val sharpSort: SharpSort = SharpSort()
 )

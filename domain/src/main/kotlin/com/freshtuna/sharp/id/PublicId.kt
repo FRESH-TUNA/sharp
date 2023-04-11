@@ -10,6 +10,9 @@ class PublicId(
 
     constructor(id: Long) : this(stringValue = id.toString())
 
+    fun longId() = stringValue.toLong()
+
+    fun stringId() = stringValue
     override fun toString() = stringValue
 
     override fun equals(other: Any?): Boolean {

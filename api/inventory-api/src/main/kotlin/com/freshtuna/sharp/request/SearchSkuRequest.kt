@@ -1,6 +1,6 @@
 package com.freshtuna.sharp.request
 
-import com.freshtuna.sharp.inventory.command.SearchSkuCommand
+import com.freshtuna.sharp.inventory.command.sku.SearchSkuCommand
 import com.freshtuna.sharp.util.SpringPageableConverter
 import org.springframework.data.domain.Pageable
 

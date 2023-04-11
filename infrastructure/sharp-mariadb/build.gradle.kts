@@ -26,6 +26,7 @@ allOpen {
 
 dependencies {
     implementation(project(":domain"))
+    implementation(project(":common:api-common"))
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.mariadb.jdbc:mariadb-java-client")

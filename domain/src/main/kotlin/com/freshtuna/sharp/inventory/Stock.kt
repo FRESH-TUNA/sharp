@@ -1,10 +1,11 @@
 package com.freshtuna.sharp.inventory
 
-import java.util.*
+import com.freshtuna.sharp.id.PublicId
 
 class Stock(
-    val expireDate: Date,
-    val manufacture: Date,
+    val id: PublicId,
+    val skuId: PublicId,
+    val infoId: PublicId,
 
-    val hasExpire: Boolean
+    val status: StockStatus
 )
