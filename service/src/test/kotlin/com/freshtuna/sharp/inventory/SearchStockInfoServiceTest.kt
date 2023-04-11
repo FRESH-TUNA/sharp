@@ -26,10 +26,8 @@ class SearchStockInfoServiceTest {
 
     private val searchStockInfoPort: SearchStockInfoPort = mockk()
 
-    private val searchStockPort: SearchStockPort = mockk()
-
     private val service: SearchStockInfoUseCase
-        = SearchStockInfoService(findSkuPort, searchStockInfoPort, searchStockPort)
+        = SearchStockInfoService(findSkuPort, searchStockInfoPort)
 
     @Test
     fun search() {
@@ -53,17 +51,13 @@ class SearchStockInfoServiceTest {
             searchStockInfoPort.search(skuId, command, pageRequest)
         } returns stockInfos
 
-        val stocks = createStocks()
-        every {
-            searchStockPort.findAll(stockInfos.page)
-        } returns stocks
 
         val result = service.search(skuId, command, pageRequest, sellerId)
 
         /**
          * then
          */
-        assertEquals(1, result.page[0].availableCount)
+        assertEquals(1, result.page[0].remainCount)
         assertEquals(2, result.page[0].totalCount)
     }
 
@@ -93,7 +87,10 @@ class SearchStockInfoServiceTest {
                 expireDate = LocalDateTime.now(),
 
                 hasManufacture = true,
-                manufactureDate = LocalDateTime.now()
+                manufactureDate = LocalDateTime.now(),
+
+                remainCount = 1,
+                totalCount = 2
         ))
 
         return SharpPage(page, totalCount, pageRequest)

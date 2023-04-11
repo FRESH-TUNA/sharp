@@ -15,27 +15,7 @@ class StockInfoResult(
     val hasManufacture: Boolean,
     val manufactureDate: LocalDateTime,
 
-    val availableCount: Long,
+    val remainCount: Long,
     val totalCount: Long,
-) {
+)
 
-    companion object {
-
-        fun of(stockInfo: StockInfo, availableCount: Long, totalCount: Long)
-            = StockInfoResult(
-                id = stockInfo.id.stringId(),
-                skuId = stockInfo.skuId.stringId(),
-
-                requestStatus = stockInfo.requestStatus,
-
-                hasExpire = stockInfo.hasExpire,
-                expireDate = stockInfo.expireDate,
-
-                hasManufacture = stockInfo.hasManufacture,
-                manufactureDate = stockInfo.manufactureDate,
-
-                availableCount = availableCount,
-                totalCount = totalCount
-            )
-    }
-}

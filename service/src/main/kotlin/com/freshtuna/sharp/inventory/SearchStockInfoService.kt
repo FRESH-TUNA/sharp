@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service
 class SearchStockInfoService(
     private val findSkuPort: FindSkuPort,
     private val searchStockInfoPort: SearchStockInfoPort,
-    private val searchStockPort: SearchStockPort
 ) : SearchStockInfoUseCase {
 
     override fun search(skuId: PublicId,
@@ -33,40 +32,8 @@ class SearchStockInfoService(
 
         val stockInfos = searchStockInfoPort.search(skuId, command, pageRequest)
 
-        val stocks = searchStockPort.findAll(stockInfos.page)
-
-        val stockInfoIdMap = makeStockInfoMap(stocks)
-
-        val result = createResult(stockInfos.page, stockInfoIdMap)
+        val result = stockInfos.page.stream().map { stockInfo -> stockInfo.toResult() }.toList()
 
         return SharpPage(result, stockInfos.totalCount, pageRequest)
-    }
-
-    private fun makeStockInfoMap(stocks: List<Stock>): Map<Long, List<Stock>> {
-
-        val stockInfoMap = HashMap<Long, MutableList<Stock>>()
-
-        for(stock in stocks) {
-            if (stock.infoId.longId() !in stockInfoMap)
-                stockInfoMap[stock.infoId.longId()] = ArrayList()
-
-            stockInfoMap[stock.infoId.longId()]!!.add(stock)
-        }
-
-        return stockInfoMap
-    }
-
-    private fun createResult(stockInfos: List<StockInfo>,
-                             stockInfoMap: Map<Long, List<Stock>>): List<StockInfoResult> {
-
-        return stockInfos.map { stockInfo ->
-            StockInfoResult.of(
-                stockInfo,
-
-                availableCount = stockInfoMap[stockInfo.id.longId()]!!
-                        .filter { stock -> stock.status == StockStatus.AVAILABLE }
-                        .size.toLong(),
-                totalCount = stockInfoMap[stockInfo.id.longId()]!!.size.toLong()
-        ) }.toList()
     }
 }

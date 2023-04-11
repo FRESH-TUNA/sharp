@@ -30,6 +30,8 @@ class Url {
             const val SKU_ID_STOCK_INFO = "$ROOT/sku$ID/stock-info"
 
             const val STOCK = "$ROOT/stock"
+
+            const val STOCK_INFO_ID = "$ROOT/stock-info$ID"
         }
     }
 }
