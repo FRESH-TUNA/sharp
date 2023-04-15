@@ -25,13 +25,9 @@ class Url {
 
             const val SKU_ID = "$ROOT/sku$ID"
 
-            const val SKU_ID_STOCK = "$ROOT/sku$ID/stock"
+            const val SKU_ID_INVENTORY_IN = "$ROOT/sku$ID/inventories/in"
 
-            const val SKU_ID_STOCK_INFO = "$ROOT/sku$ID/stock-info"
-
-            const val STOCK = "$ROOT/stock"
-
-            const val STOCK_INFO_ID = "$ROOT/stock-info$ID"
+            const val SKU_ID_INVENTORIES = "$ROOT/sku$ID/inventories"
         }
     }
 }

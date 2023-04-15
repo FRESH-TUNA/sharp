@@ -1,7 +1,7 @@
 package com.freshtuna.sharp.inventory.adapter
 
 import com.freshtuna.sharp.id.PublicId
-import com.freshtuna.sharp.inventory.SKU
+import com.freshtuna.sharp.inventory.domain.SKU
 import com.freshtuna.sharp.inventory.command.sku.SearchSkuCommand
 import com.freshtuna.sharp.inventory.outgoing.SearchSkuPort
 import com.freshtuna.sharp.inventory.repository.SKUQueryRepository
@@ -17,7 +17,7 @@ class SearchSkuAdapter(
 
         val result = repository.search(command, sellerId)
 
-        val skuWithStocks = repository.skuWithStocks(result.page)
+        val skuWithStocks = repository.skuWithInventories(result.page)
 
         val skus = skuWithStocks.stream().map { sku -> sku.toDomain() }.toList()
 

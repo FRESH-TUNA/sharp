@@ -36,8 +36,7 @@ class SKUQueryRepositoryQueryDSLImplTest {
         val pageNumber = 1L
         val totalCount = 5L
         val command = SearchSkuCommand(
-            sharpPageRequest = SharpPageRequest(pageNumber, pageSize, SharpSort()),
-            sellerId = sellerId)
+            sharpPageRequest = SharpPageRequest(pageNumber, pageSize, SharpSort()))
 
         /**
          * when
@@ -64,8 +63,7 @@ class SKUQueryRepositoryQueryDSLImplTest {
         val pageSize = 2L
         val command = SearchSkuCommand(
             query = query,
-            sharpPageRequest = SharpPageRequest(0, pageSize, SharpSort()),
-            sellerId = sellerId
+            sharpPageRequest = SharpPageRequest(0, pageSize, SharpSort())
         )
 
         /**
@@ -91,8 +89,7 @@ class SKUQueryRepositoryQueryDSLImplTest {
         val pageSize = 2L
         val command = SearchSkuCommand(
             query = query,
-            sharpPageRequest = SharpPageRequest(0, pageSize, SharpSort()),
-            sellerId = sellerId
+            sharpPageRequest = SharpPageRequest(0, pageSize, SharpSort())
         )
 
         /**

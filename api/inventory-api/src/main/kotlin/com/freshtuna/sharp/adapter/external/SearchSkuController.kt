@@ -4,11 +4,13 @@ import com.freshtuna.sharp.api.response.BasicResponse
 import com.freshtuna.sharp.api.response.DataResponse
 import com.freshtuna.sharp.config.const.Url
 import com.freshtuna.sharp.inventory.incoming.SearchSkuUseCase
+import com.freshtuna.sharp.page.SharpPage
 
 import com.freshtuna.sharp.request.SearchSkuRequest
 import com.freshtuna.sharp.security.userDetail.UserDetailManager
 
 import com.freshtuna.sharp.spec.SearchSkuSpec
+import com.freshtuna.sharp.util.SpringPageableConverter
 import io.github.oshai.KotlinLogging
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.data.domain.Pageable
@@ -28,6 +30,14 @@ class SearchSkuController(
     @GetMapping(Url.EXTERNAL.SKU)
     override fun search(@ModelAttribute request: SearchSkuRequest, pageable: Pageable): BasicResponse {
 
-        return DataResponse.of(useCase.search(request.toCommand(pageable), UserDetailManager.getPublicId()))
+        val skuPage = useCase.search(request.toCommand(pageable), UserDetailManager.getPublicId())
+
+        val skuSearchResult = skuPage.page.stream()
+            .map { sku -> sku.toSearchResult() }
+            .toList()
+
+        val resultPage = SharpPage(skuSearchResult, skuPage.totalCount, SpringPageableConverter.convert(pageable))
+
+        return DataResponse.of(resultPage)
     }
 }

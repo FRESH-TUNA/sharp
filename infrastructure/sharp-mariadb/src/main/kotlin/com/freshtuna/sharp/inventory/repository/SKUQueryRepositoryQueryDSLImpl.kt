@@ -2,11 +2,11 @@ package com.freshtuna.sharp.inventory.repository
 
 import com.freshtuna.sharp.id.PublicId
 import com.freshtuna.sharp.inventory.command.sku.SearchSkuCommand
+import com.freshtuna.sharp.inventory.dto.SkuInventoriesDto
 
-import com.freshtuna.sharp.inventory.dto.SkuWithStocksDTO
 import com.freshtuna.sharp.inventory.entity.MariaDBSKU
+import com.freshtuna.sharp.inventory.entity.QMariaDBInventory
 import com.freshtuna.sharp.inventory.entity.QMariaDBSKU
-import com.freshtuna.sharp.inventory.entity.QMariaDBStock
 
 import com.freshtuna.sharp.page.SharpPage
 import com.freshtuna.sharp.page.SharpPageRequest
@@ -28,7 +28,7 @@ class SKUQueryRepositoryQueryDSLImpl(
 ) : SKUQueryRepository {
 
     private val sku = QMariaDBSKU.mariaDBSKU
-    private val stock = QMariaDBStock.mariaDBStock
+    private val inventory = QMariaDBInventory.mariaDBInventory
 
     override fun search(commend: SearchSkuCommand, sellerId: PublicId): SharpPage<MariaDBSKU> {
         val wherePredicate = generateSearchSkuPredicate(commend)
@@ -53,20 +53,20 @@ class SKUQueryRepositoryQueryDSLImpl(
         return SharpPage(data, count!!, commend.sharpPageRequest)
     }
 
-    override fun skuWithStocks(skus: List<MariaDBSKU>): List<SkuWithStocksDTO> {
+    override fun skuWithInventories(skus: List<MariaDBSKU>): List<SkuInventoriesDto> {
 
-        val result = skus.stream().map { sku -> SkuWithStocksDTO(sku) }.toList()
+        val result = skus.stream().map { sku -> SkuInventoriesDto(sku) }.toList()
 
-        val stocks = queryFactory
-            .select(stock)
-            .from(stock)
-            .where(stock.sku.`in`(skus))
+        val inventories = queryFactory
+            .select(inventory)
+            .from(inventory)
+            .where(inventory.sku.`in`(skus))
             .fetch()
 
-        for(stock in stocks) {
+        for(inventory in inventories) {
             for(dto in result) {
-                if(dto.sku == stock.sku) {
-                    dto.stocks.add(stock)
+                if(dto.sku == inventory.sku) {
+                    dto.inventories.add(inventory)
                     break
                 }
             }
@@ -112,5 +112,4 @@ class SKUQueryRepositoryQueryDSLImpl(
     private fun offset(page: SharpPageRequest) = page.pageNumber*page.pageSize
 
     private fun limit(page: SharpPageRequest) = page.pageSize
-
 }

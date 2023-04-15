@@ -23,6 +23,7 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.test.context.ActiveProfiles
+import java.time.LocalDateTime
 
 @SpringBootTest(
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
@@ -60,7 +61,10 @@ class NewSkuControllerSystemTest {
             "width" to "6",
             "height" to "6",
             "depth" to "8",
-            "dimensionScale" to DimensionScale.CM.name
+            "dimensionScale" to DimensionScale.CM.name,
+
+            "expireDate" to LocalDateTime.of(2030, 1, 1, 0, 0, 0).toString(),
+            "manufactureDate" to LocalDateTime.now().toString()
         )
 
         val headers = HttpHeaders()

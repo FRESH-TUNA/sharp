@@ -1,13 +1,12 @@
 package com.freshtuna.sharp.inventory.result
 
-import com.freshtuna.sharp.inventory.StockInfo
-import com.freshtuna.sharp.inventory.StockRequestStatus
+import com.freshtuna.sharp.inventory.domain.InventoryStatus
 import java.time.LocalDateTime
 
 class StockInfoResult(
     val id: String,
     val skuId: String,
-    val requestStatus: StockRequestStatus,
+    val requestStatus: InventoryStatus,
 
     val hasExpire: Boolean,
     val expireDate: LocalDateTime,
@@ -18,4 +17,3 @@ class StockInfoResult(
     val remainCount: Long,
     val totalCount: Long,
 )
-

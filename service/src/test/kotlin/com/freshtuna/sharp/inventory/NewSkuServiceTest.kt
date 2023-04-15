@@ -2,6 +2,7 @@ package com.freshtuna.sharp.inventory
 
 import com.freshtuna.sharp.id.PublicId
 import com.freshtuna.sharp.inventory.command.NewSkuCommand
+import com.freshtuna.sharp.inventory.domain.SKU
 import com.freshtuna.sharp.inventory.outgoing.NewSkuPort
 import com.freshtuna.sharp.price.Currency
 import com.freshtuna.sharp.price.Price
@@ -14,6 +15,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.DisplayName
 import java.math.BigDecimal
+import java.time.LocalDateTime
 
 class NewSkuServiceTest {
 
@@ -37,7 +39,10 @@ class NewSkuServiceTest {
                 Weight(BigDecimal.TEN, WeightScale.GRAM),
                 Dimension(BigDecimal.TEN, BigDecimal.TEN, BigDecimal.TEN, DimensionScale.CM)
             ),
-            sellerId = PublicId("sellerId")
+            sellerId = PublicId("sellerId"),
+
+            expireDate = LocalDateTime.MIN,
+            manufactureDate = LocalDateTime.MIN
         )
 
         val newSKU = SKU(
@@ -50,7 +55,10 @@ class NewSkuServiceTest {
                 Weight(BigDecimal.TEN, WeightScale.GRAM),
                 Dimension(BigDecimal.TEN, BigDecimal.TEN, BigDecimal.TEN, DimensionScale.CM)
             ),
-            sellerId = PublicId("sellerId")
+            sellerId = PublicId("sellerId"),
+
+            expireDate = LocalDateTime.MIN,
+            manufactureDate = LocalDateTime.MIN
         )
 
         /**

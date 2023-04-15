@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.DisplayName
 import java.math.BigDecimal
+import java.time.LocalDateTime
 import java.util.*
 
 class NewSkuAdapterTest {
@@ -42,7 +43,10 @@ class NewSkuAdapterTest {
                 Weight(BigDecimal.TEN, WeightScale.GRAM),
                 Dimension(BigDecimal.TEN, BigDecimal.TEN, BigDecimal.TEN, DimensionScale.CM)
             ),
-            sellerId = PublicId(UUID.randomUUID().toString())
+            sellerId = PublicId(UUID.randomUUID().toString()),
+
+            expireDate = LocalDateTime.now(),
+            manufactureDate = LocalDateTime.now()
         )
 
         val newMariaDBSKU = MariaDBSKU(
@@ -54,7 +58,10 @@ class NewSkuAdapterTest {
                 MariaDBWeight(BigDecimal.TEN, WeightScale.GRAM),
                 MariaDBDimension(BigDecimal.TEN, BigDecimal.TEN, BigDecimal.TEN, DimensionScale.CM)
             ),
-            sellerId = UUID.fromString(command.sellerId.toString())
+            sellerId = UUID.fromString(command.sellerId.toString()),
+
+            expireDate = LocalDateTime.now(),
+            manufactureDate = LocalDateTime.now()
         )
 
         /**

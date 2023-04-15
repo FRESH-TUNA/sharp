@@ -7,6 +7,7 @@ import com.freshtuna.sharp.price.Currency
 import com.freshtuna.sharp.price.Price
 import com.freshtuna.sharp.spec.*
 import java.math.BigDecimal
+import java.time.LocalDateTime
 
 class SkuRequest(
     val name: String,
@@ -22,7 +23,10 @@ class SkuRequest(
     val width: BigDecimal,
     val height: BigDecimal,
     val depth: BigDecimal,
-    val dimensionScale: DimensionScale
+    val dimensionScale: DimensionScale,
+
+    val expireDate: LocalDateTime = LocalDateTime.of(0, 1, 1, 0, 0, 0),
+    val manufactureDate: LocalDateTime = LocalDateTime.of(0, 1, 1, 0, 0, 0)
 ) {
     fun toCommand(sellerId: PublicId) = NewSkuCommand(
         name = name,
@@ -31,7 +35,10 @@ class SkuRequest(
 
         price = Price(cost, currency),
         spec = Spec(Weight(weight, weightScale), Dimension(width, height, depth, dimensionScale)),
-        sellerId = sellerId
+        sellerId = sellerId,
+
+        expireDate = expireDate,
+        manufactureDate = manufactureDate
     )
 
     fun toUpdateCommand(skuId: PublicId) = UpdateSkuCommand(
@@ -42,6 +49,9 @@ class SkuRequest(
         price = Price(cost, currency),
         spec = Spec(Weight(weight, weightScale), Dimension(width, height, depth, dimensionScale)),
 
-        skuId = skuId
+        skuId = skuId,
+
+        expireDate = expireDate,
+        manufactureDate = manufactureDate
     )
 }

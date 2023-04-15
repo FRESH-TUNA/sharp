@@ -3,6 +3,7 @@ package com.freshtuna.sharp.inventory.command
 import com.freshtuna.sharp.id.PublicId
 import com.freshtuna.sharp.price.Price
 import com.freshtuna.sharp.spec.Spec
+import java.time.LocalDateTime
 
 class NewSkuCommand(
     val name: String,
@@ -12,7 +13,10 @@ class NewSkuCommand(
     val price: Price,
     val spec: Spec,
 
-    val sellerId: PublicId
+    val sellerId: PublicId,
+
+    val expireDate: LocalDateTime,
+    val manufactureDate: LocalDateTime
 ) {
 
 

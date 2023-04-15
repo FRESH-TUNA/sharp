@@ -2,8 +2,8 @@ package com.freshtuna.sharp.inventory.entity
 
 import com.freshtuna.sharp.entity.MariaDBDefaultEntity
 import com.freshtuna.sharp.id.PublicId
-import com.freshtuna.sharp.inventory.SKU
-import com.freshtuna.sharp.inventory.StockStatus
+import com.freshtuna.sharp.inventory.domain.SKU
+import com.freshtuna.sharp.inventory.domain.StockStatus
 import com.freshtuna.sharp.inventory.command.NewSkuCommand
 import com.freshtuna.sharp.inventory.command.UpdateSkuCommand
 import com.freshtuna.sharp.price.entity.MariaDBPrice
@@ -15,6 +15,7 @@ import jakarta.persistence.Embedded
 import jakarta.persistence.Entity
 import jakarta.persistence.OneToMany
 import jakarta.persistence.Table
+import java.time.LocalDateTime
 import java.util.*
 
 @Entity
@@ -33,13 +34,18 @@ class MariaDBSKU(
     var price: MariaDBPrice,
 
     @Embedded
-    var specification: MariaDBSpecification
-) : MariaDBDefaultEntity() {
+    var specification: MariaDBSpecification,
+
+    var expireDate: LocalDateTime,
+
+    var manufactureDate: LocalDateTime,
+
+    ) : MariaDBDefaultEntity() {
 
     @OneToMany(mappedBy = "sku")
-    private var _stocks: MutableList<MariaDBStock> = mutableListOf()
-    val stocks: List<MariaDBStock>
-        get() = _stocks.toList()
+    private var _inventories: MutableList<MariaDBInventory> = mutableListOf()
+    val inventories: List<MariaDBInventory>
+        get() = _inventories.toList()
 
     fun update(command: UpdateSkuCommand) {
         name = command.name
@@ -47,6 +53,9 @@ class MariaDBSKU(
         description = command.description
         specification = command.spec.toEntity()
         price = command.price.toEntity()
+
+        expireDate = command.expireDate
+        manufactureDate = command.manufactureDate
     }
 
     fun toDomain() = SKU(
@@ -57,8 +66,11 @@ class MariaDBSKU(
         description = description,
         spec = specification.toDomain(),
         price = price.toDomain(),
-        availableCount = stocks.filter { stock -> stock.status == StockStatus.AVAILABLE }.size.toLong(),
-        totalCount = stocks.size.toLong()
+
+        expireDate = this.expireDate,
+        manufactureDate = this.manufactureDate,
+
+        count = inventories.sumOf { i -> if (i.status.isIN()) i.count else i.count.unaryMinus() },
     )
 }
 
@@ -71,5 +83,8 @@ fun NewSkuCommand.toEntity() = MariaDBSKU(
     description = this.description,
     price = this.price.toEntity(),
     specification = this.spec.toEntity(),
-    sellerId = UUID.fromString(sellerId.toString())
+    sellerId = UUID.fromString(sellerId.toString()),
+
+    expireDate = this.expireDate,
+    manufactureDate = this.manufactureDate,
 )

@@ -27,6 +27,6 @@ class SkuDetailController(
 
         val command = DetailSkuCommand(PublicId(id))
 
-        return DataResponse.of(skuDetailUseCase.detail(command, UserDetailManager.getPublicId()))
+        return DataResponse.of(skuDetailUseCase.detail(command, UserDetailManager.getPublicId()).toResult())
     }
 }

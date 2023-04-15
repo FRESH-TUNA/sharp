@@ -16,6 +16,5 @@ class SkuSearchResult(
 
     val spec: Spec,
 
-    val availableCount: Long,
-    val totalCount: Long
+    val count: Long
 )
