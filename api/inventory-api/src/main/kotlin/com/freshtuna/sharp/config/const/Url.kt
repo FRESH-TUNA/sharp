@@ -27,6 +27,8 @@ class Url {
 
             const val SKU_ID_INVENTORY_IN = "$ROOT/sku$ID/inventories/in"
 
+            const val SKU_ID_INVENTORY_OUT = "$ROOT/sku$ID/inventories/out"
+
             const val SKU_ID_INVENTORIES = "$ROOT/sku$ID/inventories"
         }
     }

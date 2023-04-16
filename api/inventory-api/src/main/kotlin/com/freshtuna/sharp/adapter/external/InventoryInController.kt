@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
-@Tag(name = "SKU 재고 입고/출고")
+@Tag(name = "재고 입고")
 @RestController
 class InventoryInController(
     private val useCase: InventoryInUseCase
