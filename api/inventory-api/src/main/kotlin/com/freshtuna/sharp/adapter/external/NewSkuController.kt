@@ -5,9 +5,13 @@ import com.freshtuna.sharp.inventory.incoming.NewSkuUseCase
 import com.freshtuna.sharp.request.SkuRequest
 import com.freshtuna.sharp.security.userDetail.UserDetailManager
 import com.freshtuna.sharp.spec.NewSkuSpec
-import com.freshtuna.sharp.api.response.BasicResponse
+
 import com.freshtuna.sharp.api.response.DataResponse
+
+import com.freshtuna.sharp.response.NewSkuResponse
+import com.freshtuna.sharp.response.toNewSkuResponse
 import io.github.oshai.KotlinLogging
+
 import io.swagger.v3.oas.annotations.tags.Tag
 
 import org.springframework.web.bind.annotation.PostMapping
@@ -23,8 +27,8 @@ class NewSkuController(
     val log = KotlinLogging.logger {  }
 
     @PostMapping(Url.EXTERNAL.SKU)
-    override fun new(@RequestBody request: SkuRequest): BasicResponse {
+    override fun new(@RequestBody request: SkuRequest): DataResponse<NewSkuResponse> {
         val result = useCase.new(request.toCommand(UserDetailManager.getPublicId()))
-        return DataResponse.of(result)
+        return DataResponse.of(result.toNewSkuResponse())
     }
 }

@@ -5,7 +5,7 @@ import com.freshtuna.sharp.inventory.command.sku.SearchSkuCommand
 import com.freshtuna.sharp.inventory.domain.SKU
 import com.freshtuna.sharp.inventory.incoming.SearchSkuUseCase
 import com.freshtuna.sharp.inventory.outgoing.SearchSkuPort
-import com.freshtuna.sharp.inventory.result.SkuSearchResult
+
 import com.freshtuna.sharp.page.SharpPage
 import org.springframework.stereotype.Service
 

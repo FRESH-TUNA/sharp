@@ -1,12 +1,14 @@
 package com.freshtuna.sharp.adapter.external
 
-import com.freshtuna.sharp.api.response.BasicResponse
 import com.freshtuna.sharp.api.response.DataResponse
 import com.freshtuna.sharp.config.const.Url
 import com.freshtuna.sharp.inventory.incoming.SearchSkuUseCase
+
 import com.freshtuna.sharp.page.SharpPage
 
 import com.freshtuna.sharp.request.SearchSkuRequest
+import com.freshtuna.sharp.response.SKUSearchResponse
+import com.freshtuna.sharp.response.toSearchResponse
 import com.freshtuna.sharp.security.userDetail.UserDetailManager
 
 import com.freshtuna.sharp.spec.SearchSkuSpec
@@ -28,12 +30,14 @@ class SearchSkuController(
     val log = KotlinLogging.logger {  }
 
     @GetMapping(Url.EXTERNAL.SKU)
-    override fun search(@ModelAttribute request: SearchSkuRequest, pageable: Pageable): BasicResponse {
+    override fun search(
+        @ModelAttribute request: SearchSkuRequest, pageable: Pageable
+    ): DataResponse<SharpPage<SKUSearchResponse>> {
 
         val skuPage = useCase.search(request.toCommand(pageable), UserDetailManager.getPublicId())
 
         val skuSearchResult = skuPage.page.stream()
-            .map { sku -> sku.toSearchResult() }
+            .map { sku -> sku.toSearchResponse() }
             .toList()
 
         val resultPage = SharpPage(skuSearchResult, skuPage.totalCount, SpringPageableConverter.convert(pageable))

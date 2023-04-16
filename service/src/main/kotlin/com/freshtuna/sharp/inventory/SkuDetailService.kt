@@ -5,7 +5,6 @@ import com.freshtuna.sharp.inventory.command.DetailSkuCommand
 import com.freshtuna.sharp.inventory.domain.SKU
 import com.freshtuna.sharp.inventory.incoming.SkuDetailUseCase
 import com.freshtuna.sharp.inventory.outgoing.FindSkuPort
-import com.freshtuna.sharp.inventory.result.SkuDetailResult
 import com.freshtuna.sharp.oh.Oh
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional

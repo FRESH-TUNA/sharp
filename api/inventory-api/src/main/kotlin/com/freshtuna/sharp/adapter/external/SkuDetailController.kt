@@ -7,6 +7,7 @@ import com.freshtuna.sharp.id.PublicId
 import com.freshtuna.sharp.inventory.command.DetailSkuCommand
 
 import com.freshtuna.sharp.inventory.incoming.SkuDetailUseCase
+import com.freshtuna.sharp.response.toResponse
 import com.freshtuna.sharp.security.userDetail.UserDetailManager
 import com.freshtuna.sharp.spec.SkuDetailSpec
 import io.swagger.v3.oas.annotations.Parameter
@@ -27,6 +28,6 @@ class SkuDetailController(
 
         val command = DetailSkuCommand(PublicId(id))
 
-        return DataResponse.of(skuDetailUseCase.detail(command, UserDetailManager.getPublicId()).toResult())
+        return DataResponse.of(skuDetailUseCase.detail(command, UserDetailManager.getPublicId()).toResponse())
     }
 }
