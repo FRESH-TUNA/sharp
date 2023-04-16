@@ -6,6 +6,8 @@ import com.freshtuna.sharp.config.const.Url
 import com.freshtuna.sharp.id.PublicId
 import com.freshtuna.sharp.inventory.command.SearchSkuStocksCommand
 import com.freshtuna.sharp.inventory.incoming.SearchSkuInventoriesUseCase
+import com.freshtuna.sharp.page.SharpPage
+import com.freshtuna.sharp.response.toResponse
 import com.freshtuna.sharp.security.userDetail.UserDetailManager
 import com.freshtuna.sharp.spec.SearchSkuInventoriesSpec
 import com.freshtuna.sharp.util.SpringPageableConverter
@@ -25,12 +27,17 @@ class SearchSkuInventoriesController(
     @GetMapping(Url.EXTERNAL.SKU_ID_INVENTORIES)
     override fun search(@PathVariable("id") skuId: String, pageable: Pageable): BasicResponse {
 
-        return DataResponse.of(
-            searchSkuStockInfoUseCase.search(
-                PublicId(skuId),
-                SearchSkuStocksCommand(),
-                SpringPageableConverter.convert(pageable),
-                UserDetailManager.getPublicId()
-        ))
+        val pageRequest = SpringPageableConverter.convert(pageable)
+
+        val inventoryPage = searchSkuStockInfoUseCase.search(
+            PublicId(skuId),
+            SearchSkuStocksCommand(),
+            pageRequest,
+            UserDetailManager.getPublicId()
+        )
+
+        val resultPage = inventoryPage.page.map { i -> i.toResponse() }.toList()
+
+        return DataResponse.of(SharpPage(resultPage, inventoryPage.totalCount, pageRequest))
     }
 }
