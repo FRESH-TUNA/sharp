@@ -17,19 +17,22 @@ repositories {
 
 dependencies {
     implementation(project(":domain"))
+    implementation(project(":common:api-common"))
+    /**
+     * jwt
+     */
+    implementation("io.jsonwebtoken:jjwt-api:0.11.5")
+    runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
+    runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5")
 
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.springframework.boot:spring-boot-starter")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
-    implementation("io.github.oshai:kotlin-logging-jvm:4.0.0-beta-22")
-
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
-    testImplementation("org.assertj:assertj-core:3.11.1")
-    testImplementation("io.mockk:mockk:1.13.4")
+    testImplementation("org.springframework.security:spring-security-test")
+
+    implementation("io.github.oshai:kotlin-logging-jvm:4.0.0-beta-22")
 }
 
 tasks.withType<KotlinCompile> {

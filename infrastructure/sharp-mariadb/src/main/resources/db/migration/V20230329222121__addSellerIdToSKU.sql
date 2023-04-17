@@ -1,0 +1,1 @@
+ALTER TABLE `sku` ADD `seller_id` BINARY(16) NOT NULL;

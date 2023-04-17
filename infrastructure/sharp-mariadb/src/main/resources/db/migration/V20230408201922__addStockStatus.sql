@@ -1,0 +1,1 @@
+ALTER TABLE `stock` ADD `status` varchar(10) NOT NULL DEFAULT 'AVAILABLE';
