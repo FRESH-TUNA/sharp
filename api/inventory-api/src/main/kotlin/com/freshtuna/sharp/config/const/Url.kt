@@ -29,7 +29,7 @@ class Url {
 
             const val SKU_ID_INVENTORY_OUT = "$ROOT/sku$ID/inventories/out"
 
-            const val SKU_ID_INVENTORIES = "$ROOT/sku$ID/inventories"
+            const val SKU_ID_INVENTORY_LOGS = "$ROOT/sku$ID/inventory-logs"
         }
     }
 }

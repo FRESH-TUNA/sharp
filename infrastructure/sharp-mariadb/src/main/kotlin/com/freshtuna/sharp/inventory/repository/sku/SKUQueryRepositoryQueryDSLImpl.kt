@@ -1,4 +1,4 @@
-package com.freshtuna.sharp.inventory.repository
+package com.freshtuna.sharp.inventory.repository.sku
 
 import com.freshtuna.sharp.id.PublicId
 import com.freshtuna.sharp.inventory.command.sku.SearchSkuCommand

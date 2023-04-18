@@ -2,7 +2,6 @@ package com.freshtuna.sharp.adapter.external
 
 import com.freshtuna.sharp.StockApiApplication
 import com.freshtuna.sharp.api.response.DataResponse
-import com.freshtuna.sharp.config.const.Url
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 
@@ -20,7 +19,7 @@ import org.springframework.test.context.ActiveProfiles
     classes = [StockApiApplication::class]
 )
 @ActiveProfiles("test")
-class SearchSkuInventoryControllerTest {
+class SearchSkuInventoryLogsControllerTest {
 
     @Autowired
     lateinit var restTemplate: TestRestTemplate
@@ -44,7 +43,7 @@ class SearchSkuInventoryControllerTest {
         /**
          * when
          */
-        val url = "/inventory/sku/1/inventories?page=0&size=2"
+        val url = "/inventory/sku/1/inventory-logs?page=0&size=2"
 
         val response = restTemplate.exchange(
             url,

@@ -1,9 +1,11 @@
 package com.freshtuna.sharp.inventory
 
 import com.freshtuna.sharp.id.PublicId
-import com.freshtuna.sharp.inventory.command.SearchSkuStocksCommand
+import com.freshtuna.sharp.inventory.command.SearchSkuInventoryLogsCommand
 import com.freshtuna.sharp.inventory.domain.*
-import com.freshtuna.sharp.inventory.incoming.SearchSkuInventoriesUseCase
+import com.freshtuna.sharp.inventory.domain.inventory.log.InventoryLog
+import com.freshtuna.sharp.inventory.domain.inventory.log.InventoryLogReason
+import com.freshtuna.sharp.inventory.incoming.SearchSkuInventoryLogsUseCase
 import com.freshtuna.sharp.inventory.outgoing.FindSkuPort
 import com.freshtuna.sharp.inventory.outgoing.SearchSkuInventoriesPort
 import com.freshtuna.sharp.page.SharpPage
@@ -20,14 +22,14 @@ import org.junit.jupiter.api.Assertions.*
 import java.math.BigDecimal
 import java.time.LocalDateTime
 
-class SearchInventoryServiceTest {
+class SearchInventoryServiceTestLog {
 
     private val findSkuPort: FindSkuPort = mockk()
 
     private val searchSkuInventoriesPort: SearchSkuInventoriesPort = mockk()
 
-    private val service: SearchSkuInventoriesUseCase
-        = SearchSkuInventoriesService(findSkuPort, searchSkuInventoriesPort)
+    private val service: SearchSkuInventoryLogsUseCase
+        = SearchSkuInventoryLogsService(findSkuPort, searchSkuInventoriesPort)
 
     @Test
     fun search() {
@@ -36,7 +38,7 @@ class SearchInventoryServiceTest {
          * given
          */
         val skuId = PublicId("skuId")
-        val command = SearchSkuStocksCommand()
+        val command = SearchSkuInventoryLogsCommand()
         val pageRequest =  SharpPageRequest()
         val sellerId = PublicId("sellerID")
 
@@ -77,19 +79,19 @@ class SearchInventoryServiceTest {
         manufactureDate = LocalDateTime.MIN
     )
 
-    private fun createSharpPage(pageRequest: SharpPageRequest): SharpPage<Inventory> {
+    private fun createSharpPage(pageRequest: SharpPageRequest): SharpPage<InventoryLog> {
 
         val page = listOf(
-            Inventory(
+            InventoryLog(
                 id = PublicId("1"),
                 skuId = PublicId("skuId"),
-                status = InventoryStatus.NEW,
+                status = InventoryLogReason.NEW,
                 count = 1
             ),
-            Inventory(
+            InventoryLog(
                 id = PublicId("2"),
                 skuId = PublicId("skuId"),
-                status = InventoryStatus.OUT,
+                status = InventoryLogReason.OUT,
                 count = 1
             )
         )

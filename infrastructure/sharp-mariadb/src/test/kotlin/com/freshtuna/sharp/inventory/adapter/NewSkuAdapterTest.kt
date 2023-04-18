@@ -4,7 +4,7 @@ import com.freshtuna.sharp.id.PublicId
 import com.freshtuna.sharp.inventory.command.NewSkuCommand
 import com.freshtuna.sharp.inventory.entity.MariaDBSKU
 import com.freshtuna.sharp.inventory.outgoing.NewSkuPort
-import com.freshtuna.sharp.inventory.repository.SKURepository
+import com.freshtuna.sharp.inventory.repository.sku.SKURepository
 import com.freshtuna.sharp.price.Currency
 import com.freshtuna.sharp.price.Price
 import com.freshtuna.sharp.price.entity.MariaDBPrice

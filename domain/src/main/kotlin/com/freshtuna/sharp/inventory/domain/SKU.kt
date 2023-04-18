@@ -22,6 +22,11 @@ class SKU(
      * specific
      */
     val spec: Spec,
+
+    /**
+     * counts
+     */
+    val availableCount: Long = 0,
     val count: Long = 0,
 ) {
 

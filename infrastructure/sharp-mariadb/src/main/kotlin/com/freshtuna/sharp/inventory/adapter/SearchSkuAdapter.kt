@@ -4,7 +4,7 @@ import com.freshtuna.sharp.id.PublicId
 import com.freshtuna.sharp.inventory.domain.SKU
 import com.freshtuna.sharp.inventory.command.sku.SearchSkuCommand
 import com.freshtuna.sharp.inventory.outgoing.SearchSkuPort
-import com.freshtuna.sharp.inventory.repository.SKUQueryRepository
+import com.freshtuna.sharp.inventory.repository.sku.SKUQueryRepository
 import com.freshtuna.sharp.page.SharpPage
 import org.springframework.stereotype.Component
 

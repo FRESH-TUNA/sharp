@@ -1,11 +1,10 @@
 package com.freshtuna.sharp.adapter.external
 
-import com.freshtuna.sharp.api.response.BasicResponse
 import com.freshtuna.sharp.api.response.DataResponse
 import com.freshtuna.sharp.config.const.Url
 import com.freshtuna.sharp.id.PublicId
-import com.freshtuna.sharp.inventory.command.SearchSkuStocksCommand
-import com.freshtuna.sharp.inventory.incoming.SearchSkuInventoriesUseCase
+import com.freshtuna.sharp.inventory.command.SearchSkuInventoryLogsCommand
+import com.freshtuna.sharp.inventory.incoming.SearchSkuInventoryLogsUseCase
 import com.freshtuna.sharp.page.SharpPage
 import com.freshtuna.sharp.response.InventoryResponse
 import com.freshtuna.sharp.response.toResponse
@@ -21,20 +20,20 @@ import org.springframework.web.bind.annotation.RestController
 
 @Tag(name = "SKU 재고 입/출고 내역 조회")
 @RestController
-class SearchSkuInventoriesController(
-    private val searchSkuStockInfoUseCase: SearchSkuInventoriesUseCase
+class SearchSkuInventoryLogsController(
+    private val searchSkuInventoryLogsUseCase: SearchSkuInventoryLogsUseCase
 ) : SearchSkuInventoriesSpec{
 
-    @GetMapping(Url.EXTERNAL.SKU_ID_INVENTORIES)
+    @GetMapping(Url.EXTERNAL.SKU_ID_INVENTORY_LOGS)
     override fun search(
         @PathVariable("id") skuId: String, pageable: Pageable
     ): DataResponse<SharpPage<InventoryResponse>> {
 
         val pageRequest = SpringPageableConverter.convert(pageable)
 
-        val inventoryPage = searchSkuStockInfoUseCase.search(
+        val inventoryPage = searchSkuInventoryLogsUseCase.search(
             PublicId(skuId),
-            SearchSkuStocksCommand(),
+            SearchSkuInventoryLogsCommand(),
             pageRequest,
             UserDetailManager.getPublicId()
         )

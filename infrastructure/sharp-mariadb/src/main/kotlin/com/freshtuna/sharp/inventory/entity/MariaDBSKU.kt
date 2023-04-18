@@ -3,9 +3,9 @@ package com.freshtuna.sharp.inventory.entity
 import com.freshtuna.sharp.entity.MariaDBDefaultEntity
 import com.freshtuna.sharp.id.PublicId
 import com.freshtuna.sharp.inventory.domain.SKU
-import com.freshtuna.sharp.inventory.domain.StockStatus
 import com.freshtuna.sharp.inventory.command.NewSkuCommand
 import com.freshtuna.sharp.inventory.command.UpdateSkuCommand
+import com.freshtuna.sharp.inventory.domain.inventory.InventoryStatus
 import com.freshtuna.sharp.price.entity.MariaDBPrice
 import com.freshtuna.sharp.price.entity.toEntity
 import com.freshtuna.sharp.spec.entity.MariaDBSpecification
@@ -70,7 +70,8 @@ class MariaDBSKU(
         expireDate = this.expireDate,
         manufactureDate = this.manufactureDate,
 
-        count = inventories.sumOf { i -> if (i.status.isIN()) i.count else i.count.unaryMinus() },
+        availableCount = inventories.filter { i -> i.status == InventoryStatus.READY }.size.toLong(),
+        count = inventories.size.toLong()
     )
 }
 

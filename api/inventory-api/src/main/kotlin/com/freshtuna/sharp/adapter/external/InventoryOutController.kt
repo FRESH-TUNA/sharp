@@ -28,7 +28,7 @@ class InventoryOutController(
         val skuId = PublicId(id)
         val sellerId = UserDetailManager.getPublicId()
 
-        useCase.new(request.toCommand(skuId), sellerId)
+        useCase.out(request.toCommandOf(skuId), sellerId)
 
         return MessageResponse.OK
     }

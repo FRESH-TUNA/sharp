@@ -2,12 +2,9 @@ package com.freshtuna.sharp.adapter.external
 
 import com.freshtuna.sharp.StockApiApplication
 import com.freshtuna.sharp.api.response.BasicResponse
-
 import org.assertj.core.api.Assertions
-import org.junit.jupiter.api.Test
-
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.context.SpringBootTest
@@ -18,12 +15,13 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.test.context.ActiveProfiles
 
+
 @SpringBootTest(
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
     classes = [StockApiApplication::class]
 )
 @ActiveProfiles("test")
-class NewInventoryInControllerSystemTest {
+class InventoryOutControllerSystemTest {
 
     @Autowired
     lateinit var restTemplate: TestRestTemplate
@@ -32,14 +30,17 @@ class NewInventoryInControllerSystemTest {
     private lateinit var accessToken: String
 
     @Test
-    @DisplayName("재고 입고 시스템 테스트")
-    fun stockIn() {
+    @DisplayName("재고 출고 시스템 테스트")
+    fun stockOut() {
+
         /**
          * given
          */
         val requestBody = mapOf(
+            "reason" to "MODIFY",
+            "condition" to "NEW",
             "count" to 3,
-            "status" to "NEW",
+            "description" to "출고 테스트"
         )
 
         val headers = HttpHeaders()
@@ -51,7 +52,7 @@ class NewInventoryInControllerSystemTest {
          * when
          */
         val response = restTemplate.postForEntity(
-            "/inventory/sku/1/inventories/in", entity, BasicResponse::class.java)
+            "/inventory/sku/1/inventories/out", entity, BasicResponse::class.java)
 
         /**
          * then
