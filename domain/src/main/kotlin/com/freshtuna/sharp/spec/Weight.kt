@@ -2,6 +2,7 @@ package com.freshtuna.sharp.spec
 
 import java.math.BigDecimal
 
+
 class Weight(
     val value: BigDecimal,
     val scale: WeightScale

@@ -1,7 +1,8 @@
 package com.freshtuna.sharp.response
 
-import com.freshtuna.sharp.inventory.domain.Inventory
-import com.freshtuna.sharp.inventory.domain.InventoryStatus
+import com.freshtuna.sharp.inventory.domain.inventory.InventoryCondition
+import com.freshtuna.sharp.inventory.domain.inventory.log.InventoryLog
+import com.freshtuna.sharp.inventory.domain.inventory.log.InventoryLogReason
 import io.swagger.v3.oas.annotations.media.Schema
 import jakarta.validation.constraints.Pattern
 
@@ -12,15 +13,22 @@ class InventoryResponse(
 
     @Schema(description = "사유: 입고(NEW-신규), 출고(MODIFY-입고수정, OUT-배송)")
     @Pattern(regexp = "^(NEW|MODIFY|OUT)$")
-    val status: InventoryStatus,
+    val reason: InventoryLogReason,
 
     @Schema(description = "입/출고 한 재고의 갯수")
-    val count: Long
+    val count: Long,
+
+    @Schema(description = "입/출고 한 재고의 상태")
+    val condition: InventoryCondition,
+
+    val description: String
 )
 
-fun Inventory.toResponse() = InventoryResponse(
+fun InventoryLog.toResponse() = InventoryResponse(
     id = id.stringId(),
     skuId = skuId.stringId(),
-    status = status,
-    count = count
+    reason = reason,
+    count = count,
+    condition = condition,
+    description = description
 )

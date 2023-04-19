@@ -1,9 +1,9 @@
 package com.freshtuna.sharp.inventory.outgoing
 
 import com.freshtuna.sharp.inventory.domain.Stock
-import com.freshtuna.sharp.inventory.domain.Inventory
+import com.freshtuna.sharp.inventory.domain.inventory.log.InventoryLog
 
 interface SearchStockPort {
 
-    fun findAll(inventories: List<Inventory>): List<Stock>
+    fun findAll(inventories: List<InventoryLog>): List<Stock>
 }

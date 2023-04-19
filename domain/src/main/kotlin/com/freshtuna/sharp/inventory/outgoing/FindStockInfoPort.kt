@@ -1,9 +1,9 @@
 package com.freshtuna.sharp.inventory.outgoing
 
-import com.freshtuna.sharp.id.PublicId
-import com.freshtuna.sharp.inventory.domain.Inventory
+import com.freshtuna.sharp.id.SharpID
+import com.freshtuna.sharp.inventory.domain.inventory.log.InventoryLog
 
 interface FindStockInfoPort {
 
-    fun find(infoId: PublicId): Inventory
+    fun find(infoId: SharpID): InventoryLog
 }

@@ -1,6 +1,6 @@
 package com.freshtuna.sharp.request
 
-import com.freshtuna.sharp.id.PublicId
+import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.inventory.command.NewSkuCommand
 import com.freshtuna.sharp.inventory.command.UpdateSkuCommand
 import com.freshtuna.sharp.price.Currency
@@ -56,7 +56,7 @@ class SkuRequest(
     @Schema(description = "필요시 제조일자 기입")
     val manufactureDate: LocalDateTime = LocalDateTime.of(0, 1, 1, 0, 0, 0)
 ) {
-    fun toCommand(sellerId: PublicId) = NewSkuCommand(
+    fun toCommand(sellerId: SharpID) = NewSkuCommand(
         name = name,
         barcode = barcode,
         description = description,
@@ -69,7 +69,7 @@ class SkuRequest(
         manufactureDate = manufactureDate
     )
 
-    fun toUpdateCommand(skuId: PublicId) = UpdateSkuCommand(
+    fun toUpdateCommand(skuId: SharpID) = UpdateSkuCommand(
         name = name,
         barcode = barcode,
         description = description,

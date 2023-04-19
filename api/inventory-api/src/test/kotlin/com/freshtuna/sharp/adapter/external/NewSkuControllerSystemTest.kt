@@ -2,7 +2,7 @@ package com.freshtuna.sharp.adapter.external
 
 import com.freshtuna.sharp.StockApiApplication
 import com.freshtuna.sharp.config.const.Url
-import com.freshtuna.sharp.inventory.repository.SKURepository
+import com.freshtuna.sharp.inventory.repository.sku.SKURepository
 import com.freshtuna.sharp.price.Currency
 import com.freshtuna.sharp.spec.DimensionScale
 import com.freshtuna.sharp.spec.WeightScale

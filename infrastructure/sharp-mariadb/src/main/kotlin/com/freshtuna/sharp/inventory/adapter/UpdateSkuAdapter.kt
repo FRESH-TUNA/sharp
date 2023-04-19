@@ -3,7 +3,7 @@ package com.freshtuna.sharp.inventory.adapter
 import com.freshtuna.sharp.inventory.domain.SKU
 import com.freshtuna.sharp.inventory.command.UpdateSkuCommand
 import com.freshtuna.sharp.inventory.outgoing.UpdateSkuPort
-import com.freshtuna.sharp.inventory.repository.SKURepository
+import com.freshtuna.sharp.inventory.repository.sku.SKURepository
 import org.springframework.stereotype.Component
 
 @Component

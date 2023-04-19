@@ -1,9 +1,11 @@
 package com.freshtuna.sharp.inventory
 
-import com.freshtuna.sharp.id.PublicId
-import com.freshtuna.sharp.inventory.command.SearchSkuStocksCommand
+import com.freshtuna.sharp.id.SharpID
+import com.freshtuna.sharp.inventory.command.SearchSkuInventoryLogsCommand
 import com.freshtuna.sharp.inventory.domain.*
-import com.freshtuna.sharp.inventory.incoming.SearchSkuInventoriesUseCase
+import com.freshtuna.sharp.inventory.domain.inventory.log.InventoryLog
+import com.freshtuna.sharp.inventory.domain.inventory.log.InventoryLogReason
+import com.freshtuna.sharp.inventory.incoming.SearchSkuInventoryLogsUseCase
 import com.freshtuna.sharp.inventory.outgoing.FindSkuPort
 import com.freshtuna.sharp.inventory.outgoing.SearchSkuInventoriesPort
 import com.freshtuna.sharp.page.SharpPage
@@ -20,14 +22,14 @@ import org.junit.jupiter.api.Assertions.*
 import java.math.BigDecimal
 import java.time.LocalDateTime
 
-class SearchInventoryServiceTest {
+class SearchInventoryServiceTestLog {
 
     private val findSkuPort: FindSkuPort = mockk()
 
     private val searchSkuInventoriesPort: SearchSkuInventoriesPort = mockk()
 
-    private val service: SearchSkuInventoriesUseCase
-        = SearchSkuInventoriesService(findSkuPort, searchSkuInventoriesPort)
+    private val service: SearchSkuInventoryLogsUseCase
+        = SearchSkuInventoryLogsService(findSkuPort, searchSkuInventoriesPort)
 
     @Test
     fun search() {
@@ -35,10 +37,10 @@ class SearchInventoryServiceTest {
         /**
          * given
          */
-        val skuId = PublicId("skuId")
-        val command = SearchSkuStocksCommand()
+        val skuId = SharpID("skuId")
+        val command = SearchSkuInventoryLogsCommand()
         val pageRequest =  SharpPageRequest()
-        val sellerId = PublicId("sellerID")
+        val sellerId = SharpID("sellerID")
 
         /**
          * when
@@ -62,7 +64,7 @@ class SearchInventoryServiceTest {
     }
 
     private fun createSKU() = SKU(
-        id = PublicId("newId"),
+        id = SharpID("newId"),
         name = "newsku",
         barcode = "barcode",
         description = "description",
@@ -71,25 +73,25 @@ class SearchInventoryServiceTest {
             Weight(BigDecimal.TEN, WeightScale.GRAM),
             Dimension(BigDecimal.TEN, BigDecimal.TEN, BigDecimal.TEN, DimensionScale.CM)
         ),
-        sellerId = PublicId("sellerID"),
+        sellerId = SharpID("sellerID"),
 
         expireDate = LocalDateTime.MIN,
         manufactureDate = LocalDateTime.MIN
     )
 
-    private fun createSharpPage(pageRequest: SharpPageRequest): SharpPage<Inventory> {
+    private fun createSharpPage(pageRequest: SharpPageRequest): SharpPage<InventoryLog> {
 
         val page = listOf(
-            Inventory(
-                id = PublicId("1"),
-                skuId = PublicId("skuId"),
-                status = InventoryStatus.NEW,
+            InventoryLog(
+                id = SharpID("1"),
+                skuId = SharpID("skuId"),
+                status = InventoryLogReason.NEW,
                 count = 1
             ),
-            Inventory(
-                id = PublicId("2"),
-                skuId = PublicId("skuId"),
-                status = InventoryStatus.OUT,
+            InventoryLog(
+                id = SharpID("2"),
+                skuId = SharpID("skuId"),
+                status = InventoryLogReason.OUT,
                 count = 1
             )
         )

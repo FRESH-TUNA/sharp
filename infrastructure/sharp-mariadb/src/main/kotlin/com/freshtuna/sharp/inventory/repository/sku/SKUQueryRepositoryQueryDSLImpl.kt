@@ -1,6 +1,6 @@
-package com.freshtuna.sharp.inventory.repository
+package com.freshtuna.sharp.inventory.repository.sku
 
-import com.freshtuna.sharp.id.PublicId
+import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.inventory.command.sku.SearchSkuCommand
 import com.freshtuna.sharp.inventory.dto.SkuInventoriesDto
 
@@ -30,7 +30,7 @@ class SKUQueryRepositoryQueryDSLImpl(
     private val sku = QMariaDBSKU.mariaDBSKU
     private val inventory = QMariaDBInventory.mariaDBInventory
 
-    override fun search(commend: SearchSkuCommand, sellerId: PublicId): SharpPage<MariaDBSKU> {
+    override fun search(commend: SearchSkuCommand, sellerId: SharpID): SharpPage<MariaDBSKU> {
         val wherePredicate = generateSearchSkuPredicate(commend)
 
         val count = queryFactory
@@ -75,7 +75,7 @@ class SKUQueryRepositoryQueryDSLImpl(
         return result
     }
 
-    override fun findById(id: PublicId): MariaDBSKU {
+    override fun findById(id: SharpID): MariaDBSKU {
         return queryFactory
             .select(sku)
             .from(sku)

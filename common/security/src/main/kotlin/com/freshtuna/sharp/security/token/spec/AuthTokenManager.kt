@@ -1,6 +1,6 @@
 package com.freshtuna.sharp.security.token.spec
 
-import com.freshtuna.sharp.id.PublicId
+import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.member.constant.Role
 import com.freshtuna.sharp.security.token.AuthToken
 
@@ -11,7 +11,7 @@ interface AuthTokenManager {
      */
     fun validate(token: AuthToken)
 
-    fun extractPublicId(token: AuthToken): PublicId
+    fun extractPublicId(token: AuthToken): SharpID
 
     fun extractRoles(token: AuthToken): List<Role>
 }

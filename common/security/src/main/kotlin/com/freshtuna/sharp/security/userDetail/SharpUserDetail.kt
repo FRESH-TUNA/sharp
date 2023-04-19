@@ -1,11 +1,11 @@
 package com.freshtuna.sharp.security.userDetail
 
-import com.freshtuna.sharp.id.PublicId
+import com.freshtuna.sharp.id.SharpID
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
 class SharpUserDetail(
-    val id: PublicId,
+    val id: SharpID,
     private val authorites: Collection<GrantedAuthority>
 ) : UserDetails {
 

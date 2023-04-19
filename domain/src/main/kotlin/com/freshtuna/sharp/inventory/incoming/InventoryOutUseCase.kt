@@ -1,9 +1,9 @@
 package com.freshtuna.sharp.inventory.incoming
 
-import com.freshtuna.sharp.id.PublicId
-import com.freshtuna.sharp.inventory.command.NewInventoryCommand
+import com.freshtuna.sharp.id.SharpID
+import com.freshtuna.sharp.inventory.command.InventoryInOutCommand
 
 interface InventoryOutUseCase {
 
-    fun new(command: NewInventoryCommand, sellerId: PublicId)
+    fun out(command: InventoryInOutCommand, sellerId: SharpID)
 }

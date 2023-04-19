@@ -1,8 +1,8 @@
 package com.freshtuna.sharp.product
 
-import com.freshtuna.sharp.id.PublicId
+import com.freshtuna.sharp.id.SharpID
 
 class ItemInfo(
-    val id: PublicId,
+    val id: SharpID,
     val name: String,
 )

@@ -1,9 +1,9 @@
 package com.freshtuna.sharp.inventory
 
-import com.freshtuna.sharp.id.PublicId
-import com.freshtuna.sharp.inventory.command.SearchSkuStocksCommand
-import com.freshtuna.sharp.inventory.domain.Inventory
-import com.freshtuna.sharp.inventory.incoming.SearchSkuInventoriesUseCase
+import com.freshtuna.sharp.id.SharpID
+import com.freshtuna.sharp.inventory.command.SearchSkuInventoryLogsCommand
+import com.freshtuna.sharp.inventory.domain.inventory.log.InventoryLog
+import com.freshtuna.sharp.inventory.incoming.SearchSkuInventoryLogsUseCase
 import com.freshtuna.sharp.inventory.outgoing.FindSkuPort
 import com.freshtuna.sharp.inventory.outgoing.SearchSkuInventoriesPort
 import com.freshtuna.sharp.oh.Oh
@@ -13,16 +13,16 @@ import com.freshtuna.sharp.page.SharpPageRequest
 import org.springframework.stereotype.Service
 
 @Service
-class SearchSkuInventoriesService(
+class SearchSkuInventoryLogsService(
     private val findSkuPort: FindSkuPort,
     private val searchSkuInventoriesPort: SearchSkuInventoriesPort,
-) : SearchSkuInventoriesUseCase {
+) : SearchSkuInventoryLogsUseCase {
 
-    override fun search(skuId: PublicId,
-                        command: SearchSkuStocksCommand,
+    override fun search(skuId: SharpID,
+                        command: SearchSkuInventoryLogsCommand,
                         pageRequest: SharpPageRequest,
-                        sellerId: PublicId
-    ): SharpPage<Inventory> {
+                        sellerId: SharpID
+    ): SharpPage<InventoryLog> {
 
         val sku = findSkuPort.find(skuId)
 

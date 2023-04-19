@@ -1,8 +1,9 @@
 package com.freshtuna.sharp.inventory.repository
 
 import com.freshtuna.sharp.config.JPAQueryFactoryBeanConfig
-import com.freshtuna.sharp.id.PublicId
+import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.inventory.command.sku.SearchSkuCommand
+import com.freshtuna.sharp.inventory.repository.sku.SKUQueryRepositoryQueryDSLImpl
 import com.freshtuna.sharp.page.SharpPageRequest
 import com.freshtuna.sharp.page.SharpSort
 
@@ -24,7 +25,7 @@ class SKUQueryRepositoryQueryDSLImplTest {
     @Autowired
     private lateinit var skuQueryRepository: SKUQueryRepositoryQueryDSLImpl
 
-    private val sellerId = PublicId("dbff6d9a-6e59-4e1e-9f21-21c4e43c3ee8")
+    private val sellerId = SharpID("dbff6d9a-6e59-4e1e-9f21-21c4e43c3ee8")
 
     @Test
     @DisplayName("페이지 테스트")

@@ -3,7 +3,7 @@ package com.freshtuna.sharp.adapter.external
 import com.freshtuna.sharp.api.response.BasicResponse
 import com.freshtuna.sharp.api.response.MessageResponse
 import com.freshtuna.sharp.config.const.Url
-import com.freshtuna.sharp.id.PublicId
+import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.inventory.incoming.InventoryOutUseCase
 
 import com.freshtuna.sharp.request.InventoryRequest
@@ -25,10 +25,10 @@ class InventoryOutController(
     @PostMapping(Url.EXTERNAL.SKU_ID_INVENTORY_OUT)
     override fun new(@RequestBody request: InventoryRequest,
                      @Parameter(description = "출고 SKU 아이디") @PathVariable id: Long): BasicResponse {
-        val skuId = PublicId(id)
+        val skuId = SharpID(id)
         val sellerId = UserDetailManager.getPublicId()
 
-        useCase.new(request.toCommand(skuId), sellerId)
+        useCase.out(request.toCommandOf(skuId), sellerId)
 
         return MessageResponse.OK
     }
