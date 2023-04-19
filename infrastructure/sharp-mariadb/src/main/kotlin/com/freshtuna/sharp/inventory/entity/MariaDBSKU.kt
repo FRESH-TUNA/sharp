@@ -1,7 +1,7 @@
 package com.freshtuna.sharp.inventory.entity
 
 import com.freshtuna.sharp.entity.MariaDBDefaultEntity
-import com.freshtuna.sharp.id.PublicId
+import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.inventory.domain.SKU
 import com.freshtuna.sharp.inventory.command.NewSkuCommand
 import com.freshtuna.sharp.inventory.command.UpdateSkuCommand
@@ -59,8 +59,8 @@ class MariaDBSKU(
     }
 
     fun toDomain() = SKU(
-        id = PublicId(id.toString()),
-        sellerId = PublicId(sellerId),
+        id = SharpID(id.toString()),
+        sellerId = SharpID(sellerId),
         name = name,
         barcode = barcode,
         description = description,

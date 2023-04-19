@@ -4,7 +4,7 @@ package com.freshtuna.sharp.inventory.domain.inventory.log
  * 입출고 사유
  */
 enum class InventoryLogReason(
-    private val type: InventoryLogType
+    val type: InventoryLogType
 ) {
     /**
      * 입고

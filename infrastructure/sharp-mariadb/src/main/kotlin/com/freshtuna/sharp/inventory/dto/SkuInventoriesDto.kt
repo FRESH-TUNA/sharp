@@ -1,10 +1,9 @@
 package com.freshtuna.sharp.inventory.dto
 
-import com.freshtuna.sharp.id.PublicId
+import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.inventory.domain.SKU
 import com.freshtuna.sharp.inventory.domain.inventory.InventoryStatus
 import com.freshtuna.sharp.inventory.entity.MariaDBInventory
-import com.freshtuna.sharp.inventory.entity.MariaDBInventoryLog
 
 import com.freshtuna.sharp.inventory.entity.MariaDBSKU
 
@@ -14,8 +13,8 @@ class SkuInventoriesDto(
 ) {
 
     fun toDomain() = SKU(
-        id = PublicId(sku.id.toString()),
-        sellerId = PublicId(sku.sellerId),
+        id = SharpID(sku.id.toString()),
+        sellerId = SharpID(sku.sellerId),
         name = sku.name,
         barcode = sku.barcode,
         description = sku.description,

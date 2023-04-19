@@ -1,7 +1,7 @@
 package com.freshtuna.sharp.inventory
 
-import com.freshtuna.sharp.id.PublicId
-import com.freshtuna.sharp.inventory.command.NewInventoryLogCommand
+import com.freshtuna.sharp.id.SharpID
+import com.freshtuna.sharp.inventory.command.InventoryInOutCommand
 import com.freshtuna.sharp.inventory.incoming.InventoryInUseCase
 import com.freshtuna.sharp.inventory.outgoing.FindSkuPort
 import com.freshtuna.sharp.inventory.outgoing.NewInventoryLogPort
@@ -21,7 +21,7 @@ class InventoryInService(
 
     private val logger = KotlinLogging.logger{}
 
-    override fun new(command: NewInventoryLogCommand, sellerId: PublicId) {
+    override fun new(command: InventoryInOutCommand, sellerId: SharpID) {
 
         val sku = findSkuPort.find(command.skuId)
 
@@ -33,6 +33,6 @@ class InventoryInService(
 
         newInventoryLogPort.new(command)
 
-        inventoryInPort.new(command)
+        inventoryInPort.`in`(command)
     }
 }

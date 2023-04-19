@@ -1,13 +1,13 @@
 package com.freshtuna.sharp.inventory.domain
 
-import com.freshtuna.sharp.id.PublicId
+import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.price.Price
 import com.freshtuna.sharp.spec.Spec
 import java.time.LocalDateTime
 
 class SKU(
-    val id: PublicId,
-    val sellerId: PublicId,
+    val id: SharpID,
+    val sellerId: SharpID,
 
     val name: String,
     val price: Price,
@@ -30,6 +30,6 @@ class SKU(
     val count: Long = 0,
 ) {
 
-    fun checkSameSeller(id: PublicId)
+    fun checkSameSeller(id: SharpID)
         = sellerId == id
 }

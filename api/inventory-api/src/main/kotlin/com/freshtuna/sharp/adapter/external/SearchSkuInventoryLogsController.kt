@@ -2,7 +2,7 @@ package com.freshtuna.sharp.adapter.external
 
 import com.freshtuna.sharp.api.response.DataResponse
 import com.freshtuna.sharp.config.const.Url
-import com.freshtuna.sharp.id.PublicId
+import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.inventory.command.SearchSkuInventoryLogsCommand
 import com.freshtuna.sharp.inventory.incoming.SearchSkuInventoryLogsUseCase
 import com.freshtuna.sharp.page.SharpPage
@@ -32,7 +32,7 @@ class SearchSkuInventoryLogsController(
         val pageRequest = SpringPageableConverter.convert(pageable)
 
         val inventoryPage = searchSkuInventoryLogsUseCase.search(
-            PublicId(skuId),
+            SharpID(skuId),
             SearchSkuInventoryLogsCommand(),
             pageRequest,
             UserDetailManager.getPublicId()

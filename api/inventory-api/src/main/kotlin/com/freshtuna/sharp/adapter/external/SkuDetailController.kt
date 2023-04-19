@@ -3,7 +3,7 @@ package com.freshtuna.sharp.adapter.external
 import com.freshtuna.sharp.api.response.BasicResponse
 import com.freshtuna.sharp.api.response.DataResponse
 import com.freshtuna.sharp.config.const.Url
-import com.freshtuna.sharp.id.PublicId
+import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.inventory.command.DetailSkuCommand
 
 import com.freshtuna.sharp.inventory.incoming.SkuDetailUseCase
@@ -26,7 +26,7 @@ class SkuDetailController(
     @GetMapping(Url.EXTERNAL.SKU_ID)
     override fun detail(@Parameter(description = "SKU 아이디") @PathVariable id: String): BasicResponse {
 
-        val command = DetailSkuCommand(PublicId(id))
+        val command = DetailSkuCommand(SharpID(id))
 
         return DataResponse.of(skuDetailUseCase.detail(command, UserDetailManager.getPublicId()).toResponse())
     }

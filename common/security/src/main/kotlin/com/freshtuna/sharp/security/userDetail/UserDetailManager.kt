@@ -1,6 +1,5 @@
 package com.freshtuna.sharp.security.userDetail
 
-import com.freshtuna.sharp.id.PublicId
 import org.springframework.security.core.context.SecurityContextHolder
 
 class UserDetailManager {

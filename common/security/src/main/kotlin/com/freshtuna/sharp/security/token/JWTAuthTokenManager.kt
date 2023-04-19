@@ -1,6 +1,6 @@
 package com.freshtuna.sharp.security.token
 
-import com.freshtuna.sharp.id.PublicId
+import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.member.constant.Role
 import com.freshtuna.sharp.oh.Oh
 import com.freshtuna.sharp.security.token.spec.AuthTokenManager
@@ -34,9 +34,9 @@ class JWTAuthTokenManager(
         }
     }
 
-    override fun extractPublicId(token: AuthToken): PublicId {
+    override fun extractPublicId(token: AuthToken): SharpID {
 
-        return PublicId(Jwts.parserBuilder()
+        return SharpID(Jwts.parserBuilder()
                 .setSigningKey(signSecret)
                 .build()
                 .parseClaimsJws(tokenStringWithoutPrefix(token))

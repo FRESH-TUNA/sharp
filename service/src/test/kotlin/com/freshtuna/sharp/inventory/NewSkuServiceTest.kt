@@ -1,6 +1,6 @@
 package com.freshtuna.sharp.inventory
 
-import com.freshtuna.sharp.id.PublicId
+import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.inventory.command.NewSkuCommand
 import com.freshtuna.sharp.inventory.domain.SKU
 import com.freshtuna.sharp.inventory.outgoing.NewSkuPort
@@ -39,14 +39,14 @@ class NewSkuServiceTest {
                 Weight(BigDecimal.TEN, WeightScale.GRAM),
                 Dimension(BigDecimal.TEN, BigDecimal.TEN, BigDecimal.TEN, DimensionScale.CM)
             ),
-            sellerId = PublicId("sellerId"),
+            sellerId = SharpID("sellerId"),
 
             expireDate = LocalDateTime.MIN,
             manufactureDate = LocalDateTime.MIN
         )
 
         val newSKU = SKU(
-            id = PublicId("newId"),
+            id = SharpID("newId"),
             name = "newsku",
             barcode = "barcode",
             description = "description",
@@ -55,7 +55,7 @@ class NewSkuServiceTest {
                 Weight(BigDecimal.TEN, WeightScale.GRAM),
                 Dimension(BigDecimal.TEN, BigDecimal.TEN, BigDecimal.TEN, DimensionScale.CM)
             ),
-            sellerId = PublicId("sellerId"),
+            sellerId = SharpID("sellerId"),
 
             expireDate = LocalDateTime.MIN,
             manufactureDate = LocalDateTime.MIN

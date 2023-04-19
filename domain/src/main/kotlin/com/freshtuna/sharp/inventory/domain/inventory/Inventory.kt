@@ -1,10 +1,10 @@
 package com.freshtuna.sharp.inventory.domain.inventory
 
-import com.freshtuna.sharp.id.PublicId
+import com.freshtuna.sharp.id.SharpID
 
 class Inventory(
-    val id: PublicId,
-    val skuId: PublicId,
+    val id: SharpID,
+    val skuId: SharpID,
     val status: InventoryStatus,
     val condition: InventoryCondition
 )

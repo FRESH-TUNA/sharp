@@ -2,7 +2,7 @@ package com.freshtuna.sharp.id
 
 import java.util.UUID
 
-class PublicId(
+class SharpID(
     private val stringValue: String
 ) {
 

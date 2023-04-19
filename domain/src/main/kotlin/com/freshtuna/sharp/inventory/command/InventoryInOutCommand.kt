@@ -1,12 +1,12 @@
 package com.freshtuna.sharp.inventory.command
 
-import com.freshtuna.sharp.id.PublicId
+import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.inventory.domain.inventory.InventoryCondition
 import com.freshtuna.sharp.inventory.domain.inventory.log.InventoryLogReason
 
-class NewInventoryLogCommand(
+class InventoryInOutCommand(
 
-    val skuId: PublicId,
+    val skuId: SharpID,
 
     val count: Long,
 

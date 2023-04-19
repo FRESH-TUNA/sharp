@@ -3,7 +3,7 @@ package com.freshtuna.sharp.adapter.external
 import com.freshtuna.sharp.api.response.BasicResponse
 import com.freshtuna.sharp.api.response.MessageResponse
 import com.freshtuna.sharp.config.const.Url
-import com.freshtuna.sharp.id.PublicId
+import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.inventory.incoming.UpdateSkuUseCase
 import com.freshtuna.sharp.request.SkuRequest
 import com.freshtuna.sharp.security.userDetail.UserDetailManager
@@ -25,7 +25,7 @@ class UpdateSkuController(
     @PutMapping(Url.EXTERNAL.SKU_ID)
     override fun update(@RequestBody request: SkuRequest,
                         @Parameter(description = "SKU 아이디") @PathVariable id: String): BasicResponse {
-        useCase.update(request.toUpdateCommand(PublicId(id)), UserDetailManager.getPublicId())
+        useCase.update(request.toUpdateCommand(SharpID(id)), UserDetailManager.getPublicId())
         return MessageResponse.OK
     }
 }

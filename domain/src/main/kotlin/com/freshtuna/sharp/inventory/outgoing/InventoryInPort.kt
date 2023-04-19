@@ -1,8 +1,8 @@
 package com.freshtuna.sharp.inventory.outgoing
 
-import com.freshtuna.sharp.inventory.command.NewInventoryLogCommand
+import com.freshtuna.sharp.inventory.command.InventoryInOutCommand
 
 interface InventoryInPort {
 
-    fun new(command: NewInventoryLogCommand)
+    fun `in`(command: InventoryInOutCommand)
 }

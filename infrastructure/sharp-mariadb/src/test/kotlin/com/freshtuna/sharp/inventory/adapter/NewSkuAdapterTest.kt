@@ -1,6 +1,6 @@
 package com.freshtuna.sharp.inventory.adapter
 
-import com.freshtuna.sharp.id.PublicId
+import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.inventory.command.NewSkuCommand
 import com.freshtuna.sharp.inventory.entity.MariaDBSKU
 import com.freshtuna.sharp.inventory.outgoing.NewSkuPort
@@ -43,7 +43,7 @@ class NewSkuAdapterTest {
                 Weight(BigDecimal.TEN, WeightScale.GRAM),
                 Dimension(BigDecimal.TEN, BigDecimal.TEN, BigDecimal.TEN, DimensionScale.CM)
             ),
-            sellerId = PublicId(UUID.randomUUID().toString()),
+            sellerId = SharpID(UUID.randomUUID().toString()),
 
             expireDate = LocalDateTime.now(),
             manufactureDate = LocalDateTime.now()

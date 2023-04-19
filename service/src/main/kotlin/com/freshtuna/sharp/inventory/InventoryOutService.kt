@@ -1,7 +1,7 @@
 package com.freshtuna.sharp.inventory
 
-import com.freshtuna.sharp.id.PublicId
-import com.freshtuna.sharp.inventory.command.NewInventoryLogCommand
+import com.freshtuna.sharp.id.SharpID
+import com.freshtuna.sharp.inventory.command.InventoryInOutCommand
 import com.freshtuna.sharp.inventory.incoming.InventoryOutUseCase
 import com.freshtuna.sharp.inventory.outgoing.FindSkuPort
 import com.freshtuna.sharp.inventory.outgoing.InventoryOutPort
@@ -18,7 +18,7 @@ class InventoryOutService(
     private val findSkuPort: FindSkuPort
 ) : InventoryOutUseCase {
 
-    override fun out(command: NewInventoryLogCommand, sellerId: PublicId) {
+    override fun out(command: InventoryInOutCommand, sellerId: SharpID) {
 
         val sku = findSkuPort.find(command.skuId)
 

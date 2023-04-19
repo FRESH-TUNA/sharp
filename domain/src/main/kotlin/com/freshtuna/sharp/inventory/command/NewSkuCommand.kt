@@ -1,6 +1,6 @@
 package com.freshtuna.sharp.inventory.command
 
-import com.freshtuna.sharp.id.PublicId
+import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.price.Price
 import com.freshtuna.sharp.spec.Spec
 import java.time.LocalDateTime
@@ -13,7 +13,7 @@ class NewSkuCommand(
     val price: Price,
     val spec: Spec,
 
-    val sellerId: PublicId,
+    val sellerId: SharpID,
 
     val expireDate: LocalDateTime,
     val manufactureDate: LocalDateTime

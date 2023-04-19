@@ -1,7 +1,7 @@
 package com.freshtuna.sharp.request
 
-import com.freshtuna.sharp.id.PublicId
-import com.freshtuna.sharp.inventory.command.NewInventoryLogCommand
+import com.freshtuna.sharp.id.SharpID
+import com.freshtuna.sharp.inventory.command.InventoryInOutCommand
 import com.freshtuna.sharp.inventory.domain.inventory.InventoryCondition
 import com.freshtuna.sharp.inventory.domain.inventory.log.InventoryLogReason
 import io.swagger.v3.oas.annotations.media.Schema
@@ -24,8 +24,8 @@ class InventoryRequest(
     @Schema(description = "비고")
     private val description: String,
 ) {
-    fun toCommandOf(skuId: PublicId)
-        = NewInventoryLogCommand(
+    fun toCommandOf(skuId: SharpID)
+        = InventoryInOutCommand(
             skuId = skuId,
             count = count,
             reason = reason,

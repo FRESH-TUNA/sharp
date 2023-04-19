@@ -1,6 +1,6 @@
 package com.freshtuna.sharp.inventory
 
-import com.freshtuna.sharp.id.PublicId
+import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.inventory.command.SearchSkuInventoryLogsCommand
 import com.freshtuna.sharp.inventory.domain.*
 import com.freshtuna.sharp.inventory.domain.inventory.log.InventoryLog
@@ -37,10 +37,10 @@ class SearchInventoryServiceTestLog {
         /**
          * given
          */
-        val skuId = PublicId("skuId")
+        val skuId = SharpID("skuId")
         val command = SearchSkuInventoryLogsCommand()
         val pageRequest =  SharpPageRequest()
-        val sellerId = PublicId("sellerID")
+        val sellerId = SharpID("sellerID")
 
         /**
          * when
@@ -64,7 +64,7 @@ class SearchInventoryServiceTestLog {
     }
 
     private fun createSKU() = SKU(
-        id = PublicId("newId"),
+        id = SharpID("newId"),
         name = "newsku",
         barcode = "barcode",
         description = "description",
@@ -73,7 +73,7 @@ class SearchInventoryServiceTestLog {
             Weight(BigDecimal.TEN, WeightScale.GRAM),
             Dimension(BigDecimal.TEN, BigDecimal.TEN, BigDecimal.TEN, DimensionScale.CM)
         ),
-        sellerId = PublicId("sellerID"),
+        sellerId = SharpID("sellerID"),
 
         expireDate = LocalDateTime.MIN,
         manufactureDate = LocalDateTime.MIN
@@ -83,14 +83,14 @@ class SearchInventoryServiceTestLog {
 
         val page = listOf(
             InventoryLog(
-                id = PublicId("1"),
-                skuId = PublicId("skuId"),
+                id = SharpID("1"),
+                skuId = SharpID("skuId"),
                 status = InventoryLogReason.NEW,
                 count = 1
             ),
             InventoryLog(
-                id = PublicId("2"),
-                skuId = PublicId("skuId"),
+                id = SharpID("2"),
+                skuId = SharpID("skuId"),
                 status = InventoryLogReason.OUT,
                 count = 1
             )

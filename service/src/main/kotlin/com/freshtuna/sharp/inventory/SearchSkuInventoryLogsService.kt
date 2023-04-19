@@ -1,6 +1,6 @@
 package com.freshtuna.sharp.inventory
 
-import com.freshtuna.sharp.id.PublicId
+import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.inventory.command.SearchSkuInventoryLogsCommand
 import com.freshtuna.sharp.inventory.domain.inventory.log.InventoryLog
 import com.freshtuna.sharp.inventory.incoming.SearchSkuInventoryLogsUseCase
@@ -18,10 +18,10 @@ class SearchSkuInventoryLogsService(
     private val searchSkuInventoriesPort: SearchSkuInventoriesPort,
 ) : SearchSkuInventoryLogsUseCase {
 
-    override fun search(skuId: PublicId,
+    override fun search(skuId: SharpID,
                         command: SearchSkuInventoryLogsCommand,
                         pageRequest: SharpPageRequest,
-                        sellerId: PublicId
+                        sellerId: SharpID
     ): SharpPage<InventoryLog> {
 
         val sku = findSkuPort.find(skuId)
