@@ -20,7 +20,7 @@ class InventoryOutAdapter(
         val inventories = inventoryRepository.findByConditionAndStatus(
             command.condition, InventoryStatus.READY, pageRequest)
 
-        if(inventories.size != command.count.toInt())
+        if(inventories.content.size != command.count.toInt())
             Oh.badRequest()
 
         inventoryRepository.deleteAll(inventories.content)
