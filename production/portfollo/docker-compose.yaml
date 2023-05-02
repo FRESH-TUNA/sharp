@@ -3,13 +3,13 @@ version: "3"
 services:
   db:
     env_file:
-      - .sharp.db.env
+      - sharp.db.env
     image: mariadb:10.6.4
     container_name: db.sharp
     networks:
       - sharp
     volumes:
-      - db.sharp:/var/lib/mysql
+      - sharp.db:/var/lib/mysql
     logging:
       driver: "json-file"
       options:
@@ -18,8 +18,8 @@ services:
     command: --character-set-client-handshake=FALSE
   inventory:
     volumes:
-      - ./inventory.application.yaml:./application.yaml
-    image: lunacircle4/sharp:1.0.2
+      - ./inventory/application.yaml:/sharp/application.yaml
+    image: lunacircle4/sharp.inventory:1.0.2
     container_name: inventory.sharp
     networks:
       - sharp
@@ -40,8 +40,8 @@ services:
     container_name: web.sharp
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
-      - /etc/letsencrypt/live/freshtuna.site/fullchain.pem:/etc/letsencrypt/live/freshtuna.site/fullchain.pem
-      - /etc/letsencrypt/live/freshtuna.site/privkey.pem:/etc/letsencrypt/live/freshtuna.site/privkey.pem
+      - /etc/letsencrypt/live/sharp.freshtuna.site/fullchain.pem:/etc/letsencrypt/live/sharp.freshtuna.site/fullchain.pem
+      - /etc/letsencrypt/live/sharp.freshtuna.site/privkey.pem:/etc/letsencrypt/live/sharp.freshtuna.site/privkey.pem
     networks:
       - sharp
     ports:
@@ -57,4 +57,4 @@ networks:
   sharp:
 
 volumes:
-  db.sharp:
+  sharp.db:
