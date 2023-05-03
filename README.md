@@ -1,6 +1,10 @@
-# \# 
+# \#
 
 <img src="https://img.shields.io/badge/Kotlin-0095D5?&style=for-the-badge&logo=kotlin&logoColor=white"/> <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=for-the-badge&logo=Spring Boot&logoColor=white"/> <img src="https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=mariaDB&logoColor=white"> <img src="https://img.shields.io/badge/SWAGGER-1DB33A?style=for-the-badge&logo=swagger&logoColor=white">
+
+## 데모 배포 주소
+- 데모 jwt 키: [링크](https://github.com/FRESH-TUNA/sharp/wiki/%EB%8D%B0%EB%AA%A8-jwt-%ED%82%A4)
+- 재고관리: [링크](https://inventory.sharp.freshtuna.site/swagger-ui/index.html)
 
 ## 프로젝트 개요
 오늘날의 IT 시대에 이커머스는 리테일 산업에서 필수적인 부분이 되었습니다. 하지만 이커머스를 위한 어플리케이션 개발은 복잡하고 어려울수 있으므로, 비즈니스에 어려움을 겪는 기업이 있을수 있습니다.
@@ -51,6 +55,30 @@ Hexagonal 아키텍처는 중심에 있는 도메인과, 요청을 받거나(ex:
 유스케이스와 포트는 모두 인터페이스 입니다. 어댑터가 도메인에 요청할때, 혹은 도메인에서 어댑터에 요청할때 모두 도메인에서 지정하는 인터페이스를 통해 요청하므로 모듈간 결합도를 낮출수 있습니다. 이는 어댑터의 기술스택의 교체(ex: rdb -> nosql)를 용이하게 하여 지속가능한 개발을 진행할수 있게 도와줍니다.
 
 이커머스 플랫폼은 결제 게이트웨이(PG), 배송업체, 재고 관리 시스템 등 다양한 타사 시스템과 통합할 수 있어야 합니다. 육각형 아키텍처는 모듈(구현체)의 교체가 용이하므로 이커머스 플랫폼의 지속적인 개발에 도움을 줄수 있습니다.
+
+
+### 도커(컨테이너 가상화)를 이용한 프로젝트 배포
+저는 프로젝트의 소개 및 공부 목적으로 컨테이너 가상화 서비스인 도커를 사용하여 AWS 환경에 프로젝트를 배포했습니다.
+
+가상화 기술을 사용하면 서버들이 완전히 격리되어 있기 때문에 한 서버가 침입당해도 다른 서버에 영향을 미치지 않습니다. 이를 통해 시스템의 보안을 강화할 수 있습니다. 두번째로 각 서버의 리소스를 더욱 효율적으로 관리할 수 있습니다. 예를 들어, 메일서버와 웹서버를 하나의 OS에서 구축하는 경우, 서버 간에 리소스 충돌이 발생할 수 있습니다. 하지만 가상화를 사용하면 각 서버가 필요로하는 리소스(CPU, 메모리)를 조정하거나 할당할 수 있는 장점이 있습니다. 가상화 기술은 스냅샷 기능을 제공하여 서버를 다른 물리적인 서버로 쉽게 이동할 수 있어 서버 유지보수나 장애 대응 등에서 유용하게 사용됩니다. 이를 통해 인적 오류를 줄일 수 있습니다.
+
+가상화를 사용하는 방법으로는 하이퍼바이저, 소프트웨어 설치, 컨테이너 방식이 있습니다. 컨테이너 방식은 가상 머신 생성 시 스냅샷을 복사하는 대신 이미지를 참조하기 때문에 차지하는 용량이 적습니다. 또한 리눅스 네임스페이스 기능을 사용하여 OS 자체적으로 격리를 구현하기 때문에 성능이 우수하며 마이크로서비스 배포에도 적합합니다.
+
+빠르고 효율적인 배포를 위해서는 도커 이미지 용량의 최적화가 필요합니다. 저는 이를 위해 멀티스테이지 빌드 기법을 사용했고, gradle 이미지에서 어플리케이션을 빌드하여 jre 이미지에 복사하는 방식을 사용하여 이미지의 용량을 줄이기 위해 노력했습니다.
+
+```
+# BUILDER
+FROM gradle:7.6.1-jdk17 AS builder
+ADD ./ /sharp
+WORKDIR /sharp
+RUN gradle :api:inventory-api:bootJar --no-daemon
+
+# RUNNING
+FROM azul/zulu-openjdk-alpine:17-jre
+WORKDIR /sharp
+COPY --from=builder /sharp/api/inventory-api/build/libs/inventory-api-0.0.1-SNAPSHOT.jar inventory.jar
+CMD java -Dspring.profiles.active=default -Dserver.port=$PORT $JAVA_OPTS -Dspring.config.location=application.yaml -jar inventory.jar
+```
 
 ### JWT 기반의 로컬 인증 플로우
 ![jwt 기반 인증](./docs/jwt-workflow1.png)

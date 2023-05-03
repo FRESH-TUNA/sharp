@@ -5,7 +5,7 @@ import com.freshtuna.sharp.util.SpringPageableConverter
 import org.springframework.data.domain.Pageable
 
 class SearchSkuRequest(
-    private val query: String
+    private val query: String = ""
 ) {
 
     fun toCommand(pageable: Pageable): SearchSkuCommand
