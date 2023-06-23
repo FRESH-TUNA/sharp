@@ -10,8 +10,6 @@ class InventoryInOutCommand(
 
     val count: Long,
 
-    val condition: InventoryCondition,
-
     val reason: InventoryLogReason,
 
     val description: String = ""

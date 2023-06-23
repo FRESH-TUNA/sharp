@@ -17,8 +17,7 @@ class InventoryOutAdapter(
 
         val pageRequest = PageRequest.of(0, command.count.toInt())
 
-        val inventories = inventoryRepository.findByConditionAndStatus(
-            command.condition, InventoryStatus.READY, pageRequest)
+        val inventories = inventoryRepository.findByStatus(InventoryStatus.READY, pageRequest)
 
         if(inventories.size != command.count.toInt())
             Oh.badRequest()

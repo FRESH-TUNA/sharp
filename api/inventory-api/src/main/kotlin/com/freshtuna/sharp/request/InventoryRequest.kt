@@ -14,22 +14,17 @@ class InventoryRequest(
     @Pattern(regexp = "^(NEW|RETURN|MODIFY|SHIPPER)$")
     private val reason: InventoryLogReason,
 
-    @Schema(description = "입/출고할 재고의 상태")
-    @Pattern(regexp = "^(NEW|OLD)$")
-    private val condition: InventoryCondition,
-
     @Schema(description = "수량")
     private val count: Long,
 
     @Schema(description = "비고")
-    private val description: String,
+    private val description: String
 ) {
     fun toCommandOf(skuId: SharpID)
-        = InventoryInOutCommand(
-            skuId = skuId,
-            count = count,
-            reason = reason,
-            condition = condition,
-            description = description
-        )
+            = InventoryInOutCommand(
+        skuId = skuId,
+        count = count,
+        reason = reason,
+        description = description
+    )
 }

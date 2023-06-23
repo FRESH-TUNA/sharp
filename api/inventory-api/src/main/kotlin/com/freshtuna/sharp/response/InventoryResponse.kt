@@ -1,6 +1,5 @@
 package com.freshtuna.sharp.response
 
-import com.freshtuna.sharp.inventory.domain.inventory.InventoryCondition
 import com.freshtuna.sharp.inventory.domain.inventory.log.InventoryLog
 import com.freshtuna.sharp.inventory.domain.inventory.log.InventoryLogReason
 import io.swagger.v3.oas.annotations.media.Schema
@@ -18,9 +17,6 @@ class InventoryResponse(
     @Schema(description = "입/출고 한 재고의 갯수")
     val count: Long,
 
-    @Schema(description = "입/출고 한 재고의 상태")
-    val condition: InventoryCondition,
-
     val description: String
 )
 
@@ -29,6 +25,5 @@ fun InventoryLog.toResponse() = InventoryResponse(
     skuId = skuId.stringId(),
     reason = reason,
     count = count,
-    condition = condition,
     description = description
 )

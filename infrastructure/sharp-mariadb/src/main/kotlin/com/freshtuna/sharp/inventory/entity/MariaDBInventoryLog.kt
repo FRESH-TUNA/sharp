@@ -5,7 +5,6 @@ import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.inventory.domain.inventory.log.InventoryLog
 import com.freshtuna.sharp.inventory.domain.inventory.log.InventoryLogReason
 import com.freshtuna.sharp.inventory.command.InventoryInOutCommand
-import com.freshtuna.sharp.inventory.domain.inventory.InventoryCondition
 import com.freshtuna.sharp.inventory.domain.inventory.log.InventoryLogType
 import jakarta.persistence.*
 
@@ -24,10 +23,6 @@ class MariaDBInventoryLog(
     @Column(name = "`reason`")
     val reason: InventoryLogReason,
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "`condition`")
-    val condition: InventoryCondition,
-
     @Column(name = "`count`")
     val count: Long,
 
@@ -41,7 +36,6 @@ class MariaDBInventoryLog(
             type = if(command.reason.isIN()) InventoryLogType.INCOMING else InventoryLogType.OUTGOING,
 
             reason = command.reason,
-            condition = command.condition,
 
             count = command.count,
             description = command.description
@@ -54,7 +48,6 @@ class MariaDBInventoryLog(
 
         type = type,
         reason = reason,
-        condition = condition,
 
         count = count,
         description = description

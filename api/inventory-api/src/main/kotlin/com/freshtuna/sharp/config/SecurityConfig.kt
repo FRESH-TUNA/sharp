@@ -1,5 +1,6 @@
 package com.freshtuna.sharp.config
 
+import com.freshtuna.sharp.config.env.CORSProperties
 import com.freshtuna.sharp.member.constant.Role
 import com.freshtuna.sharp.security.filter.AuthTokenFilter
 import io.github.oshai.KotlinLogging
@@ -12,12 +13,14 @@ import org.springframework.security.config.http.SessionCreationPolicy
 
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
-
+import org.springframework.web.cors.CorsConfiguration
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
 @Configuration
 @EnableWebSecurity
 class SecurityConfig(
-    private val authTokenFilter: AuthTokenFilter
+    private val authTokenFilter: AuthTokenFilter,
+    private val corsProperties: CORSProperties
 ) {
 
     private val logger = KotlinLogging.logger {}
@@ -45,5 +48,20 @@ class SecurityConfig(
             .and()
             .addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter::class.java)
             .build()
+    }
+
+    /** CORS 설정  */
+    @Bean
+    fun corsConfigurationSource(): UrlBasedCorsConfigurationSource {
+        val corsConfigSource = UrlBasedCorsConfigurationSource()
+        val corsConfig = CorsConfiguration()
+        corsConfig.allowedHeaders = corsProperties.allowedHeaders.split(",")
+        corsConfig.allowedMethods = corsProperties.allowedMethods.split(",")
+        corsConfig.allowedOrigins = corsProperties.allowedOrigins.split(",")
+        corsConfig.exposedHeaders = corsProperties.exposedHeaders.split(",")
+        corsConfig.maxAge = corsProperties.maxAge
+        corsConfig.allowCredentials = true
+        corsConfigSource.registerCorsConfiguration("/**", corsConfig)
+        return corsConfigSource
     }
 }

@@ -10,7 +10,6 @@ class InventoryLog(
     val type: InventoryLogType,
 
     val count: Long,
-    val condition: InventoryCondition,
     val reason: InventoryLogReason,
 
     val description: String

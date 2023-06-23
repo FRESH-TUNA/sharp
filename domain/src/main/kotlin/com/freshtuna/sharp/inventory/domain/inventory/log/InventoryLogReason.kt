@@ -24,6 +24,11 @@ enum class InventoryLogReason(
     // 배송
     SHIPPED(InventoryLogType.OUTGOING);
 
+    companion object {
+        val IN_REASONS = listOf(NEW, RETURN)
+        val OUT_REASONS = listOf(MODIFY, SHIPPED)
+    }
+
     fun isIN() = type == InventoryLogType.INCOMING
 
     fun isOUT() = type == InventoryLogType.OUTGOING

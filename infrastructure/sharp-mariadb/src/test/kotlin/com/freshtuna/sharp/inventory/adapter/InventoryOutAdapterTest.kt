@@ -43,7 +43,7 @@ class InventoryOutAdapterTest {
         val page = pageOfSuccess(count, condition)
 
         every {
-            repository.findByConditionAndStatus(condition, InventoryStatus.READY, any())
+            repository.findByStatus(condition, InventoryStatus.READY, any())
         } returns page
 
         every {
@@ -77,7 +77,7 @@ class InventoryOutAdapterTest {
         val page = pageOfSuccess(count, condition)
 
         every {
-            repository.findByConditionAndStatus(condition, InventoryStatus.READY, any())
+            repository.findByStatus(condition, InventoryStatus.READY, any())
         } returns Page.empty()
 
         every {
