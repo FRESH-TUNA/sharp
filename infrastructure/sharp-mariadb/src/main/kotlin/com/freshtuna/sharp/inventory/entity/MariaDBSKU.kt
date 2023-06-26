@@ -1,6 +1,7 @@
 package com.freshtuna.sharp.inventory.entity
 
 import com.freshtuna.sharp.entity.MariaDBDefaultEntity
+import com.freshtuna.sharp.entity.MariaDBSeller
 import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.inventory.domain.SKU
 import com.freshtuna.sharp.inventory.command.NewSkuCommand
@@ -10,19 +11,16 @@ import com.freshtuna.sharp.price.entity.MariaDBPrice
 import com.freshtuna.sharp.price.entity.toEntity
 import com.freshtuna.sharp.spec.entity.MariaDBSpecification
 import com.freshtuna.sharp.spec.entity.toEntity
+import jakarta.persistence.*
 
-import jakarta.persistence.Embedded
-import jakarta.persistence.Entity
-import jakarta.persistence.OneToMany
-import jakarta.persistence.Table
 import java.time.LocalDateTime
-import java.util.*
 
 @Entity
 @Table(name = "sku")
 class MariaDBSKU(
 
-    val sellerId: UUID,
+    @ManyToOne
+    val seller: MariaDBSeller,
 
     var name: String,
 
@@ -60,7 +58,7 @@ class MariaDBSKU(
 
     fun toDomain() = SKU(
         id = SharpID(id.toString()),
-        sellerId = SharpID(sellerId),
+        sellerId = SharpID(seller.id),
         name = name,
         barcode = barcode,
         description = description,
@@ -78,13 +76,13 @@ class MariaDBSKU(
 /**
  * external
  */
-fun NewSkuCommand.toEntity() = MariaDBSKU(
+fun NewSkuCommand.toEntity(seller: MariaDBSeller) = MariaDBSKU(
     name = this.name,
     barcode = this.barcode,
     description = this.description,
     price = this.price.toEntity(),
     specification = this.spec.toEntity(),
-    sellerId = UUID.fromString(sellerId.toString()),
+    seller = seller,
 
     expireDate = this.expireDate,
     manufactureDate = this.manufactureDate,

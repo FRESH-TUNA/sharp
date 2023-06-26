@@ -4,10 +4,10 @@ import com.freshtuna.sharp.api.response.BasicResponse
 import com.freshtuna.sharp.api.response.MessageResponse
 import com.freshtuna.sharp.config.const.Url
 import com.freshtuna.sharp.id.SharpID
+import com.freshtuna.sharp.id.SharpIDInjection
 import com.freshtuna.sharp.inventory.incoming.InventoryOutUseCase
 
 import com.freshtuna.sharp.request.InventoryRequest
-import com.freshtuna.sharp.security.userDetail.UserDetailManager
 import com.freshtuna.sharp.spec.InventoryOutSpec
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -24,11 +24,13 @@ class InventoryOutController(
 
     @PostMapping(Url.EXTERNAL.SKU_ID_INVENTORY_OUT)
     override fun new(@RequestBody request: InventoryRequest,
-                     @Parameter(description = "출고 SKU 아이디") @PathVariable id: Long): BasicResponse {
-        val skuId = SharpID(id)
-        val sellerId = UserDetailManager.getPublicId()
+                     @Parameter(description = "출고 SKU 아이디")
+                     @PathVariable id: Long,
+                     @SharpIDInjection sellerID: SharpID): BasicResponse {
 
-        useCase.out(request.toCommandOf(skuId), sellerId)
+        val skuId = SharpID(id)
+
+        useCase.out(request.toCommandOf(skuId), sellerID)
 
         return MessageResponse.OK
     }

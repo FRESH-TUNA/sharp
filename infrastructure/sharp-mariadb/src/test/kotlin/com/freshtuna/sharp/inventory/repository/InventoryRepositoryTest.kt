@@ -28,6 +28,6 @@ class InventoryRepositoryTest {
 
         val sku = skuRepository.findById(1L).get()
 
-        inventoryRepository.save(MariaDBInventory(sku, InventoryStatus.READY, InventoryCondition.NEW))
+        inventoryRepository.save(MariaDBInventory(sku, InventoryStatus.READY))
     }
 }

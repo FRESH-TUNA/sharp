@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository
 
 interface InventoryRepository : JpaRepository<MariaDBInventory, Long> {
 
-    fun findByStatus(status: InventoryStatus,
-                     pageable: Pageable) : Page<MariaDBInventory>
+    fun findBySkuIdAndStatus(skuId: Long,
+                             status: InventoryStatus,
+                             pageable: Pageable) : Page<MariaDBInventory>
 }
+

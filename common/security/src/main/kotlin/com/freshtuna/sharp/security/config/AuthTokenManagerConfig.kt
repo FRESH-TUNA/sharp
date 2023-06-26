@@ -6,7 +6,6 @@ import com.freshtuna.sharp.security.token.spec.AuthTokenManager
 import io.jsonwebtoken.security.Keys
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import java.util.Base64
 
 @Configuration
 class AuthTokenManagerConfig(
@@ -18,7 +17,6 @@ class AuthTokenManagerConfig(
 
         return JWTAuthTokenManager(
             Keys.hmacShaKeyFor(authTokenProperties.secret.toByteArray()),
-            authTokenProperties.roleKey,
             authTokenProperties.prefix
         )
     }

@@ -1,7 +1,7 @@
 package com.freshtuna.sharp.security.token
 
 import com.freshtuna.sharp.id.SharpID
-import com.freshtuna.sharp.member.constant.Role
+import com.freshtuna.sharp.id.SharpPublicID
 import com.freshtuna.sharp.oh.Oh
 import com.freshtuna.sharp.security.token.spec.AuthTokenManager
 import io.github.oshai.KotlinLogging
@@ -14,14 +14,12 @@ import java.security.Key
  */
 class JWTAuthTokenManager(
     private val signSecret: Key,
-    private val roleKey: String,
     private val prefix: String
 ) : AuthTokenManager {
 
     private val logger = KotlinLogging.logger {}
 
     override fun validate(token: AuthToken) {
-        logger.info(tokenStringWithoutPrefix(token))
 
         try {
             Jwts.parserBuilder()
@@ -34,24 +32,13 @@ class JWTAuthTokenManager(
         }
     }
 
-    override fun extractPublicId(token: AuthToken): SharpID {
+    override fun extractPublicId(token: AuthToken): SharpPublicID {
 
-        return SharpID(Jwts.parserBuilder()
+        return SharpPublicID(Jwts.parserBuilder()
                 .setSigningKey(signSecret)
                 .build()
                 .parseClaimsJws(tokenStringWithoutPrefix(token))
                 .body.subject)
-    }
-
-    override fun extractRoles(token: AuthToken): List<Role> {
-
-        val roles =Jwts.parserBuilder()
-            .setSigningKey(signSecret)
-            .build()
-            .parseClaimsJws(tokenStringWithoutPrefix(token))
-            .body.get(roleKey, List::class.java) as List<String>
-
-        return roles.stream().map { role -> Role.valueOf(role.toString()) }.toList()
     }
 
     private fun tokenStringWithoutPrefix(token: AuthToken)

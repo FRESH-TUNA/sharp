@@ -36,10 +36,9 @@ class NewInventoryLogAdapterTest {
          */
         val skuId = SharpID(1L)
         val count = 3L
-        val condition = InventoryCondition.NEW
         val reason = InventoryLogReason.MODIFY
         val description = "초콜릿 먹고 싶다"
-        val command = InventoryInOutCommand(skuId, count, condition, reason, description)
+        val command = InventoryInOutCommand(skuId, count, reason, description)
 
         val skuEntity = mockk<MariaDBSKU>{
             every { id } returns skuId.longId()
@@ -49,7 +48,7 @@ class NewInventoryLogAdapterTest {
             skuRepository.findById(skuId.longId())
         } returns Optional.of(skuEntity)
 
-        val logEntity = MariaDBInventoryLog(skuEntity, reason.type, reason, condition, count, description)
+        val logEntity = MariaDBInventoryLog(skuEntity, reason.type, reason, count, description)
 
         every {
             logRepository.save(any())
@@ -65,7 +64,6 @@ class NewInventoryLogAdapterTest {
          */
         assertEquals(result.reason, reason)
         assertEquals(result.count, count)
-        assertEquals(result.condition, condition)
         assertEquals(result.description, description)
         assertEquals(result.type, reason.type)
     }

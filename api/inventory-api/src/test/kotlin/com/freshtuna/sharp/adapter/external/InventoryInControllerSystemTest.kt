@@ -40,7 +40,6 @@ class InventoryInControllerSystemTest {
          */
         val requestBody = mapOf(
             "reason" to "NEW",
-            "condition" to "NEW",
             "count" to 3,
             "description" to "입고 테스트"
         )

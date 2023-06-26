@@ -1,0 +1,1 @@
+ALTER TABLE `sku` DROP COLUMN `seller_id`;

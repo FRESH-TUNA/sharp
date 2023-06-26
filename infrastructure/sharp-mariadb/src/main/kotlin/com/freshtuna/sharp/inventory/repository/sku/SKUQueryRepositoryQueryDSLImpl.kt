@@ -1,5 +1,6 @@
 package com.freshtuna.sharp.inventory.repository.sku
 
+import com.freshtuna.sharp.entity.MariaDBSeller
 import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.inventory.command.sku.SearchSkuCommand
 import com.freshtuna.sharp.inventory.dto.SkuInventoriesDto
@@ -36,14 +37,14 @@ class SKUQueryRepositoryQueryDSLImpl(
         val count = queryFactory
             .select(Wildcard.count)
             .from(sku)
-            .where(sku.sellerId.eq(UUID.fromString(sellerId.toString())))
+            .where(sku.seller.id.eq(sellerId.longId()))
             .where(wherePredicate)
             .fetchOne()
 
         val data = queryFactory
             .select(sku)
             .from(sku)
-            .where(sku.sellerId.eq(UUID.fromString(sellerId.toString())))
+            .where(sku.seller.id.eq(sellerId.longId()))
             .where(wherePredicate)
             .orderBy(*orderBys(commend.sharpPageRequest.sharpSort).toTypedArray())
             .offset(offset(commend.sharpPageRequest))
