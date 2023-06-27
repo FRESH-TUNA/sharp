@@ -1,6 +1,7 @@
 package com.freshtuna.sharp.config.intercepter
 
 import com.freshtuna.sharp.config.const.Const
+import com.freshtuna.sharp.id.SharpPublicID
 import com.freshtuna.sharp.security.token.AuthToken
 import com.freshtuna.sharp.security.token.spec.AuthTokenManager
 import com.freshtuna.sharp.seller.incoming.SellerManageUseCase
@@ -22,8 +23,6 @@ class SellerAuthInterceptor(
     val log = KotlinLogging.logger {  }
 
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
-
-        log.info("checked!")
 
         val token = HeaderUtil.getAuthorizationHeaderValue(request)
 

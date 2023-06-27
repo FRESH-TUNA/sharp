@@ -27,18 +27,11 @@ class SharpIDResolver : HandlerMethodArgumentResolver {
         webRequest: NativeWebRequest,
         binderFactory: WebDataBinderFactory?
     ): Any? {
-        log.info("checked")
 
         val request: HttpServletRequest = webRequest.getNativeRequest(HttpServletRequest::class.java)
             ?: throw IllegalStateException("HttpServletRequest not found")
 
-        val user = request.getAttribute(Const.SHARP_ID_HEADER_KEY) as? SharpID
-
-        val loginUser = parameter.getParameterAnnotation(SharpIDInjection::class.java)
-
-        if (loginUser == null || user == null) {
-            throw IllegalArgumentException("사용자 정보가 존재하지 않습니다.")
-        }
-        return user
+        return request.getAttribute(Const.SHARP_ID_HEADER_KEY) as? SharpID
+            ?: throw IllegalArgumentException("사용자 정보가 존재하지 않습니다.")
     }
 }
