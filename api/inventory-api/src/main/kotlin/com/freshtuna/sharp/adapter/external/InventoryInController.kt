@@ -25,7 +25,7 @@ class InventoryInController(
     @PostMapping(Url.EXTERNAL.SKU_ID_INVENTORY_IN)
     override fun new(@RequestBody request: InventoryRequest,
                      @Parameter(description = "입/출고 SKU 아이디") @PathVariable id: Long,
-                     @SharpIDInjection sellerID: SharpID): BasicResponse {
+                     @Parameter(hidden = true) @SharpIDInjection sellerID: SharpID): BasicResponse {
 
         val skuId = SharpID(id)
 

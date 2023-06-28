@@ -25,7 +25,7 @@ class UpdateSkuController(
     @PutMapping(Url.EXTERNAL.SKU_ID)
     override fun update(@RequestBody request: SkuRequest,
                         @Parameter(description = "SKU 아이디") @PathVariable id: String,
-                        @SharpIDInjection sellerID: SharpID): BasicResponse {
+                        @Parameter(hidden = true) @SharpIDInjection sellerID: SharpID): BasicResponse {
 
         useCase.update(request.toUpdateCommand(SharpID(id)), sellerID)
         return MessageResponse.OK

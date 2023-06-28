@@ -25,7 +25,7 @@ class SkuDetailController(
 
     @GetMapping(Url.EXTERNAL.SKU_ID)
     override fun detail(@Parameter(description = "SKU 아이디") @PathVariable id: String,
-                        @SharpIDInjection sellerID: SharpID): BasicResponse {
+                        @Parameter(hidden = true) @SharpIDInjection sellerID: SharpID): BasicResponse {
 
         val command = DetailSkuCommand(SharpID(id))
 

@@ -12,6 +12,7 @@ import com.freshtuna.sharp.id.SharpIDInjection
 import com.freshtuna.sharp.response.NewSkuResponse
 import com.freshtuna.sharp.response.toNewSkuResponse
 import io.github.oshai.KotlinLogging
+import io.swagger.v3.oas.annotations.Parameter
 
 import io.swagger.v3.oas.annotations.tags.Tag
 
@@ -29,7 +30,7 @@ class NewSkuController(
 
     @PostMapping(Url.EXTERNAL.SKU)
     override fun new(@RequestBody request: SkuRequest,
-                     @SharpIDInjection sellerID: SharpID): DataResponse<NewSkuResponse> {
+                     @Parameter(hidden = true) @SharpIDInjection sellerID: SharpID): DataResponse<NewSkuResponse> {
 
         val result = useCase.new(request.toCommand(sellerID))
         return DataResponse.of(result.toNewSkuResponse())

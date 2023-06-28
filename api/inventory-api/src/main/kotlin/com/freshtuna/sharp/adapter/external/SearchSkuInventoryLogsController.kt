@@ -11,6 +11,7 @@ import com.freshtuna.sharp.response.InventoryResponse
 import com.freshtuna.sharp.response.toResponse
 import com.freshtuna.sharp.spec.SearchSkuInventoriesSpec
 import com.freshtuna.sharp.util.SpringPageableConverter
+import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.data.domain.Pageable
 
@@ -28,7 +29,7 @@ class SearchSkuInventoryLogsController(
     override fun search(
         @PathVariable("id") skuId: String,
         pageable: Pageable,
-        @SharpIDInjection sellerID: SharpID
+        @Parameter(hidden = true) @SharpIDInjection sellerID: SharpID
     ): DataResponse<SharpPage<InventoryResponse>> {
 
         val pageRequest = SpringPageableConverter.convert(pageable)
