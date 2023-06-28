@@ -1,7 +1,6 @@
 package com.freshtuna.sharp.config.intercepter
 
 import com.freshtuna.sharp.config.const.Const
-import com.freshtuna.sharp.id.SharpPublicID
 import com.freshtuna.sharp.security.token.AuthToken
 import com.freshtuna.sharp.security.token.spec.AuthTokenManager
 import com.freshtuna.sharp.seller.incoming.SellerManageUseCase
