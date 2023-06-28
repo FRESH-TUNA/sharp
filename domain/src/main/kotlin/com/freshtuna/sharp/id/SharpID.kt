@@ -2,7 +2,7 @@ package com.freshtuna.sharp.id
 
 import java.util.UUID
 
-class SharpID(
+open class SharpID(
     private val stringValue: String
 ) {
 
@@ -13,6 +13,9 @@ class SharpID(
     fun longId() = stringValue.toLong()
 
     fun stringId() = stringValue
+
+    fun uuid(): UUID = UUID.fromString(stringValue)
+
     override fun toString() = stringValue
 
     override fun equals(other: Any?): Boolean {

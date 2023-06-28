@@ -1,5 +1,6 @@
 package com.freshtuna.sharp.inventory.adapter
 
+import com.freshtuna.sharp.entity.repository.SellerRepository
 import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.inventory.domain.SKU
 import com.freshtuna.sharp.inventory.command.sku.SearchSkuCommand
@@ -7,10 +8,12 @@ import com.freshtuna.sharp.inventory.outgoing.SearchSkuPort
 import com.freshtuna.sharp.inventory.repository.sku.SKUQueryRepository
 import com.freshtuna.sharp.page.SharpPage
 import org.springframework.stereotype.Component
+import java.util.*
 
 @Component
 class SearchSkuAdapter(
-    private val repository: SKUQueryRepository
+    private val repository: SKUQueryRepository,
+    private val sellerRepository: SellerRepository
 ) : SearchSkuPort {
 
     override fun search(command: SearchSkuCommand, sellerId: SharpID): SharpPage<SKU> {

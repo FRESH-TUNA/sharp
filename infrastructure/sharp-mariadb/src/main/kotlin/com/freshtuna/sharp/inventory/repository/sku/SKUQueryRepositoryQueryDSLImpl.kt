@@ -20,7 +20,6 @@ import com.querydsl.core.types.dsl.Wildcard
 
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.stereotype.Component
-import java.util.*
 
 @Component
 class SKUQueryRepositoryQueryDSLImpl(
@@ -36,14 +35,14 @@ class SKUQueryRepositoryQueryDSLImpl(
         val count = queryFactory
             .select(Wildcard.count)
             .from(sku)
-            .where(sku.sellerId.eq(UUID.fromString(sellerId.toString())))
+            .where(sku.seller.id.eq(sellerId.longId()))
             .where(wherePredicate)
             .fetchOne()
 
         val data = queryFactory
             .select(sku)
             .from(sku)
-            .where(sku.sellerId.eq(UUID.fromString(sellerId.toString())))
+            .where(sku.seller.id.eq(sellerId.longId()))
             .where(wherePredicate)
             .orderBy(*orderBys(commend.sharpPageRequest.sharpSort).toTypedArray())
             .offset(offset(commend.sharpPageRequest))

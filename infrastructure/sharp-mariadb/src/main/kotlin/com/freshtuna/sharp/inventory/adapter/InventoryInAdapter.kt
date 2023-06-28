@@ -20,7 +20,7 @@ class InventoryInAdapter(
         val newStocks: MutableList<MariaDBInventory> = mutableListOf()
 
         for (i in 0 until command.count)
-            newStocks.add(MariaDBInventory(sku, InventoryStatus.READY, command.condition))
+            newStocks.add(MariaDBInventory(sku, InventoryStatus.READY))
 
         inventoryRepository.saveAll(newStocks)
     }

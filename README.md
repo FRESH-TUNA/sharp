@@ -19,7 +19,7 @@
 
 API 앱들엔 swagger를 통해 (접근방법: /swagger-url/index.html) API 문서를 보실수 있습니다.
 
-- [inventory-api](./api/inventory-api) (재고 관리)  
+- [inventory-api](./api/inventory-api) (재고 관리)
 
 ### [common](./common)
 유틸, 공통으로 사용되는 클래스를 관리합니다.
@@ -56,7 +56,6 @@ Hexagonal 아키텍처는 중심에 있는 도메인과, 요청을 받거나(ex:
 
 이커머스 플랫폼은 결제 게이트웨이(PG), 배송업체, 재고 관리 시스템 등 다양한 타사 시스템과 통합할 수 있어야 합니다. 육각형 아키텍처는 모듈(구현체)의 교체가 용이하므로 이커머스 플랫폼의 지속적인 개발에 도움을 줄수 있습니다.
 
-
 ### 도커(컨테이너 가상화)를 이용한 프로젝트 배포
 저는 프로젝트의 소개 및 공부 목적으로 컨테이너 가상화 서비스인 도커를 사용하여 AWS 환경에 프로젝트를 배포했습니다.
 
@@ -79,23 +78,61 @@ WORKDIR /sharp
 COPY --from=builder /sharp/api/inventory-api/build/libs/inventory-api-0.0.1-SNAPSHOT.jar inventory.jar
 CMD java -Dspring.profiles.active=default -Dserver.port=$PORT $JAVA_OPTS -Dspring.config.location=application.yaml -jar inventory.jar
 ```
+### 어떻게 JWT를 처리할것인가?
+프로젝트에 요청을 하기 위해서는 판매자 정보를 가지고 있는 JWT 토큰을 같이 보내줘야 합니다. 저는 JWT 토큰을 어떻게 처리하여 어플리케이션에 공급할지에 대한 고민이 있었습니다.
+처음 배포한 버전에서는 스프링 시큐리티의 도움을 받아서 해결을 했는데 몇가지 단점이 있었습니다. 
 
-### JWT 기반의 로컬 인증 플로우
-![jwt 기반 인증](./docs/jwt-workflow1.png)
-JWT(JSON WEB TOKEN)는 정보를 JSON을 사용하여 안전하게(손상, 위조여부 확인) 통신하기 위한 개방된 표준입니다. JWT는 웹 애플리케이션에서 인증 및 권한 부여 목적으로 자주 사용되고 있습니다.
+일단 로딩이 좀더 긴시간이 필요해 무거웠고, 스프링시큐리티를 공부하기 위한 러닝커브와 그로인한 협업의 어려움이 있겠다는 단점이 있었습니다.
+그리고 jwt토큰의 값을 검증하여 어플리케이션에 제공하기에는 스프링시큐리티는 너무 많은 기능을 제공하고 있습니다.
+그래서 스프링 web에서 제공하는 인터셉터와 리졸버를 활용했습니다. 
 
-JWT는 헤더, 페이로드, 서명의 세 부분으로 구성됩니다. 헤더는 토큰의 유형과 서명에 사용되는 알고리즘을 정의합니다. 페이로드에는 사용자와 관련된 정보와 추가로 필요로 하는 데이터들이 포함됩니다. JWT의 서명은 헤더와 페이로드정보를 기반으로 비밀키를 사용하여 생성됩니다. 이후 수신자가 헤더와 페이로드정보를 기반으로 비밀키를 사용하여 서명을 만든후 jwt토큰의 서명과 비교해보면 위조여부를 확인할수 있습니다.
+인터셉터에서는 토큰을 검증후 토큰에 있는 판매자 id를 sharp 내부에서 사용하는 id로 교체해주는 역활을 합니다. id를 교체하는 이유는 다음과 같습니다.
+id를 교체하면서 데이터베이스에 쿼리가 1번 발생하는 단점이 있지만, 인증시스템과 sharp시스템과의 id를 분리함으로써, 향후 인증시스템의 id 타입, 길이등의 정책변경시 유연하게 대응하고자 함이 있습니다.
 
-본 프로젝트에서는 jwt토큰의 sub(ID) 값과 roles(권한) 값으로 사용자 신원을 검증합니다.
+리졸버에서는 교체된 id를 어노테이션을 통해 컨트롤러에 주입해줍니다. 사실 리졸버 하나만 있어도 토큰을 검증하여 어플리케이션에 넘겨줄수 있지만, 검증하는 책임과 어플리케이션에 주입하는 책임을 분리하여 SRP원칙을 지키도록 하였습니다.
+
+```java
+// 어노테이션
+@Retention(AnnotationRetention.RUNTIME)
+@Target(AnnotationTarget.VALUE_PARAMETER)
+annotation class SharpIDInjection()
 ```
-# jwt payload
-{
-  "sub": "<ID>",
-  "ROLES": [
-    "SELLER"
-  ]
+
+```java
+// 리졸버
+@Component
+class SharpIDResolver : HandlerMethodArgumentResolver{
+
+    override fun supportsParameter(parameter:MethodParameter):Boolean{
+        return parameter.hasParameterAnnotation(SharpIDInjection::class.java)
+    }
+
+    ...
 }
 ```
+
+```java
+@Tag(name = "재고 입고")
+@RestController
+class InventoryInController(
+    private val useCase: InventoryInUseCase
+) : InventoryInSpec {
+
+    // 리졸버와 @SharpIDInjection 어노테이션을 통해 내부 ID 주입
+    @PostMapping(Url.EXTERNAL.SKU_ID_INVENTORY_IN)
+    override fun new(@RequestBody request: InventoryRequest,
+                     @Parameter(description = "입/출고 SKU 아이디") @PathVariable id: Long,
+                     @SharpIDInjection sellerID: SharpID): BasicResponse {
+
+        val skuId = SharpID(id)
+
+        useCase.new(request.toCommandOf(skuId), sellerID)
+
+        return MessageResponse.OK
+    }
+}
+```
+
 
 ## application.yml 설정 가이드
 ### 관계형 데이터베이스 구축하기

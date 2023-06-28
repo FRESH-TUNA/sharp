@@ -31,6 +31,9 @@ class InventoryInService(
         if(!sku.checkSameSeller(sellerId))
             Oh.badRequest()
 
+        if(command.countIsNotValid())
+            Oh.badRequest()
+
         newInventoryLogPort.new(command)
 
         inventoryInPort.`in`(command)

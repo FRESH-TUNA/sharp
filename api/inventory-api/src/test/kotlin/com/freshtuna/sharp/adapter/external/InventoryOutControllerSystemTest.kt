@@ -15,7 +15,6 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.test.context.ActiveProfiles
 
-
 @SpringBootTest(
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
     classes = [StockApiApplication::class]
@@ -38,7 +37,6 @@ class InventoryOutControllerSystemTest {
          */
         val requestBody = mapOf(
             "reason" to "MODIFY",
-            "condition" to "NEW",
             "count" to 3,
             "description" to "출고 테스트"
         )

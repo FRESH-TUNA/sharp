@@ -1,5 +1,6 @@
 package com.freshtuna.sharp.inventory.repository.sku
 
+import com.freshtuna.sharp.entity.MariaDBSeller
 import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.inventory.command.sku.SearchSkuCommand
 import com.freshtuna.sharp.inventory.dto.SkuInventoriesDto

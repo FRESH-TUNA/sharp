@@ -2,7 +2,6 @@ package com.freshtuna.sharp.inventory.adapter
 
 import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.inventory.command.InventoryInOutCommand
-import com.freshtuna.sharp.inventory.domain.inventory.InventoryCondition
 import com.freshtuna.sharp.inventory.domain.inventory.InventoryStatus
 import com.freshtuna.sharp.inventory.domain.inventory.log.InventoryLogReason
 import com.freshtuna.sharp.inventory.entity.MariaDBInventory
@@ -31,19 +30,18 @@ class InventoryOutAdapterTest {
          */
         val skuId = SharpID(1L)
         val count = 3L
-        val condition = InventoryCondition.NEW
         val reason = InventoryLogReason.MODIFY
         val description = "초콜릿 먹고 싶다"
 
-        val command = InventoryInOutCommand(skuId, count, condition, reason, description)
+        val command = InventoryInOutCommand(skuId, count, reason, description)
 
         /**
          * when
          */
-        val page = pageOfSuccess(count, condition)
+        val page = pageOfSuccess(count)
 
         every {
-            repository.findByConditionAndStatus(condition, InventoryStatus.READY, any())
+            repository.findBySkuIdAndStatus(skuId.longId(), InventoryStatus.READY, any())
         } returns page
 
         every {
@@ -65,19 +63,18 @@ class InventoryOutAdapterTest {
          */
         val skuId = SharpID(1L)
         val count = 3L
-        val condition = InventoryCondition.NEW
         val reason = InventoryLogReason.MODIFY
         val description = "초콜릿 먹고 싶다"
 
-        val command = InventoryInOutCommand(skuId, count, condition, reason, description)
+        val command = InventoryInOutCommand(skuId, count, reason, description)
 
         /**
          * when
          */
-        val page = pageOfSuccess(count, condition)
+        val page = pageOfSuccess(count)
 
         every {
-            repository.findByConditionAndStatus(condition, InventoryStatus.READY, any())
+            repository.findBySkuIdAndStatus(skuId.longId(), InventoryStatus.READY, any())
         } returns Page.empty()
 
         every {
@@ -90,11 +87,11 @@ class InventoryOutAdapterTest {
         assertThrows<SharpException> { adapter.out(command) }
     }
 
-    private fun pageOfSuccess(count: Long, condition: InventoryCondition): Page<MariaDBInventory> {
+    private fun pageOfSuccess(count: Long): Page<MariaDBInventory> {
         val inventories = mutableListOf<MariaDBInventory>()
 
         for (i in 0 until count)
-            inventories.add(MariaDBInventory(mockk(), InventoryStatus.READY, condition))
+            inventories.add(MariaDBInventory(mockk(), InventoryStatus.READY))
 
         return PageImpl(inventories)
     }

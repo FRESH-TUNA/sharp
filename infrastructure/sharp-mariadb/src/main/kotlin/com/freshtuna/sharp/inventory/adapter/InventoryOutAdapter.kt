@@ -5,7 +5,6 @@ import com.freshtuna.sharp.inventory.domain.inventory.InventoryStatus
 import com.freshtuna.sharp.inventory.outgoing.InventoryOutPort
 import com.freshtuna.sharp.inventory.repository.inventory.InventoryRepository
 import com.freshtuna.sharp.oh.Oh
-import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Component
 
 @Component
@@ -15,14 +14,14 @@ class InventoryOutAdapter(
 
     override fun out(command: InventoryInOutCommand) {
 
-        val pageRequest = PageRequest.of(0, command.count.toInt())
+        val totalCount = inventoryRepository.countBySkuIdAndStatus(
+            command.skuId.longId(),
+            InventoryStatus.READY,
+        )
 
-        val inventories = inventoryRepository.findByConditionAndStatus(
-            command.condition, InventoryStatus.READY, pageRequest)
-
-        if(inventories.content.size != command.count.toInt())
+        if(totalCount < command.count)
             Oh.badRequest()
 
-        inventoryRepository.deleteAll(inventories.content)
+        inventoryRepository.deleteBySkuIdWithCount(command.skuId.longId(), command.count)
     }
 }
