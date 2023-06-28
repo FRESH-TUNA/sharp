@@ -28,6 +28,9 @@ class InventoryOutService(
         if(!command.reason.isOUT())
             Oh.badRequest()
 
+        if(command.countIsNotValid())
+            Oh.badRequest()
+
         inventoryOutPort.out(command)
 
         newInventoryLogPort.new(command)

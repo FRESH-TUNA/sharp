@@ -13,4 +13,7 @@ class InventoryInOutCommand(
     val reason: InventoryLogReason,
 
     val description: String = ""
-)
+) {
+
+    fun countIsNotValid() = count <= 0
+}

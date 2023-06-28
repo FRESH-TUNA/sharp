@@ -1,6 +1,5 @@
 package com.freshtuna.sharp.inventory.repository.sku
 
-import com.freshtuna.sharp.entity.MariaDBSeller
 import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.inventory.command.sku.SearchSkuCommand
 import com.freshtuna.sharp.inventory.dto.SkuInventoriesDto
@@ -21,7 +20,6 @@ import com.querydsl.core.types.dsl.Wildcard
 
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.stereotype.Component
-import java.util.*
 
 @Component
 class SKUQueryRepositoryQueryDSLImpl(
