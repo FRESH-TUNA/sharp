@@ -2,16 +2,15 @@ package com.freshtuna.sharp.request
 
 import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.inventory.command.InventoryInOutCommand
-import com.freshtuna.sharp.inventory.domain.inventory.InventoryCondition
 import com.freshtuna.sharp.inventory.domain.inventory.log.InventoryLogReason
 import io.swagger.v3.oas.annotations.media.Schema
 import jakarta.validation.constraints.Pattern
 
-@Schema(description = "재고 입/출고 요청")
-class InventoryRequest(
+@Schema(description = "재고 출고 요청")
+class InventoryOutRequest(
 
-    @Schema(description = "사유: 입고(NEW-신규, RETURN-반품), 출고(MODIFY-입고수정, OUT-배송)")
-    @Pattern(regexp = "^(NEW|RETURN|MODIFY|SHIPPER)$")
+    @Schema(description = "사유: 출고(MODIFY-입고수정, OUT-배송)", example = "SHIPPED")
+    @Pattern(regexp = "^(MODIFY|SHIPPED)$")
     private val reason: InventoryLogReason,
 
     @Schema(description = "수량")

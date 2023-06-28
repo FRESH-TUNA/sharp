@@ -1,7 +1,7 @@
 package com.freshtuna.sharp.adapter.external
 
 import com.freshtuna.sharp.config.const.Url
-import com.freshtuna.sharp.request.InventoryRequest
+import com.freshtuna.sharp.request.InventoryInRequest
 import com.freshtuna.sharp.spec.InventoryInSpec
 import com.freshtuna.sharp.inventory.incoming.InventoryInUseCase
 import com.freshtuna.sharp.api.response.BasicResponse
@@ -23,8 +23,8 @@ class InventoryInController(
 ) : InventoryInSpec {
 
     @PostMapping(Url.EXTERNAL.SKU_ID_INVENTORY_IN)
-    override fun new(@RequestBody request: InventoryRequest,
-                     @Parameter(description = "입/출고 SKU 아이디") @PathVariable id: Long,
+    override fun new(@RequestBody request: InventoryInRequest,
+                     @Parameter(description = "입고 SKU 아이디") @PathVariable id: Long,
                      @Parameter(hidden = true) @SharpIDInjection sellerID: SharpID): BasicResponse {
 
         val skuId = SharpID(id)

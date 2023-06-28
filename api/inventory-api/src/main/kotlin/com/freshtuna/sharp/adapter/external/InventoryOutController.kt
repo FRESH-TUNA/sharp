@@ -6,8 +6,8 @@ import com.freshtuna.sharp.config.const.Url
 import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.id.SharpIDInjection
 import com.freshtuna.sharp.inventory.incoming.InventoryOutUseCase
+import com.freshtuna.sharp.request.InventoryOutRequest
 
-import com.freshtuna.sharp.request.InventoryRequest
 import com.freshtuna.sharp.spec.InventoryOutSpec
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -23,7 +23,7 @@ class InventoryOutController(
 ) : InventoryOutSpec {
 
     @PostMapping(Url.EXTERNAL.SKU_ID_INVENTORY_OUT)
-    override fun new(@RequestBody request: InventoryRequest,
+    override fun new(@RequestBody request: InventoryOutRequest,
                      @Parameter(description = "출고 SKU 아이디") @PathVariable id: Long,
                      @Parameter(hidden = true) @SharpIDInjection sellerID: SharpID): BasicResponse {
 
