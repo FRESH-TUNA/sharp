@@ -22,7 +22,7 @@ class SharpPage<T>(
         pageNumber = pageRequest.pageNumber,
         pageSize = pageRequest.pageSize,
 
-        totalPageCount = totalCount / pageRequest.pageSize,
+        totalPageCount = (totalCount+pageRequest.pageSize) / pageRequest.pageSize,
         totalCount = totalCount,
     )
 }
