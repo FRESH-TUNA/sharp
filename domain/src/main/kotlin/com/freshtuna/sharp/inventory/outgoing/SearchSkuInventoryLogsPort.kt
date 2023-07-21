@@ -6,7 +6,7 @@ import com.freshtuna.sharp.inventory.command.SearchSkuInventoryLogsCommand
 import com.freshtuna.sharp.page.SharpPage
 import com.freshtuna.sharp.page.SharpPageRequest
 
-interface SearchSkuInventoriesPort {
+interface SearchSkuInventoryLogsPort {
 
     fun search(skuId: SharpID,
                command: SearchSkuInventoryLogsCommand,

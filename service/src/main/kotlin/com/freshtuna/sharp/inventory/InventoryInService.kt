@@ -25,7 +25,7 @@ class InventoryInService(
 
         val sku = findSkuPort.find(command.skuId)
 
-        if(!command.reason.isIN())
+        if(!command.isIN())
             Oh.badRequest()
 
         if(!sku.checkSameSeller(sellerId))

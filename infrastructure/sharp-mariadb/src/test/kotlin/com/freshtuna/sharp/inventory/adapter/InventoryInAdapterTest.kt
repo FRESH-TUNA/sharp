@@ -2,7 +2,6 @@ package com.freshtuna.sharp.inventory.adapter
 
 import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.inventory.command.InventoryInOutCommand
-import com.freshtuna.sharp.inventory.domain.inventory.InventoryCondition
 import com.freshtuna.sharp.inventory.domain.inventory.log.InventoryLogReason
 import com.freshtuna.sharp.inventory.entity.MariaDBInventory
 import com.freshtuna.sharp.inventory.entity.MariaDBSKU

@@ -6,6 +6,7 @@ import com.freshtuna.sharp.inventory.entity.MariaDBInventoryLog
 import com.freshtuna.sharp.inventory.outgoing.NewInventoryLogPort
 import com.freshtuna.sharp.inventory.repository.sku.SKURepository
 import com.freshtuna.sharp.inventory.repository.inventory.InventoryLogRepository
+import com.freshtuna.sharp.oh.Oh
 import org.springframework.stereotype.Component
 
 @Component
@@ -16,9 +17,12 @@ class NewInventoryLogAdapter(
 
     override fun new(command: InventoryInOutCommand): InventoryLog {
 
-        val sku = skuRepository.findById(command.skuId.longId()).get()
+        val sku = skuRepository.findById(command.skuId.longId())
 
-        var info = MariaDBInventoryLog.of(sku, command)
+        if(sku.isEmpty)
+            Oh.badRequest()
+
+        var info = MariaDBInventoryLog.of(sku.get(), command)
 
         return inventoryLogRepository.save(info).toDomain()
     }
