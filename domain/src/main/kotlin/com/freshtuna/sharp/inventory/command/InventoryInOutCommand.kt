@@ -16,4 +16,8 @@ class InventoryInOutCommand(
 ) {
 
     fun countIsNotValid() = count <= 0
+
+    fun isIN() = reason.isIN()
+
+    fun isOUT() = reason.isOUT()
 }

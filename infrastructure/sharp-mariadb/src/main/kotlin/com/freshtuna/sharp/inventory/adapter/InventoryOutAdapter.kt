@@ -14,14 +14,15 @@ class InventoryOutAdapter(
 
     override fun out(command: InventoryInOutCommand) {
 
-        val totalCount = inventoryRepository.countBySkuIdAndStatus(
+        val inventories = inventoryRepository.findAllBySkuIdAndStatus(
             command.skuId.longId(),
             InventoryStatus.READY,
+            command.count
         )
 
-        if(totalCount < command.count)
+        if(inventories.size < command.count)
             Oh.badRequest()
 
-        inventoryRepository.deleteBySkuIdWithCount(command.skuId.longId(), command.count)
+        inventoryRepository.deleteAll(inventories)
     }
 }

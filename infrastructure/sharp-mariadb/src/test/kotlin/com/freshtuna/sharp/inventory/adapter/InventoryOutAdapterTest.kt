@@ -38,14 +38,12 @@ class InventoryOutAdapterTest {
         /**
          * when
          */
-        val page = pageOfSuccess(count)
+        every {
+            repository.countBySkuIdAndStatus(skuId.longId(), InventoryStatus.READY)
+        } returns 4L
 
         every {
-            repository.findBySkuIdAndStatus(skuId.longId(), InventoryStatus.READY, any())
-        } returns page
-
-        every {
-            repository.deleteAll(page.content)
+            repository.deleteBySkuIdWithCount(skuId.longId(), count)
         } returns Unit
 
         /**
@@ -74,8 +72,8 @@ class InventoryOutAdapterTest {
         val page = pageOfSuccess(count)
 
         every {
-            repository.findBySkuIdAndStatus(skuId.longId(), InventoryStatus.READY, any())
-        } returns Page.empty()
+            repository.countBySkuIdAndStatus(skuId.longId(), InventoryStatus.READY)
+        } returns 2L
 
         every {
             repository.deleteAll(page.content)

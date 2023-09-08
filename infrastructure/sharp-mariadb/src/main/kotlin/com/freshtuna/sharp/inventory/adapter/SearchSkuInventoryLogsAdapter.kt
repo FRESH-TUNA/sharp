@@ -4,7 +4,7 @@ import com.freshtuna.sharp.id.SharpID
 
 import com.freshtuna.sharp.inventory.domain.inventory.log.InventoryLog
 import com.freshtuna.sharp.inventory.command.SearchSkuInventoryLogsCommand
-import com.freshtuna.sharp.inventory.outgoing.SearchSkuInventoriesPort
+import com.freshtuna.sharp.inventory.outgoing.SearchSkuInventoryLogsPort
 import com.freshtuna.sharp.inventory.repository.sku.SKURepository
 import com.freshtuna.sharp.inventory.repository.inventory.InventoryLogRepository
 
@@ -14,10 +14,10 @@ import com.freshtuna.sharp.util.SpringPageableConverter
 import org.springframework.stereotype.Component
 
 @Component
-class SearchSkuInventoriesAdapter(
+class SearchSkuInventoryLogsAdapter(
     private val skuRepository: SKURepository,
     private val inventoryLogRepository: InventoryLogRepository,
-) : SearchSkuInventoriesPort {
+) : SearchSkuInventoryLogsPort {
 
     override fun search(skuId: SharpID,
                         command: SearchSkuInventoryLogsCommand,

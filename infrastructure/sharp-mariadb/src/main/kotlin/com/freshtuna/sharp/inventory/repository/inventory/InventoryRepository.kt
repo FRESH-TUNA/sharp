@@ -2,22 +2,26 @@ package com.freshtuna.sharp.inventory.repository.inventory
 
 import com.freshtuna.sharp.inventory.domain.inventory.InventoryStatus
 import com.freshtuna.sharp.inventory.entity.MariaDBInventory
-import jakarta.persistence.NamedNativeQuery
-import org.springframework.data.domain.Page
-import org.springframework.data.domain.Pageable
+
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
+import org.springframework.data.repository.query.Param
 
 interface InventoryRepository : JpaRepository<MariaDBInventory, Long> {
 
     @Query(
-        value = "select count(i.id) " +
-                "from MariaDBInventory i " +
-                "where i.sku.id = :skuId " +
-                "and i.status = :status"
+        nativeQuery = true,
+        value = "select *  " +
+                "from inventory " +
+                "where sku_id = :skuId " +
+                "and status = :#{#status.name()} " +
+                "limit :limit " +
+                "for update skip locked"
     )
-    fun countBySkuIdAndStatus(skuId: Long,
-                              status: InventoryStatus) : Long
+    fun findAllBySkuIdAndStatus(skuId: Long,
+                                status: InventoryStatus,
+                                limit: Long) : List<MariaDBInventory>
+
 
     @Query(
         nativeQuery = true,
@@ -25,4 +29,3 @@ interface InventoryRepository : JpaRepository<MariaDBInventory, Long> {
     )
     fun deleteBySkuIdWithCount(skuId: Long, count: Long)
 }
-
