@@ -5,17 +5,23 @@ import com.freshtuna.sharp.inventory.entity.MariaDBInventory
 
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
+import org.springframework.data.repository.query.Param
 
 interface InventoryRepository : JpaRepository<MariaDBInventory, Long> {
 
     @Query(
-        value = "select count(i.id) " +
-                "from MariaDBInventory i " +
-                "where i.sku.id = :skuId " +
-                "and i.status = :status"
+        nativeQuery = true,
+        value = "select *  " +
+                "from inventory " +
+                "where sku_id = :skuId " +
+                "and status = :#{#status.name()} " +
+                "limit :limit " +
+                "for update skip locked"
     )
-    fun countBySkuIdAndStatus(skuId: Long,
-                              status: InventoryStatus) : Long
+    fun findAllBySkuIdAndStatus(skuId: Long,
+                                status: InventoryStatus,
+                                limit: Long) : List<MariaDBInventory>
+
 
     @Query(
         nativeQuery = true,
