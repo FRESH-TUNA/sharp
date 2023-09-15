@@ -5,7 +5,7 @@ import com.freshtuna.sharp.product.command.NewProductOptionCommand
 
 interface CreateProductOptionsPort {
 
-    fun create(
+    fun ofProduct(
         productID: SharpID,
         commands: List<NewProductOptionCommand>
     )

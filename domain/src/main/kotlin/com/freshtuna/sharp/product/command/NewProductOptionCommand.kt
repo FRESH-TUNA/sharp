@@ -7,3 +7,4 @@ class NewProductOptionCommand(
     val name: String
 ) {
 }
+
