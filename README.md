@@ -4,7 +4,7 @@
 
 ## 데모 배포 주소
 - 데모 jwt 키: [링크](https://github.com/FRESH-TUNA/sharp/wiki/%EB%8D%B0%EB%AA%A8-jwt-%ED%82%A4)
-- 재고관리: [링크](https://inventory.sharp.freshtuna.site/swagger-ui/index.html)
+- 재고관리: [링크](https://inventory.sharp.freshtuna.store/swagger-ui/index.html)
 
 ## 프로젝트 개요
 오늘날의 IT 시대에 이커머스는 리테일 산업에서 필수적인 부분이 되었습니다. 하지만 이커머스를 위한 어플리케이션 개발은 복잡하고 어려울수 있으므로, 비즈니스에 어려움을 겪는 기업이 있을수 있습니다.
