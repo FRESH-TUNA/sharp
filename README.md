@@ -36,12 +36,20 @@ API 앱들엔 swagger를 통해 (접근방법: /swagger-url/index.html) API 문�
 ### [service](./service)
 어댑터에서 도메인에 요청하기 위한 유스케이스의 구현체들을 관리합니다.
 
-## 아키텍처
-### 3 tier 구조의 문제점
+## 프로젝트 배경 지식
+
+### 객체지향 프로그래밍
+프로그램을 역활을 가진 객체로 나누고, 객체간의 통신(메시지 교환)을 통해 프로그램의 목적을 달성하는 기법입니다.
+
+각각의 객체를 설계할때 객체의 수정 사유를 하나가 될수 있도록 만들고(단일책임 원칙), 객체가 주고 받는 메시지들을 최대한 쪼개서 설계하며(인터페이스 분리원칙) 잘바뀌는 코드 보다 잘 바뀌지 않은 코드에 의존을 시켜(의존관계 역전원칙), 코드 변경/추가시 추가적인 소스의 변경을 최소화하고(개방패쇄원칙), 하위타입의 객체를 생성할때 상위타입에서 의도한 동작대로 설계하여 유지보수 및 재사용성을 높힐수 있습니다.
+
+### 3 tier 구조
 3계층 아키텍처는 애플리케이션을 프레젠테이션 계층, 비즈니스 로직 계층, 데이터 저장 계층의 세 가지 계층으로 분리하는 웹 애플리케이션 설계의 일반적인 접근 방식입니다. 애플리케이션을 각각 고유한 책임이 있는 세 개의 계층으로 명확하게 분리하므로 애플리케이션을 유지 관리하고 확장하기가 더 쉬운장점이 있습니다.
 수년 동안 웹 애플리케이션 개발에 사용되어 온 잘 정립된 패턴이므로, 사용 방법을 배우고자 하는 개발자가 사용할 수 있는 리소스를 쉽게 찾을수 있는 장점이 있습니다.
 
-하지만 3계층 아키텍처는 프리젠테이션 계층은 비즈니스 로직에 의존하고, 비즈니스 로직은 데이터 저장 계층에 의존하기 때문에 도메인 주도 설계가 아닌 데이터베이스 중심의 설계를 초래합니다. 예를 들어 만약 RDB를 사용하다 NOSQL로 전환한다면, 어플리케이션의 많은 수정이 필요할것입니다. 또한 아키텍처간 의존관계에 대한 개발팀의 규칙을 정하지 않으면, 웹계층에서 데이터계층에 의존하는등의 계층이 꼬이는문제가 발생하고이는 테스트와 계층간 분업의 복잡도를 증가시킬수 있습니다.
+3계층 아키텍처에서는 프리젠테이션 계층은 비즈니스 로직에 의존하고, 비즈니스 로직은 데이터 저장 계층에 의존하고 있습니다. 즉 우리의 어플리케이션(비즈니스코드)는 웹과 데이터베이스를 다루는 코드에 의존할 가능성이 높습니다. 웹이나 데이터베이스를 다루는 기술스택은 기술의 발전에 따라 쉽게 변화할수 있으므로 이는 의존관계 역전원칙을 위배하게 되어 유지보수를 방해할수 있습니다.
+
+예를 들어 만약 RDB를 사용하다 NOSQL로 전환한다면, 어플리케이션의 많은 수정사항이 발생할수 있습니다. 또한 아키텍처간 의존관계에 대한 개발팀의 규칙을 정하지 않으면, 웹계층에서 데이터계층에 의존하는등의 계층이 꼬이는문제가 발생하고, 이는 테스트와 계층간 분업의 복잡도를 증가시킬수 있습니다.
 
 ### Hexagonal 아키텍처와 DDD 도입
 ![Hexagonal 아키텍처](./docs/hexagonal.png)
@@ -131,75 +139,4 @@ class InventoryInController(
         return MessageResponse.OK
     }
 }
-```
-
-
-## application.yml 설정 가이드
-### 관계형 데이터베이스 구축하기
-- infrastructre/tooth-mariadb 의 리소스 폴더에 flyway 마이그레이션을 위한 application.yml 작성
-```
-spring:
-  datasource:
-    url: 
-    username: 
-    password: 
-    driver-class-name: org.mariadb.jdbc.Driver
-
-  jpa:
-    database: mysql
-    hibernate:
-      ddl-auto: validate
-    generate-ddl: false
-
-  flyway:
-    url:
-    user: 
-    password: 
-```
-- infrastructre/tooth-mariadb 의 DBMigrationRunner.kt 실행하며 데이터베이스 스키마 구축
-- 필요한 시드 데이터 주입하기
-
-
-### 배포할 api의 리소스 폴더에 application.yml 작성
-```
-spring:
-  datasource:
-    url:
-    username:
-    password:
-    driver-class-name: org.mariadb.jdbc.Driver
-
-  jpa:
-    database: mysql
-    hibernate:
-      ddl-auto: validate
-    generate-ddl: false
-
-  flyway:
-    url: 
-    user: 
-    password: 
-
-  security:
-    user:
-      password:
-
-
-sharp:
-  auth-token:
-    secret:
-    refresh-token-secret:
-
-    access-token-expired-mile-seconds:
-    refresh-token-expired-mile-seconds:
-
-    role-key: 'ROLES'
-    prefix: 'Bearer '
-```
-
-### 테스트를 위한 application-test.yml 작성
-```
-sharp:
-  test:
-    auth-token: 'Bearer <사용자 지정 키를 사용하여 jwt.io 등의 플랫폼, 유틸로 토큰을 발급해 사용한다.'
 ```
