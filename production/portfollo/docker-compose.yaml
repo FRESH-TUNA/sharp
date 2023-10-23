@@ -19,7 +19,7 @@ services:
   inventory:
     volumes:
       - ./inventory/application.yaml:/sharp/application.yaml
-    image: lunacircle4/sharp.inventory:1.1.1
+    image: lunacircle4/sharp.inventory:1.1.2
     container_name: inventory.sharp
     networks:
       - sharp
