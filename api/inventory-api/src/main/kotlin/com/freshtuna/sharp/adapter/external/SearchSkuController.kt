@@ -12,7 +12,7 @@ import com.freshtuna.sharp.request.SearchSkuRequest
 import com.freshtuna.sharp.response.SKUSearchResponse
 import com.freshtuna.sharp.response.toSearchResponse
 
-import com.freshtuna.sharp.spec.SearchSkuSpec
+import com.freshtuna.sharp.spec.sku.SearchSkuSpec
 import com.freshtuna.sharp.util.SpringPageableConverter
 import io.github.oshai.KotlinLogging
 import io.swagger.v3.oas.annotations.Parameter

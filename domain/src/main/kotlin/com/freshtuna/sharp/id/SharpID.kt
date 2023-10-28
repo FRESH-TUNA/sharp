@@ -21,4 +21,7 @@ open class SharpID(
     override fun equals(other: Any?): Boolean {
         return toString() == other.toString()
     }
+    override fun hashCode(): Int {
+        return stringValue.hashCode()
+    }
 }

@@ -3,7 +3,7 @@ package com.freshtuna.sharp.adapter.external
 import com.freshtuna.sharp.config.const.Url
 import com.freshtuna.sharp.inventory.incoming.NewSkuUseCase
 import com.freshtuna.sharp.request.SkuRequest
-import com.freshtuna.sharp.spec.NewSkuSpec
+import com.freshtuna.sharp.spec.sku.NewSkuSpec
 
 import com.freshtuna.sharp.api.response.DataResponse
 import com.freshtuna.sharp.id.SharpID
@@ -32,7 +32,7 @@ class NewSkuController(
     override fun new(@RequestBody request: SkuRequest,
                      @Parameter(hidden = true) @SharpIDInjection sellerID: SharpID): DataResponse<NewSkuResponse> {
 
-        val result = useCase.new(request.toCommand(sellerID))
+        val result = useCase.new(request.toCommand(), sellerID)
         return DataResponse.of(result.toNewSkuResponse())
     }
 }

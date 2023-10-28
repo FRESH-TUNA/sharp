@@ -7,7 +7,7 @@ import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.id.SharpIDInjection
 import com.freshtuna.sharp.inventory.incoming.UpdateSkuUseCase
 import com.freshtuna.sharp.request.SkuRequest
-import com.freshtuna.sharp.spec.UpdateSkuSpec
+import com.freshtuna.sharp.spec.sku.UpdateSkuSpec
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.web.bind.annotation.PathVariable
@@ -20,14 +20,14 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class UpdateSkuController(
     private val useCase: UpdateSkuUseCase
-) : UpdateSkuSpec{
+) : UpdateSkuSpec {
 
     @PutMapping(Url.EXTERNAL.SKU_ID)
     override fun update(@RequestBody request: SkuRequest,
                         @Parameter(description = "SKU 아이디") @PathVariable id: String,
                         @Parameter(hidden = true) @SharpIDInjection sellerID: SharpID): BasicResponse {
 
-        useCase.update(request.toUpdateCommand(SharpID(id)), sellerID)
+        useCase.update(request.toCommand(), SharpID(id), sellerID)
         return MessageResponse.OK
     }
 }

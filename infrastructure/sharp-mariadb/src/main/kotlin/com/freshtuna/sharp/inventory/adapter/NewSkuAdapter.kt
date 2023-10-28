@@ -1,7 +1,8 @@
 package com.freshtuna.sharp.inventory.adapter
 
 import com.freshtuna.sharp.entity.repository.SellerRepository
-import com.freshtuna.sharp.inventory.command.NewSkuCommand
+import com.freshtuna.sharp.id.SharpID
+import com.freshtuna.sharp.inventory.command.SkuCommand
 import com.freshtuna.sharp.inventory.domain.SKU
 import com.freshtuna.sharp.inventory.entity.toEntity
 import com.freshtuna.sharp.inventory.outgoing.NewSkuPort
@@ -14,8 +15,8 @@ class NewSkuAdapter(
     private val sellerRepository: SellerRepository
 ) : NewSkuPort {
 
-    override fun new(command: NewSkuCommand): SKU {
-        val seller = sellerRepository.getReferenceById(command.sellerId.longId())
+    override fun new(command: SkuCommand, sellerId: SharpID): SKU {
+        val seller = sellerRepository.getReferenceById(sellerId.longId())
         return repository.save(command.toEntity(seller)).toDomain()
     }
 }

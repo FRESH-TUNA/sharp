@@ -9,7 +9,7 @@ import com.freshtuna.sharp.inventory.command.DetailSkuCommand
 
 import com.freshtuna.sharp.inventory.incoming.SkuDetailUseCase
 import com.freshtuna.sharp.response.toResponse
-import com.freshtuna.sharp.spec.SkuDetailSpec
+import com.freshtuna.sharp.spec.sku.SkuDetailSpec
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag
 
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class SkuDetailController(
     private val skuDetailUseCase: SkuDetailUseCase
-) : SkuDetailSpec{
+) : SkuDetailSpec {
 
     @GetMapping(Url.EXTERNAL.SKU_ID)
     override fun detail(@Parameter(description = "SKU 아이디") @PathVariable id: String,

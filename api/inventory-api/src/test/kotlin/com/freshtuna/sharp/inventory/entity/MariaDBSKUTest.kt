@@ -59,7 +59,7 @@ class MariaDBSKUTest {
         val newManufactureDate = LocalDateTime.now()
 
         val command = UpdateSkuCommand(
-            name = newName,
+            id = newName,
             barcode = newBarcode,
             description = newDescription,
             price = newBeforePrice,

@@ -6,8 +6,8 @@ import com.freshtuna.sharp.config.const.Url
 
 import com.freshtuna.sharp.inventory.incoming.GetInventoryInReasonUseCase
 import com.freshtuna.sharp.inventory.incoming.GetInventoryOutReasonUseCase
-import com.freshtuna.sharp.spec.InventoryInReasonsSpec
-import com.freshtuna.sharp.spec.InventoryOutReasonsSpec
+import com.freshtuna.sharp.spec.sku.InventoryInReasonsSpec
+import com.freshtuna.sharp.spec.sku.InventoryOutReasonsSpec
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController

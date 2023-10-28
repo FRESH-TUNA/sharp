@@ -9,7 +9,7 @@ import com.freshtuna.sharp.inventory.incoming.SearchSkuInventoryLogsUseCase
 import com.freshtuna.sharp.page.SharpPage
 import com.freshtuna.sharp.response.InventoryResponse
 import com.freshtuna.sharp.response.toResponse
-import com.freshtuna.sharp.spec.SearchSkuInventoriesSpec
+import com.freshtuna.sharp.spec.sku.SearchSkuInventoriesSpec
 import com.freshtuna.sharp.util.SpringPageableConverter
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class SearchSkuInventoryLogsController(
     private val searchSkuInventoryLogsUseCase: SearchSkuInventoryLogsUseCase
-) : SearchSkuInventoriesSpec{
+) : SearchSkuInventoriesSpec {
 
     @GetMapping(Url.EXTERNAL.SKU_ID_INVENTORY_LOGS)
     override fun search(

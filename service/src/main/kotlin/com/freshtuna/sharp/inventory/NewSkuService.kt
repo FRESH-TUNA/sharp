@@ -1,6 +1,7 @@
 package com.freshtuna.sharp.inventory
 
-import com.freshtuna.sharp.inventory.command.NewSkuCommand
+import com.freshtuna.sharp.id.SharpID
+import com.freshtuna.sharp.inventory.command.SkuCommand
 import com.freshtuna.sharp.inventory.incoming.NewSkuUseCase
 import com.freshtuna.sharp.inventory.outgoing.NewSkuPort
 
@@ -13,5 +14,5 @@ class NewSkuService(
     private val newSkuPort: NewSkuPort
 ) : NewSkuUseCase {
 
-    override fun new(command: NewSkuCommand) = newSkuPort.new(command)
+    override fun new(command: SkuCommand, sellerId: SharpID) = newSkuPort.new(command, sellerId)
 }

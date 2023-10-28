@@ -2,7 +2,6 @@ package com.freshtuna.sharp.inventory.dto
 
 import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.inventory.domain.SKU
-import com.freshtuna.sharp.inventory.domain.inventory.InventoryStatus
 import com.freshtuna.sharp.inventory.entity.MariaDBInventory
 
 import com.freshtuna.sharp.inventory.entity.MariaDBSKU
@@ -24,9 +23,9 @@ class SkuInventoriesDto(
         expireDate = sku.expireDate,
         manufactureDate = sku.manufactureDate,
 
-        availableCount = inventories
-            .filter { i -> i.status == InventoryStatus.READY }
-            .size.toLong(),
+//        availableCount = inventories
+//            .filter { i -> i.status == InventoryStatus.READY }
+//            .size.toLong(),
         count = inventories.size.toLong()
     )
 }

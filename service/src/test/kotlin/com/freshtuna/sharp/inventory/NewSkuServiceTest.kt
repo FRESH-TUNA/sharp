@@ -1,7 +1,7 @@
 package com.freshtuna.sharp.inventory
 
 import com.freshtuna.sharp.id.SharpID
-import com.freshtuna.sharp.inventory.command.NewSkuCommand
+import com.freshtuna.sharp.inventory.command.SkuCommand
 import com.freshtuna.sharp.inventory.domain.SKU
 import com.freshtuna.sharp.inventory.outgoing.NewSkuPort
 import com.freshtuna.sharp.price.Currency
@@ -30,8 +30,8 @@ class NewSkuServiceTest {
         /**
          * given
          */
-        val command = NewSkuCommand(
-            name = "newsku",
+        val command = SkuCommand(
+            skuId = "newsku",
             barcode = "barcode",
             description = "description",
             price = Price(BigDecimal.TEN, Currency.KRW),

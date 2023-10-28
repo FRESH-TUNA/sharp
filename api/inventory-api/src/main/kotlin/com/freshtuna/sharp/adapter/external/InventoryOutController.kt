@@ -8,7 +8,7 @@ import com.freshtuna.sharp.id.SharpIDInjection
 import com.freshtuna.sharp.inventory.incoming.InventoryOutUseCase
 import com.freshtuna.sharp.request.InventoryOutRequest
 
-import com.freshtuna.sharp.spec.InventoryOutSpec
+import com.freshtuna.sharp.spec.sku.InventoryOutSpec
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.web.bind.annotation.PathVariable

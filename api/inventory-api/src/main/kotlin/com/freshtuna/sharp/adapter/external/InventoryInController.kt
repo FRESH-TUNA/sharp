@@ -2,7 +2,7 @@ package com.freshtuna.sharp.adapter.external
 
 import com.freshtuna.sharp.config.const.Url
 import com.freshtuna.sharp.request.InventoryInRequest
-import com.freshtuna.sharp.spec.InventoryInSpec
+import com.freshtuna.sharp.spec.sku.InventoryInSpec
 import com.freshtuna.sharp.inventory.incoming.InventoryInUseCase
 import com.freshtuna.sharp.api.response.BasicResponse
 

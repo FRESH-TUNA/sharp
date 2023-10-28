@@ -1,7 +1,7 @@
 package com.freshtuna.sharp.request
 
 import com.freshtuna.sharp.id.SharpID
-import com.freshtuna.sharp.inventory.command.NewSkuCommand
+import com.freshtuna.sharp.inventory.command.SkuCommand
 import com.freshtuna.sharp.inventory.command.UpdateSkuCommand
 import com.freshtuna.sharp.price.Currency
 import com.freshtuna.sharp.price.Price
@@ -14,8 +14,8 @@ import java.time.LocalDateTime
 @Schema(description = "SKU 생성/수정 요청")
 class SkuRequest(
 
-    @Schema(description = "이름")
-    val name: String,
+    @Schema(description = "SKU ID")
+    val skuId: String,
 
     @Schema(description = "바코드")
     val barcode: String,
@@ -56,28 +56,27 @@ class SkuRequest(
     @Schema(description = "필요시 제조일자 기입")
     val manufactureDate: LocalDateTime = LocalDateTime.of(0, 1, 1, 0, 0, 0)
 ) {
-    fun toCommand(sellerId: SharpID) = NewSkuCommand(
-        name = name,
+    fun toCommand() = SkuCommand(
+        skuId = SharpID(skuId),
         barcode = barcode,
         description = description,
 
         price = Price(cost, currency),
         spec = Spec(Weight(weight, weightScale), Dimension(width, height, depth, dimensionScale)),
-        sellerId = sellerId,
 
         expireDate = expireDate,
         manufactureDate = manufactureDate
     )
 
-    fun toUpdateCommand(skuId: SharpID) = UpdateSkuCommand(
-        name = name,
+    fun toUpdateCommand(id: SharpID) = UpdateSkuCommand(
         barcode = barcode,
         description = description,
 
         price = Price(cost, currency),
         spec = Spec(Weight(weight, weightScale), Dimension(width, height, depth, dimensionScale)),
 
-        skuId = skuId,
+        id = id,
+        skuId = SharpID(skuId),
 
         expireDate = expireDate,
         manufactureDate = manufactureDate

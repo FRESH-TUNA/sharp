@@ -26,7 +26,6 @@ class SKU(
     /**
      * counts
      */
-    val availableCount: Long = 0,
     val count: Long = 0,
 ) {
 

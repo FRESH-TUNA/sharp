@@ -4,9 +4,8 @@ import com.freshtuna.sharp.entity.MariaDBDefaultEntity
 import com.freshtuna.sharp.entity.MariaDBSeller
 import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.inventory.domain.SKU
-import com.freshtuna.sharp.inventory.command.NewSkuCommand
-import com.freshtuna.sharp.inventory.command.UpdateSkuCommand
-import com.freshtuna.sharp.inventory.domain.inventory.InventoryStatus
+import com.freshtuna.sharp.inventory.command.SkuCommand
+
 import com.freshtuna.sharp.price.entity.MariaDBPrice
 import com.freshtuna.sharp.price.entity.toEntity
 import com.freshtuna.sharp.spec.entity.MariaDBSpecification
@@ -45,8 +44,8 @@ class MariaDBSKU(
     val inventories: List<MariaDBInventory>
         get() = _inventories.toList()
 
-    fun update(command: UpdateSkuCommand) {
-        name = command.name
+    fun update(command: SkuCommand) {
+        name = command.skuId.stringId()
         barcode = command.barcode
         description = command.description
         specification = command.spec.toEntity()
@@ -68,7 +67,6 @@ class MariaDBSKU(
         expireDate = this.expireDate,
         manufactureDate = this.manufactureDate,
 
-        availableCount = inventories.filter { i -> i.status == InventoryStatus.READY }.size.toLong(),
         count = inventories.size.toLong()
     )
 }
@@ -76,8 +74,8 @@ class MariaDBSKU(
 /**
  * external
  */
-fun NewSkuCommand.toEntity(seller: MariaDBSeller) = MariaDBSKU(
-    name = this.name,
+fun SkuCommand.toEntity(seller: MariaDBSeller) = MariaDBSKU(
+    name = this.skuId.stringId(),
     barcode = this.barcode,
     description = this.description,
     price = this.price.toEntity(),
