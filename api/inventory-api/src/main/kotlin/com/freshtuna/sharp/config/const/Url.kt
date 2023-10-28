@@ -16,7 +16,7 @@ class Url {
 
         companion object {
 
-            private const val ROOT = "/inventory"
+            private const val ROOT = ""
 
             const val IN_REASONS = "$ROOT/in/reasons"
 
@@ -35,6 +35,17 @@ class Url {
             const val SKU_ID_INVENTORY_OUT = "$ROOT/sku$ID/out"
 
             const val SKU_ID_INVENTORY_LOGS = "$ROOT/sku$ID/logs"
+
+            /**
+             * item
+             */
+            const val ITEM = "$ROOT/items"
+
+            const val ITEM_ID = "$ITEM/$ID"
+
+            const val ITEM_IN = "$ITEM_ID/in"
+
+            const val ITEM_OUT = "$ITEM_ID/out"
         }
     }
 }

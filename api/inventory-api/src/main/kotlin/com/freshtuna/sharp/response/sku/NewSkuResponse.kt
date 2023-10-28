@@ -1,4 +1,4 @@
-package com.freshtuna.sharp.response
+package com.freshtuna.sharp.response.sku
 
 import com.freshtuna.sharp.inventory.domain.SKU
 import io.swagger.v3.oas.annotations.media.Schema

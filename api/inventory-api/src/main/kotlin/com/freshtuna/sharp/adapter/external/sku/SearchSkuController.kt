@@ -9,8 +9,8 @@ import com.freshtuna.sharp.inventory.incoming.SearchSkuUseCase
 import com.freshtuna.sharp.page.SharpPage
 
 import com.freshtuna.sharp.request.sku.SearchSkuRequest
-import com.freshtuna.sharp.response.SKUSearchResponse
-import com.freshtuna.sharp.response.toSearchResponse
+import com.freshtuna.sharp.response.sku.SKUSearchResponse
+import com.freshtuna.sharp.response.sku.toSearchResponse
 
 import com.freshtuna.sharp.spec.sku.SearchSkuSpec
 import com.freshtuna.sharp.util.SpringPageableConverter

@@ -3,7 +3,7 @@ package com.freshtuna.sharp.item.incoming
 import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.inventory.command.InventoryCommand
 
-interface InventoryOutItemUseCase {
+interface InventoryFromItemUseCase {
 
-    fun out(command: InventoryCommand, itemId: SharpID, sellerId: SharpID)
+    fun from(command: InventoryCommand, itemId: SharpID, sellerId: SharpID)
 }

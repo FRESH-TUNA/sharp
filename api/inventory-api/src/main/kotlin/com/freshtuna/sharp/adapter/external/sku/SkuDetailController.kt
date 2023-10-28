@@ -8,7 +8,7 @@ import com.freshtuna.sharp.id.SharpIDInjection
 import com.freshtuna.sharp.inventory.command.DetailSkuCommand
 
 import com.freshtuna.sharp.inventory.incoming.SkuDetailUseCase
-import com.freshtuna.sharp.response.toResponse
+import com.freshtuna.sharp.response.sku.toResponse
 import com.freshtuna.sharp.spec.sku.SkuDetailSpec
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag

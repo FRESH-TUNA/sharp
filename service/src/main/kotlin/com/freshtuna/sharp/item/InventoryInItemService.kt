@@ -7,7 +7,7 @@ import com.freshtuna.sharp.inventory.outgoing.InventoryInPort
 import com.freshtuna.sharp.inventory.outgoing.InventoryOutPort
 import com.freshtuna.sharp.inventory.outgoing.NewInventoryLogPort
 
-import com.freshtuna.sharp.item.incoming.InventoryInItemUseCase
+import com.freshtuna.sharp.item.incoming.InventoryToItemUseCase
 import com.freshtuna.sharp.oh.Oh
 
 import org.springframework.stereotype.Service
@@ -20,22 +20,22 @@ class InventoryInItemService(
     private val inventoryInPort: InventoryInPort,
     private val inventoryOutPort: InventoryOutPort,
     private val newInventoryLogPort: NewInventoryLogPort
-) : InventoryInItemUseCase {
+) : InventoryToItemUseCase {
 
-    override fun new(command: InventoryCommand, itemId: SharpID, sellerId: SharpID) {
+    override fun to(command: InventoryCommand, itemId: SharpID, sellerId: SharpID) {
 
         val item = showItemService.show(itemId, sellerId)
 
         val skuId = item.sku.id
 
-        for(composite in item.composites) {
-            val child = showItemService.show(composite.itemId, sellerId)
+        for(combo in item.combos) {
+            val child = showItemService.show(combo.item.id, sellerId)
 
-            if(child.composites.isNotEmpty())
+            if(child.combos.isNotEmpty())
                 Oh.badRequest()
 
             val outCommand = InventoryCommand(
-                command.count*composite.amount, InventoryLogReason.SET_EJECTED, command.description)
+                command.count*combo.amount, InventoryLogReason.SET_EJECTED, command.description)
 
             inventoryOutPort.out(outCommand, child.id)
         }

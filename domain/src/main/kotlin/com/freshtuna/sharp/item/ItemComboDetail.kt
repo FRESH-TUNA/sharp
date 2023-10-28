@@ -2,9 +2,9 @@ package com.freshtuna.sharp.item
 
 import com.freshtuna.sharp.id.SharpID
 
-class ItemCompositePolicy(
+class ItemComboDetail(
     val id: SharpID,
-    val itemId: SharpID,
+    val item: ItemSummary,
     val amount: Long
 ) {
 }

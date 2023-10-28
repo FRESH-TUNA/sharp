@@ -6,34 +6,34 @@ import com.freshtuna.sharp.inventory.domain.inventory.log.InventoryLogReason
 import com.freshtuna.sharp.inventory.outgoing.InventoryInPort
 import com.freshtuna.sharp.inventory.outgoing.InventoryOutPort
 import com.freshtuna.sharp.inventory.outgoing.NewInventoryLogPort
-import com.freshtuna.sharp.item.incoming.InventoryOutItemUseCase
+import com.freshtuna.sharp.item.incoming.InventoryFromItemUseCase
 import com.freshtuna.sharp.oh.Oh
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
 @Transactional
-class InventoryOutItemService(
+class InventoryFromItemService(
     private val showItemService: ShowItemService,
     private val inventoryInPort: InventoryInPort,
     private val inventoryOutPort: InventoryOutPort,
     private val newInventoryLogPort: NewInventoryLogPort
-) : InventoryOutItemUseCase{
+) : InventoryFromItemUseCase{
 
-    override fun out(command: InventoryCommand, itemId: SharpID, sellerId: SharpID) {
+    override fun from(command: InventoryCommand, itemId: SharpID, sellerId: SharpID) {
 
         val item = showItemService.show(itemId, sellerId)
 
         val skuId = item.sku.id
 
-        for(composite in item.composites) {
-            val child = showItemService.show(composite.itemId, sellerId)
+        for(combo in item.combos) {
+            val child = showItemService.show(combo.item.id, sellerId)
 
-            if(child.composites.isNotEmpty())
+            if(child.combos.isNotEmpty())
                 Oh.badRequest()
 
             val outCommand = InventoryCommand(
-                command.count*composite.amount, InventoryLogReason.SET_RELEASED, command.description)
+                command.count*combo.amount, InventoryLogReason.SET_RELEASED, command.description)
 
             inventoryInPort.`in`(outCommand, child.id)
         }

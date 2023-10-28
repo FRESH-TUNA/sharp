@@ -9,8 +9,8 @@ import com.freshtuna.sharp.api.response.DataResponse
 import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.id.SharpIDInjection
 
-import com.freshtuna.sharp.response.NewSkuResponse
-import com.freshtuna.sharp.response.toNewSkuResponse
+import com.freshtuna.sharp.response.sku.NewSkuResponse
+import com.freshtuna.sharp.response.sku.toNewSkuResponse
 import io.github.oshai.KotlinLogging
 import io.swagger.v3.oas.annotations.Parameter
 

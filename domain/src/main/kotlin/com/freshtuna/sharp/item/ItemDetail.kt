@@ -17,13 +17,13 @@ class ItemDetail(
 
     val sku: SKU,
 
-    val composites: List<ItemCompositePolicy>
+    val combos: List<ItemComboDetail>
 )  {
 
     constructor(
         item: Item,
         sku: SKU,
-        composites: List<ItemCompositePolicy>
+        composites: List<ItemComboDetail>
     ): this(
         id = item.id,
         name = item.name,

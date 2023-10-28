@@ -32,7 +32,7 @@ class ItemEntity(
     var description: String,
 
     @OneToMany(mappedBy = "rootItem")
-    val policies: List<ItemCompositePolicyEntity> = mutableListOf()
+    val policies: List<ItemComboEntity> = mutableListOf()
 ) : MariaDBDefaultEntity() {
 
     fun toDomain(): Item {

@@ -7,8 +7,8 @@ import com.freshtuna.sharp.id.SharpIDInjection
 import com.freshtuna.sharp.inventory.command.SearchSkuInventoryLogsCommand
 import com.freshtuna.sharp.inventory.incoming.SearchSkuInventoryLogsUseCase
 import com.freshtuna.sharp.page.SharpPage
-import com.freshtuna.sharp.response.InventoryResponse
-import com.freshtuna.sharp.response.toResponse
+import com.freshtuna.sharp.response.sku.InventoryResponse
+import com.freshtuna.sharp.response.sku.toResponse
 import com.freshtuna.sharp.spec.sku.SearchSkuInventoriesSpec
 import com.freshtuna.sharp.util.SpringPageableConverter
 import io.swagger.v3.oas.annotations.Parameter

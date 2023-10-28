@@ -5,7 +5,7 @@ import com.freshtuna.sharp.inventory.outgoing.UpdateSkuPort
 import com.freshtuna.sharp.item.command.ItemCommand
 import com.freshtuna.sharp.item.incoming.UpdateItemUseCase
 import com.freshtuna.sharp.item.outgoing.composite.DeleteItemCompositePolicyPort
-import com.freshtuna.sharp.item.outgoing.composite.NewItemCompositePolicyPort
+import com.freshtuna.sharp.item.outgoing.composite.NewItemComboPort
 import com.freshtuna.sharp.item.outgoing.ShowItemPort
 import com.freshtuna.sharp.item.outgoing.UpdateItemPort
 import com.freshtuna.sharp.oh.Oh
@@ -19,7 +19,7 @@ class UpdateItemService(
     private val updatePort: UpdateItemPort,
     private val updateSkuPort: UpdateSkuPort,
     private val deleteItemCompositePolicyPort: DeleteItemCompositePolicyPort,
-    private val newItemCompositePolicyPort: NewItemCompositePolicyPort
+    private val newItemComboPort: NewItemComboPort
 ) : UpdateItemUseCase {
 
     override fun update(command: ItemCommand, itemId: SharpID, sellerId: SharpID) {
@@ -35,6 +35,6 @@ class UpdateItemService(
 
         deleteItemCompositePolicyPort.deleteAllByItemId(itemId)
 
-        newItemCompositePolicyPort.new(command.composites, itemId)
+        newItemComboPort.new(command.composites, itemId)
     }
 }

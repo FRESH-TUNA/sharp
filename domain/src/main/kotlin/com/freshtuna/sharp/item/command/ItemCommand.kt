@@ -13,7 +13,7 @@ class ItemCommand (
 
     val sku: SkuCommand,
 
-    val composites: List<ItemCompositePolicyCommand>
+    val composites: List<ItemComboCommand>
 ) {
 
 }

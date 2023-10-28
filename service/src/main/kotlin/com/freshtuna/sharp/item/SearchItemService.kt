@@ -19,7 +19,7 @@ class SearchItemService(
 
         val itemPage = searchItemPort.search(command, sellerId)
 
-        val skuIds = itemPage.page.map(Item::id)
+        val skuIds = itemPage.page.map(Item::skuId)
 
         val skuMap = findSkuListPort.find(skuIds).associateBy { it.id }
 

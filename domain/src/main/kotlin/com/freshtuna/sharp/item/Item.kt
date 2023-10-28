@@ -4,7 +4,7 @@ import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.category.SharpCategory
 import com.freshtuna.sharp.inventory.domain.SKU
 
-open class Item(
+class Item(
 
     var id: SharpID,
 
