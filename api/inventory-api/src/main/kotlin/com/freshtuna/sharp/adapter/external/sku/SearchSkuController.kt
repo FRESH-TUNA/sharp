@@ -1,4 +1,4 @@
-package com.freshtuna.sharp.adapter.external
+package com.freshtuna.sharp.adapter.external.sku
 
 import com.freshtuna.sharp.api.response.DataResponse
 import com.freshtuna.sharp.config.const.Url
@@ -8,7 +8,7 @@ import com.freshtuna.sharp.inventory.incoming.SearchSkuUseCase
 
 import com.freshtuna.sharp.page.SharpPage
 
-import com.freshtuna.sharp.request.SearchSkuRequest
+import com.freshtuna.sharp.request.sku.SearchSkuRequest
 import com.freshtuna.sharp.response.SKUSearchResponse
 import com.freshtuna.sharp.response.toSearchResponse
 

@@ -1,4 +1,4 @@
-package com.freshtuna.sharp.adapter.external
+package com.freshtuna.sharp.adapter.external.sku
 
 import com.freshtuna.sharp.api.response.BasicResponse
 import com.freshtuna.sharp.api.response.MessageResponse
@@ -6,7 +6,7 @@ import com.freshtuna.sharp.config.const.Url
 import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.id.SharpIDInjection
 import com.freshtuna.sharp.inventory.incoming.InventoryOutUseCase
-import com.freshtuna.sharp.request.InventoryOutRequest
+import com.freshtuna.sharp.request.sku.InventoryOutRequest
 
 import com.freshtuna.sharp.spec.sku.InventoryOutSpec
 import io.swagger.v3.oas.annotations.Parameter

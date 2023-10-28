@@ -1,4 +1,4 @@
-package com.freshtuna.sharp.adapter.external
+package com.freshtuna.sharp.adapter.external.sku
 
 import com.freshtuna.sharp.api.response.BasicResponse
 import com.freshtuna.sharp.api.response.DataResponse

@@ -4,7 +4,7 @@ import com.freshtuna.sharp.api.response.BasicResponse
 import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.request.item.ItemRequest
 
-interface NewItemSpec {
+interface UpdateItemSpec {
 
-    fun new(request: ItemRequest, sellerID: SharpID): BasicResponse
+    fun update(request: ItemRequest, id: String, sellerId: SharpID): BasicResponse
 }

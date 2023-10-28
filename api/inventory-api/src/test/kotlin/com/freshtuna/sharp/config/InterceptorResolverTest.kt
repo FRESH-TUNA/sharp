@@ -1,7 +1,7 @@
 package com.freshtuna.sharp.config
 
 import com.freshtuna.sharp.StockApiApplication
-import com.freshtuna.sharp.adapter.external.InventoryInController
+import com.freshtuna.sharp.adapter.external.sku.InventoryInController
 import com.freshtuna.sharp.config.intercepter.SellerAuthInterceptor
 import com.freshtuna.sharp.config.resolver.SharpIDResolver
 import com.freshtuna.sharp.id.SharpID

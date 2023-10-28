@@ -1,4 +1,4 @@
-package com.freshtuna.sharp.request
+package com.freshtuna.sharp.request.sku
 
 import com.freshtuna.sharp.inventory.command.sku.SearchSkuCommand
 import com.freshtuna.sharp.util.SpringPageableConverter

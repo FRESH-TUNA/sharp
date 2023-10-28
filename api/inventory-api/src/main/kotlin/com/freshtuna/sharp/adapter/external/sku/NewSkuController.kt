@@ -1,8 +1,8 @@
-package com.freshtuna.sharp.adapter.external
+package com.freshtuna.sharp.adapter.external.sku
 
 import com.freshtuna.sharp.config.const.Url
 import com.freshtuna.sharp.inventory.incoming.NewSkuUseCase
-import com.freshtuna.sharp.request.SkuRequest
+import com.freshtuna.sharp.request.sku.SkuRequest
 import com.freshtuna.sharp.spec.sku.NewSkuSpec
 
 import com.freshtuna.sharp.api.response.DataResponse
