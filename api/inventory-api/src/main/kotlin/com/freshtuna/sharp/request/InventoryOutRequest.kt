@@ -1,7 +1,7 @@
 package com.freshtuna.sharp.request
 
 import com.freshtuna.sharp.id.SharpID
-import com.freshtuna.sharp.inventory.command.InventoryInOutCommand
+import com.freshtuna.sharp.inventory.command.InventoryCommand
 import com.freshtuna.sharp.inventory.domain.inventory.log.InventoryLogReason
 import io.swagger.v3.oas.annotations.media.Schema
 import jakarta.validation.constraints.Pattern
@@ -19,9 +19,7 @@ class InventoryOutRequest(
     @Schema(description = "비고")
     private val description: String
 ) {
-    fun toCommandOf(skuId: SharpID)
-            = InventoryInOutCommand(
-        skuId = skuId,
+    fun toCommand() = InventoryCommand(
         count = count,
         reason = reason,
         description = description

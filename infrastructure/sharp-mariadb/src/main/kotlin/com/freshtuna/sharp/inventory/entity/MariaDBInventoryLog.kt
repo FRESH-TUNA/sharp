@@ -4,7 +4,7 @@ import com.freshtuna.sharp.entity.MariaDBDefaultEntity
 import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.inventory.domain.inventory.log.InventoryLog
 import com.freshtuna.sharp.inventory.domain.inventory.log.InventoryLogReason
-import com.freshtuna.sharp.inventory.command.InventoryInOutCommand
+import com.freshtuna.sharp.inventory.command.InventoryCommand
 import com.freshtuna.sharp.inventory.domain.inventory.log.InventoryLogType
 import jakarta.persistence.*
 
@@ -31,7 +31,7 @@ class MariaDBInventoryLog(
     ) : MariaDBDefaultEntity() {
 
     companion object {
-        fun of(sku: MariaDBSKU, command: InventoryInOutCommand) = MariaDBInventoryLog(
+        fun of(sku: MariaDBSKU, command: InventoryCommand) = MariaDBInventoryLog(
             sku = sku,
             type = if(command.reason.isIN()) InventoryLogType.INCOMING else InventoryLogType.OUTGOING,
 

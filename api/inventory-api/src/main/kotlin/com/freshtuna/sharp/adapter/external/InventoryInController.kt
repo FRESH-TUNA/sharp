@@ -29,7 +29,7 @@ class InventoryInController(
 
         val skuId = SharpID(id)
 
-        useCase.new(request.toCommandOf(skuId), sellerID)
+        useCase.new(request.toCommand(), skuId, sellerID)
 
         return MessageResponse.OK
     }

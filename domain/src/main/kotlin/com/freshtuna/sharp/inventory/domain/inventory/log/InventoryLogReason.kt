@@ -15,6 +15,9 @@ enum class InventoryLogReason(
     // 반품
     RETURN(InventoryLogType.INCOMING),
 
+    // 세트 아이템 출고로 인한 입고
+    SET_RELEASED(InventoryLogType.INCOMING),
+
     /**
      * 출고
      */
@@ -22,7 +25,10 @@ enum class InventoryLogReason(
     MODIFY(InventoryLogType.OUTGOING),
 
     // 배송
-    SHIPPED(InventoryLogType.OUTGOING);
+    SHIPPED(InventoryLogType.OUTGOING),
+
+    // 세트 아이템 입고로 인한 출고
+    SET_EJECTED(InventoryLogType.OUTGOING);
 
     companion object {
         val IN_REASONS = listOf(NEW, RETURN)

@@ -1,6 +1,7 @@
 package com.freshtuna.sharp.inventory.adapter
 
-import com.freshtuna.sharp.inventory.command.InventoryInOutCommand
+import com.freshtuna.sharp.id.SharpID
+import com.freshtuna.sharp.inventory.command.InventoryCommand
 import com.freshtuna.sharp.inventory.domain.inventory.InventoryStatus
 import com.freshtuna.sharp.inventory.entity.MariaDBInventory
 import com.freshtuna.sharp.inventory.outgoing.InventoryInPort
@@ -13,9 +14,9 @@ class InventoryInAdapter(
     private val skuRepository: SKURepository,
     private val inventoryRepository: InventoryRepository
 ) : InventoryInPort{
-    override fun `in`(command: InventoryInOutCommand) {
+    override fun `in`(command: InventoryCommand, skuId: SharpID) {
 
-        val sku = skuRepository.findById(command.skuId.longId()).get()
+        val sku = skuRepository.findById(skuId.longId()).get()
 
         val newStocks: MutableList<MariaDBInventory> = mutableListOf()
 

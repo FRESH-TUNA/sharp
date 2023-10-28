@@ -29,7 +29,7 @@ class InventoryOutController(
 
         val skuId = SharpID(id)
 
-        useCase.out(request.toCommandOf(skuId), sellerID)
+        useCase.out(request.toCommand(), skuId, sellerID)
 
         return MessageResponse.OK
     }

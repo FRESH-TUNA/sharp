@@ -1,6 +1,7 @@
 package com.freshtuna.sharp.inventory.adapter
 
-import com.freshtuna.sharp.inventory.command.InventoryInOutCommand
+import com.freshtuna.sharp.id.SharpID
+import com.freshtuna.sharp.inventory.command.InventoryCommand
 import com.freshtuna.sharp.inventory.domain.inventory.log.InventoryLog
 import com.freshtuna.sharp.inventory.entity.MariaDBInventoryLog
 import com.freshtuna.sharp.inventory.outgoing.NewInventoryLogPort
@@ -15,9 +16,9 @@ class NewInventoryLogAdapter(
     private val inventoryLogRepository: InventoryLogRepository
 ) : NewInventoryLogPort {
 
-    override fun new(command: InventoryInOutCommand): InventoryLog {
+    override fun new(command: InventoryCommand, skuId: SharpID): InventoryLog {
 
-        val sku = skuRepository.findById(command.skuId.longId())
+        val sku = skuRepository.findById(skuId.longId())
 
         if(sku.isEmpty)
             Oh.badRequest()

@@ -1,7 +1,7 @@
 package com.freshtuna.sharp.inventory.adapter
 
 import com.freshtuna.sharp.id.SharpID
-import com.freshtuna.sharp.inventory.command.InventoryInOutCommand
+import com.freshtuna.sharp.inventory.command.InventoryCommand
 import com.freshtuna.sharp.inventory.domain.inventory.log.InventoryLogReason
 import com.freshtuna.sharp.inventory.entity.MariaDBInventory
 import com.freshtuna.sharp.inventory.entity.MariaDBSKU
@@ -36,7 +36,7 @@ class InventoryInAdapterTest {
         val reason = InventoryLogReason.RETURN
         val description = "초콜릿 먹고 싶다"
 
-        val command = InventoryInOutCommand(skuId, count, reason, description)
+        val command = InventoryCommand(skuId, count, reason, description)
 
         /**
          * when

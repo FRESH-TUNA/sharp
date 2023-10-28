@@ -1,11 +1,9 @@
 package com.freshtuna.sharp.inventory
 
 import com.freshtuna.sharp.id.SharpID
-import com.freshtuna.sharp.inventory.command.DeleteSkuCommand
-import com.freshtuna.sharp.inventory.command.InventoryInOutCommand
+import com.freshtuna.sharp.inventory.command.InventoryCommand
 import com.freshtuna.sharp.inventory.domain.SKU
 import com.freshtuna.sharp.inventory.incoming.InventoryInUseCase
-import com.freshtuna.sharp.inventory.outgoing.DeleteSkuPort
 import com.freshtuna.sharp.inventory.outgoing.FindSkuPort
 import com.freshtuna.sharp.inventory.outgoing.InventoryInPort
 import com.freshtuna.sharp.inventory.outgoing.NewInventoryLogPort
@@ -33,7 +31,7 @@ class InventoryInServiceTest {
         // given
         val sellerID = SharpID(1L)
         val skuID = SharpID(1L)
-        val command = mockk<InventoryInOutCommand>()
+        val command = mockk<InventoryCommand>()
 
         // when
         val sku = mockk<SKU>()
@@ -52,7 +50,7 @@ class InventoryInServiceTest {
         // given
         val sellerID = SharpID(1L)
         val skuID = SharpID(1L)
-        val command = mockk<InventoryInOutCommand>()
+        val command = mockk<InventoryCommand>()
 
         // when
         val sku = mockk<SKU>()
@@ -72,7 +70,7 @@ class InventoryInServiceTest {
         // given
         val sellerID = SharpID(1L)
         val skuID = SharpID(1L)
-        val command = mockk<InventoryInOutCommand>()
+        val command = mockk<InventoryCommand>()
 
         // when
         val sku = mockk<SKU>()
@@ -93,7 +91,7 @@ class InventoryInServiceTest {
         // given
         val sellerID = SharpID(1L)
         val skuID = SharpID(1L)
-        val command = mockk<InventoryInOutCommand>()
+        val command = mockk<InventoryCommand>()
 
         // when
         val sku = mockk<SKU>()

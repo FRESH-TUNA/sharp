@@ -1,16 +1,12 @@
 package com.freshtuna.sharp.inventory.adapter
 
 import com.freshtuna.sharp.id.SharpID
-import com.freshtuna.sharp.inventory.command.InventoryInOutCommand
-import com.freshtuna.sharp.inventory.domain.inventory.InventoryCondition
-import com.freshtuna.sharp.inventory.domain.inventory.InventoryStatus
+import com.freshtuna.sharp.inventory.command.InventoryCommand
 import com.freshtuna.sharp.inventory.domain.inventory.log.InventoryLogReason
 import com.freshtuna.sharp.inventory.entity.MariaDBInventoryLog
 import com.freshtuna.sharp.inventory.entity.MariaDBSKU
-import com.freshtuna.sharp.inventory.outgoing.InventoryOutPort
 import com.freshtuna.sharp.inventory.outgoing.NewInventoryLogPort
 import com.freshtuna.sharp.inventory.repository.inventory.InventoryLogRepository
-import com.freshtuna.sharp.inventory.repository.inventory.InventoryRepository
 import com.freshtuna.sharp.inventory.repository.sku.SKURepository
 import io.mockk.every
 import io.mockk.mockk
@@ -38,7 +34,7 @@ class NewInventoryLogAdapterTest {
         val count = 3L
         val reason = InventoryLogReason.MODIFY
         val description = "초콜릿 먹고 싶다"
-        val command = InventoryInOutCommand(skuId, count, reason, description)
+        val command = InventoryCommand(skuId, count, reason, description)
 
         val skuEntity = mockk<MariaDBSKU>{
             every { id } returns skuId.longId()
