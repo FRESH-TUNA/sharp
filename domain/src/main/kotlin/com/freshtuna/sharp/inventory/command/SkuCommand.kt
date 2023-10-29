@@ -1,12 +1,11 @@
 package com.freshtuna.sharp.inventory.command
 
-import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.price.Price
 import com.freshtuna.sharp.spec.Spec
 import java.time.LocalDateTime
 
 class SkuCommand(
-    val skuId: SharpID,
+    val name: String,
     val barcode: String,
     val description: String = "",
 

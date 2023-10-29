@@ -38,7 +38,10 @@ class SellerAuthInterceptor(
 
         val publicID = authTokenManager.extractPublicId(jwt)
 
-        request.setAttribute(Const.SHARP_ID_HEADER_KEY, sellerManageUseCase.findOrCreateID(publicID))
+        val internalId = sellerManageUseCase.findOrCreateID(publicID)
+
+        request.setAttribute(Const.SHARP_ID_HEADER_KEY, internalId)
+
         return true
     }
 }

@@ -34,6 +34,7 @@ import org.springframework.test.context.ActiveProfiles
 import java.math.BigDecimal
 import java.time.LocalDateTime
 import java.util.*
+import kotlin.math.roundToInt
 
 @DataJpaTest
 @ActiveProfiles("test")
@@ -92,7 +93,7 @@ class SKUQueryRepositoryQueryDSLImplTest {
         assertEquals(pageNumber, results.pageNumber)
         assertEquals(pageSize, results.count)
 
-        assertEquals(results.totalCount/pageSize, results.totalPageCount)
+        assertEquals((results.totalCount / pageSize.toDouble()).roundToInt(), results.totalPageCount.toInt())
     }
 
     @Test

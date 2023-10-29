@@ -34,7 +34,7 @@ class NewInventoryLogAdapterTest {
         val count = 3L
         val reason = InventoryLogReason.MODIFY
         val description = "초콜릿 먹고 싶다"
-        val command = InventoryCommand(skuId, count, reason, description)
+        val command = InventoryCommand(count, reason, description)
 
         val skuEntity = mockk<MariaDBSKU>{
             every { id } returns skuId.longId()
@@ -53,7 +53,7 @@ class NewInventoryLogAdapterTest {
         /**
          * when
          */
-        val result = adapter.new(command)
+        val result = adapter.new(command, skuId)
 
         /**
          * then

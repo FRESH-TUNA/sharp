@@ -29,7 +29,7 @@ class SearchSkuInventoryLogsController(
     override fun search(
         @PathVariable("id") skuId: String,
         pageable: Pageable,
-        @Parameter(hidden = true) @SharpIDInjection sellerID: SharpID
+        @Parameter(hidden = true) @SharpIDInjection sellerId: SharpID
     ): DataResponse<SharpPage<InventoryResponse>> {
 
         val pageRequest = SpringPageableConverter.convert(pageable)
@@ -38,7 +38,7 @@ class SearchSkuInventoryLogsController(
             SharpID(skuId),
             SearchSkuInventoryLogsCommand(),
             pageRequest,
-            sellerID
+            sellerId
         )
 
         val resultPage = inventoryPage.page.map { i -> i.toResponse() }.toList()

@@ -62,10 +62,10 @@ class InventoryRepositoryTest {
         inventoryRepository.save(MariaDBInventory(testSku, InventoryStatus.CART))
 
         // when
-        val resultCount = inventoryRepository.countBySkuIdAndStatus(testCheckSku.id, testCheckStatus)
+        val result = inventoryRepository.findAllBySkuIdAndStatus(testCheckSku.id, testCheckStatus, 3)
 
         // then
-        assertEquals(expectedCount, resultCount)
+        assertEquals(expectedCount, result.size)
     }
 
     @AfterEach

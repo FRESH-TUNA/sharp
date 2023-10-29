@@ -1,6 +1,7 @@
 package com.freshtuna.sharp.inventory.entity
 
-import com.freshtuna.sharp.inventory.command.UpdateSkuCommand
+import com.freshtuna.sharp.entity.MariaDBSeller
+import com.freshtuna.sharp.inventory.command.SkuCommand
 import com.freshtuna.sharp.price.Currency
 import com.freshtuna.sharp.price.Price
 import com.freshtuna.sharp.price.entity.MariaDBPrice
@@ -31,7 +32,7 @@ class MariaDBSKUTest {
         val manufactureDate = LocalDateTime.MIN
 
         val sku = MariaDBSKU(
-            sellerId = sellerId,
+            seller = MariaDBSeller(sellerId),
             name = name,
             barcode = barcode,
             description = description,
@@ -58,14 +59,14 @@ class MariaDBSKUTest {
         val newExpireDate = LocalDateTime.now()
         val newManufactureDate = LocalDateTime.now()
 
-        val command = UpdateSkuCommand(
-            id = newName,
+        val command = SkuCommand(
             barcode = newBarcode,
             description = newDescription,
             price = newBeforePrice,
             spec = newSpecification,
-            skuId = mockk(),
-            newExpireDate, newManufactureDate
+            name = mockk(),
+            expireDate = newExpireDate,
+            manufactureDate = newManufactureDate
         )
 
         /**

@@ -4,7 +4,8 @@ INSERT IGNORE INTO `sku` VALUES (
     2090, 'KRW',
     2, 2, 10, 'CM',
     100, 'GRAM',
-    UNHEX(REPLACE('dbff6d9a-6e59-4e1e-9f21-21c4e43c3ee8', '-', ''))
+    '2024-03-16 15:30:00', '2025-03-16 15:30:00',
+    1
 );
 
 INSERT IGNORE INTO `sku` VALUES (
@@ -13,7 +14,8 @@ INSERT IGNORE INTO `sku` VALUES (
     3000, 'KRW',
     4, 4, 20, 'CM',
     100, 'GRAM',
-    UNHEX(REPLACE('dbff6d9a-6e59-4e1e-9f21-21c4e43c3ee8', '-', ''))
+    '2024-03-16 15:30:00', '2025-03-16 15:30:00',
+    1
 );
 
 INSERT IGNORE INTO `sku` VALUES (
@@ -22,7 +24,8 @@ INSERT IGNORE INTO `sku` VALUES (
     45000, 'KRW',
     10, 60, 120, 'CM',
     5, 'KILOGRAM',
-    UNHEX(REPLACE('dbff6d9a-6e59-4e1e-9f21-21c4e43c3ee8', '-', ''))
+    '2024-03-16 15:30:00', '2025-03-16 15:30:00',
+    1
 );
 
 INSERT IGNORE INTO `sku` VALUES (
@@ -31,7 +34,8 @@ INSERT IGNORE INTO `sku` VALUES (
     1500, 'KRW',
     5, 5, 20, 'CM',
     100, 'GRAM',
-    UNHEX(REPLACE('dbff6d9a-6e59-4e1e-9f21-21c4e43c3ee8', '-', ''))
+    '2024-03-16 15:30:00', '2025-03-16 15:30:00',
+    1
 );
 
 INSERT IGNORE INTO `sku` VALUES (
@@ -40,5 +44,6 @@ INSERT IGNORE INTO `sku` VALUES (
     3500, 'KRW',
     10, 10, 30, 'CM',
     500, 'GRAM',
-    UNHEX(REPLACE('dbff6d9a-6e59-4e1e-9f21-21c4e43c3ee8', '-', ''))
+    '2024-03-16 15:30:00', '2025-03-16 15:30:00',
+    1
 );

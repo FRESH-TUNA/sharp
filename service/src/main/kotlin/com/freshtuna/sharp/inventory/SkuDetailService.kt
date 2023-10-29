@@ -1,7 +1,6 @@
 package com.freshtuna.sharp.inventory
 
 import com.freshtuna.sharp.id.SharpID
-import com.freshtuna.sharp.inventory.command.DetailSkuCommand
 import com.freshtuna.sharp.inventory.domain.SKU
 import com.freshtuna.sharp.inventory.incoming.SkuDetailUseCase
 import com.freshtuna.sharp.inventory.outgoing.FindSkuPort
@@ -15,8 +14,9 @@ class SkuDetailService(
     private val findSkuPort: FindSkuPort
 ) : SkuDetailUseCase{
 
-    override fun detail(command: DetailSkuCommand, sellerId: SharpID): SKU {
-        val sku = findSkuPort.find(command.skuId)
+    override fun detail(id: SharpID, sellerId: SharpID): SKU {
+
+        val sku = findSkuPort.find(id)
 
         if(!sku.checkSameSeller(sellerId))
             Oh.badRequest()

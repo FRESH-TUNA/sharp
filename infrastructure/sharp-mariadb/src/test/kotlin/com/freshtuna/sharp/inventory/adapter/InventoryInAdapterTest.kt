@@ -36,7 +36,7 @@ class InventoryInAdapterTest {
         val reason = InventoryLogReason.RETURN
         val description = "초콜릿 먹고 싶다"
 
-        val command = InventoryCommand(skuId, count, reason, description)
+        val command = InventoryCommand(count, reason, description)
 
         /**
          * when
@@ -54,6 +54,6 @@ class InventoryInAdapterTest {
         /**
          * then
          */
-        adapter.`in`(command)
+        adapter.`in`(command, skuId)
     }
 }

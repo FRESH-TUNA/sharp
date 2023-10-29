@@ -1,36 +1,26 @@
-package com.freshtuna.sharp.adapter.external
+package com.freshtuna.sharp.adapter.external.sku
 
 import com.freshtuna.sharp.StockApiApplication
-import com.freshtuna.sharp.config.const.Url
-import com.freshtuna.sharp.inventory.repository.sku.SKURepository
-import com.freshtuna.sharp.price.Currency
-import com.freshtuna.sharp.spec.DimensionScale
-import com.freshtuna.sharp.spec.WeightScale
-import com.freshtuna.sharp.api.response.DataResponse
+import com.freshtuna.sharp.api.response.BasicResponse
 import org.assertj.core.api.Assertions
-
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
-
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.client.TestRestTemplate
-
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.test.context.ActiveProfiles
-import java.time.LocalDateTime
 
 @SpringBootTest(
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
     classes = [StockApiApplication::class]
 )
 @ActiveProfiles("test")
-class NewSkuControllerSystemTest {
+class InventoryOutControllerSystemTest {
 
     @Autowired
     lateinit var restTemplate: TestRestTemplate
@@ -38,33 +28,17 @@ class NewSkuControllerSystemTest {
     @Value("\${sharp.test.auth-token}")
     private lateinit var accessToken: String
 
-    @Autowired
-    lateinit var skuRepository: SKURepository
-
     @Test
-    @DisplayName("신규 sku 테스트")
-    fun test() {
+    @DisplayName("재고 출고 시스템 테스트")
+    fun stockOut() {
+
         /**
          * given
          */
         val requestBody = mapOf(
-            "name" to "패닉카카오 100g",
-            "barcode" to "4358345843572",
-            "description" to "",
-
-            "cost" to "5000",
-            "currency" to Currency.KRW.name,
-
-            "weight" to "100",
-            "weightScale" to WeightScale.GRAM.name,
-
-            "width" to "6",
-            "height" to "6",
-            "depth" to "8",
-            "dimensionScale" to DimensionScale.CM.name,
-
-            "expireDate" to LocalDateTime.of(2030, 1, 1, 0, 0, 0).toString(),
-            "manufactureDate" to LocalDateTime.now().toString()
+            "reason" to "MODIFY",
+            "count" to 2,
+            "description" to "출고 테스트"
         )
 
         val headers = HttpHeaders()
@@ -76,17 +50,11 @@ class NewSkuControllerSystemTest {
          * when
          */
         val response = restTemplate.postForEntity(
-            Url.EXTERNAL.SKU, entity, DataResponse::class.java)
+            "/sku/1/out", entity, BasicResponse::class.java)
 
         /**
          * then
          */
         Assertions.assertThat(response.statusCode).isEqualTo(HttpStatus.OK)
-
-        /**
-         * cleaning
-         */
-        val data = response.body!!.data as LinkedHashMap<String, String>
-        skuRepository.deleteById(data["id"]!!.toLong())
     }
 }

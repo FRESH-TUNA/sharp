@@ -5,7 +5,6 @@ import com.freshtuna.sharp.api.response.DataResponse
 import com.freshtuna.sharp.config.const.Url
 import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.id.SharpIDInjection
-import com.freshtuna.sharp.inventory.command.DetailSkuCommand
 
 import com.freshtuna.sharp.inventory.incoming.SkuDetailUseCase
 import com.freshtuna.sharp.response.sku.toResponse
@@ -27,8 +26,6 @@ class SkuDetailController(
     override fun detail(@Parameter(description = "SKU 아이디") @PathVariable id: String,
                         @Parameter(hidden = true) @SharpIDInjection sellerID: SharpID): BasicResponse {
 
-        val command = DetailSkuCommand(SharpID(id))
-
-        return DataResponse.of(skuDetailUseCase.detail(command, sellerID).toResponse())
+        return DataResponse.of(skuDetailUseCase.detail(SharpID(id), sellerID).toResponse())
     }
 }

@@ -25,14 +25,22 @@ class InventoryInService(
 
         val sku = findSkuPort.find(skuId)
 
+        logger.info("hahahaha")
+
         if(!command.isIN())
             Oh.badRequest()
+
+        logger.info("hahahaha")
 
         if(!sku.checkSameSeller(sellerId))
             Oh.badRequest()
 
+        logger.info("hahahaha")
+
         if(command.countIsNotValid())
             Oh.badRequest()
+
+        logger.info("hahahaha")
 
         newInventoryLogPort.new(command, skuId)
 

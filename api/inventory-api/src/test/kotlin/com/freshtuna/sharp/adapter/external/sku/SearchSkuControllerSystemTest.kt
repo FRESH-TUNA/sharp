@@ -1,12 +1,12 @@
-package com.freshtuna.sharp.adapter.external
+package com.freshtuna.sharp.adapter.external.sku
 
 import com.freshtuna.sharp.StockApiApplication
 import com.freshtuna.sharp.api.response.DataResponse
+import com.freshtuna.sharp.config.const.Url
 import org.assertj.core.api.Assertions
-import org.junit.jupiter.api.Test
-
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.context.SpringBootTest
@@ -19,7 +19,7 @@ import org.springframework.test.context.ActiveProfiles
     classes = [StockApiApplication::class]
 )
 @ActiveProfiles("test")
-class SearchSkuInventoryLogsControllerTest {
+class SearchSkuControllerSystemTest {
 
     @Autowired
     lateinit var restTemplate: TestRestTemplate
@@ -28,12 +28,16 @@ class SearchSkuInventoryLogsControllerTest {
     private lateinit var accessToken: String
 
     @Test
-    @DisplayName("sku 재고 정보 조회 테스트")
+    @DisplayName("sku 검색 시스템 테스트")
     fun search() {
 
         /**
          * given
          */
+        val query = "초코"
+
+        val queryString = "?page=0&size=1&query=${query}"
+
         val headers = HttpHeaders()
         headers[HttpHeaders.AUTHORIZATION] = accessToken
         headers.contentType = MediaType.APPLICATION_JSON
@@ -43,19 +47,20 @@ class SearchSkuInventoryLogsControllerTest {
         /**
          * when
          */
-        val url = "/inventory/sku/1/inventory-logs?page=0&size=2"
-
         val response = restTemplate.exchange(
-            url,
+            Url.EXTERNAL.SKU+queryString,
             HttpMethod.GET,
             request,
             DataResponse::class.java
         )
 
+        val data = response.body!!.data as HashMap<String, String>
 
         /**
          * then
          */
         Assertions.assertThat(response.statusCode).isEqualTo(HttpStatus.OK)
+        Assertions.assertThat(1).isEqualTo(data["totalCount"])
+        Assertions.assertThat(1).isEqualTo(data["count"])
     }
 }

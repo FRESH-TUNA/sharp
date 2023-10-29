@@ -75,10 +75,11 @@ class SKUQueryRepositoryQueryDSLImpl(
     }
 
     override fun findById(id: SharpID): MariaDBSKU {
+
         return queryFactory
             .select(sku)
             .from(sku)
-            .where(sku.id.eq(id.toString().toLong()))
+            .where(sku.id.eq(id.longId()))
             .fetchOne()!!
     }
 

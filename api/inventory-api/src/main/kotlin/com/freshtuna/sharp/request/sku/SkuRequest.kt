@@ -14,8 +14,8 @@ import java.time.LocalDateTime
 @Schema(description = "SKU 생성/수정 요청")
 class SkuRequest(
 
-    @Schema(description = "SKU ID")
-    val skuId: String,
+    @Schema(description = "SKU의 이름")
+    val name: String,
 
     @Schema(description = "바코드")
     val barcode: String,
@@ -57,26 +57,12 @@ class SkuRequest(
     val manufactureDate: LocalDateTime = LocalDateTime.of(0, 1, 1, 0, 0, 0)
 ) {
     fun toCommand() = SkuCommand(
-        skuId = SharpID(skuId),
+        name = name,
         barcode = barcode,
         description = description,
 
         price = Price(cost, currency),
         spec = Spec(Weight(weight, weightScale), Dimension(width, height, depth, dimensionScale)),
-
-        expireDate = expireDate,
-        manufactureDate = manufactureDate
-    )
-
-    fun toUpdateCommand(id: SharpID) = UpdateSkuCommand(
-        barcode = barcode,
-        description = description,
-
-        price = Price(cost, currency),
-        spec = Spec(Weight(weight, weightScale), Dimension(width, height, depth, dimensionScale)),
-
-        id = id,
-        skuId = SharpID(skuId),
 
         expireDate = expireDate,
         manufactureDate = manufactureDate

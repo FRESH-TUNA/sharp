@@ -65,7 +65,7 @@ class InterceptorResolverTest {
         every { authTokenManager.validate(any()) } returns Unit
         every { authTokenManager.extractPublicId(any()) } returns SharpPublicID(accessToken)
         every { sellerManageUseCase.findOrCreateID(any()) } returns SharpID("1")
-        every { inventoryInUseCase.new(any(), any()) } returns Unit
+        every { inventoryInUseCase.new(any(), any(), any()) } returns Unit
         // then
         mockMvc.perform(
             MockMvcRequestBuilders.post("/inventory/sku/1/in")

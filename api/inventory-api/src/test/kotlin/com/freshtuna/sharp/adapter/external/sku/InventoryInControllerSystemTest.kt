@@ -1,4 +1,4 @@
-package com.freshtuna.sharp.adapter.external
+package com.freshtuna.sharp.adapter.external.sku
 
 import com.freshtuna.sharp.StockApiApplication
 import com.freshtuna.sharp.api.response.BasicResponse
@@ -20,7 +20,7 @@ import org.springframework.test.context.ActiveProfiles
     classes = [StockApiApplication::class]
 )
 @ActiveProfiles("test")
-class InventoryOutControllerSystemTest {
+class InventoryInControllerSystemTest {
 
     @Autowired
     lateinit var restTemplate: TestRestTemplate
@@ -29,16 +29,16 @@ class InventoryOutControllerSystemTest {
     private lateinit var accessToken: String
 
     @Test
-    @DisplayName("재고 출고 시스템 테스트")
-    fun stockOut() {
+    @DisplayName("재고 입고 시스템 테스트")
+    fun stockin() {
 
         /**
          * given
          */
         val requestBody = mapOf(
-            "reason" to "MODIFY",
-            "count" to 3,
-            "description" to "출고 테스트"
+            "reason" to "NEW",
+            "count" to 4,
+            "description" to "입고 테스트"
         )
 
         val headers = HttpHeaders()
@@ -50,7 +50,7 @@ class InventoryOutControllerSystemTest {
          * when
          */
         val response = restTemplate.postForEntity(
-            "/inventory/sku/1/inventories/out", entity, BasicResponse::class.java)
+            "/sku/1/in", entity, BasicResponse::class.java)
 
         /**
          * then

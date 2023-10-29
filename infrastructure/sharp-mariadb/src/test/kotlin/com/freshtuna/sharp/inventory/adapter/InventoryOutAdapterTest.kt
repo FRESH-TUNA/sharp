@@ -33,23 +33,29 @@ class InventoryOutAdapterTest {
         val reason = InventoryLogReason.MODIFY
         val description = "초콜릿 먹고 싶다"
 
-        val command = InventoryCommand(skuId, count, reason, description)
+        val command = InventoryCommand(count, reason, description)
 
         /**
          * when
          */
-        every {
-            repository.countBySkuIdAndStatus(skuId.longId(), InventoryStatus.READY)
-        } returns 4L
+        val inventories = mutableListOf<MariaDBInventory>()
+
+        inventories.add(mockk())
+        inventories.add(mockk())
+        inventories.add(mockk())
 
         every {
-            repository.deleteBySkuIdWithCount(skuId.longId(), count)
+            repository.findAllBySkuIdAndStatus(skuId.longId(), InventoryStatus.READY, count)
+        } returns inventories
+
+        every {
+            repository.deleteAll(inventories)
         } returns Unit
 
         /**
          * then
          */
-        adapter.out(command)
+        adapter.out(command, skuId)
     }
 
     @Test
@@ -64,33 +70,27 @@ class InventoryOutAdapterTest {
         val reason = InventoryLogReason.MODIFY
         val description = "초콜릿 먹고 싶다"
 
-        val command = InventoryCommand(skuId, count, reason, description)
+        val command = InventoryCommand(count, reason, description)
 
         /**
          * when
          */
-        val page = pageOfSuccess(count)
+        val inventories = mutableListOf<MariaDBInventory>()
+
+        inventories.add(mockk())
+        inventories.add(mockk())
 
         every {
-            repository.countBySkuIdAndStatus(skuId.longId(), InventoryStatus.READY)
-        } returns 2L
+            repository.findAllBySkuIdAndStatus(skuId.longId(), InventoryStatus.READY, count)
+        } returns inventories
 
         every {
-            repository.deleteAll(page.content)
+            repository.deleteAll(inventories)
         } returns Unit
 
         /**
          * then
          */
-        assertThrows<SharpException> { adapter.out(command) }
-    }
-
-    private fun pageOfSuccess(count: Long): Page<MariaDBInventory> {
-        val inventories = mutableListOf<MariaDBInventory>()
-
-        for (i in 0 until count)
-            inventories.add(MariaDBInventory(mockk(), InventoryStatus.READY))
-
-        return PageImpl(inventories)
+        assertThrows<SharpException> { adapter.out(command, skuId) }
     }
 }

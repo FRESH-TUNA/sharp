@@ -31,7 +31,7 @@ class NewSkuServiceTest {
          * given
          */
         val command = SkuCommand(
-            skuId = "newsku",
+            name = "newsku",
             barcode = "barcode",
             description = "description",
             price = Price(BigDecimal.TEN, Currency.KRW),
