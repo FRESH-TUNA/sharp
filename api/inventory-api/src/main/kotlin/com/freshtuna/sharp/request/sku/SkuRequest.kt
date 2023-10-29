@@ -1,8 +1,6 @@
 package com.freshtuna.sharp.request.sku
 
-import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.inventory.command.SkuCommand
-import com.freshtuna.sharp.inventory.command.UpdateSkuCommand
 import com.freshtuna.sharp.price.Currency
 import com.freshtuna.sharp.price.Price
 import com.freshtuna.sharp.spec.*

@@ -12,6 +12,7 @@ import com.freshtuna.sharp.item.outgoing.ItemListPort
 import com.freshtuna.sharp.item.outgoing.ShowItemPort
 import com.freshtuna.sharp.item.outgoing.combo.SearchItemComboPort
 import com.freshtuna.sharp.oh.Oh
+import io.github.oshai.KotlinLogging
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -29,13 +30,16 @@ class InventoryInItemService(
     private val newInventoryLogPort: NewInventoryLogPort
 ) : InventoryToItemUseCase {
 
-    override fun to(command: InventoryCommand, itemId: SharpID, sellerId: SharpID) {
+    val log = KotlinLogging.logger {  }
 
+    override fun to(command: InventoryCommand, itemId: SharpID, sellerId: SharpID) {
+        log.info("pass1")
         val item = showItemPort.show(itemId)
 
         if(item.sellerId != sellerId)
             Oh.badRequest()
 
+        log.info("pass2")
         inventoryInPort.`in`(command, item.skuId)
 
         newInventoryLogPort.new(command, item.skuId)
@@ -62,5 +66,6 @@ class InventoryInItemService(
 
             newInventoryLogPort.new(outCommand, item.skuId)
         }
+        log.info("pass3")
     }
 }

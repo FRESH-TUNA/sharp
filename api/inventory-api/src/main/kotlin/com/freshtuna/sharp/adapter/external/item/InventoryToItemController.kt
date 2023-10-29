@@ -4,10 +4,12 @@ import com.freshtuna.sharp.api.response.BasicResponse
 import com.freshtuna.sharp.api.response.MessageResponse
 import com.freshtuna.sharp.config.const.Url
 import com.freshtuna.sharp.id.SharpID
+import com.freshtuna.sharp.id.SharpIDInjection
 import com.freshtuna.sharp.item.incoming.InventoryToItemUseCase
 
 import com.freshtuna.sharp.request.sku.InventoryRequest
 import com.freshtuna.sharp.spec.item.InventoryToItemSpec
+import io.github.oshai.KotlinLogging
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag
 
@@ -22,12 +24,15 @@ class InventoryToItemController(
     private val useCase: InventoryToItemUseCase
 ) : InventoryToItemSpec {
 
+    val log = KotlinLogging.logger {  }
+
     @PostMapping(Url.EXTERNAL.ITEM_IN)
     override fun to(
         @RequestBody request: InventoryRequest,
         @Parameter(description = "SKU 아이디") @PathVariable id: Long,
-        @Parameter(hidden = true) sellerId: SharpID
+        @Parameter(hidden = true) @SharpIDInjection sellerId: SharpID
     ): BasicResponse {
+
 
         useCase.to(request.toCommand(), SharpID(id), sellerId)
         return MessageResponse.OK

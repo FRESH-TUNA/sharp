@@ -11,7 +11,6 @@ import com.freshtuna.sharp.spec.item.NewItemSpec
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
@@ -28,6 +27,6 @@ class NewItemController(
     ): BasicResponse {
 
         val item = useCase.new(request.toCommand(), sellerID)
-        return DataResponse.of(item.id!!.longId())
+        return DataResponse.of(mapOf("id" to item.id!!.longId()))
     }
 }

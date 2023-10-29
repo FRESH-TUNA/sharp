@@ -3,9 +3,9 @@ CREATE TABLE IF NOT EXISTS `sku` (
     `created_at` datetime(6) NOT NULL,
     `updated_at` datetime(6) NOT NULL,
 
-    `name` varchar(100) NOT NULL,
+    `name` varchar(300) NOT NULL,
     `barcode` varchar(100) NOT NULL,
-    `description` varchar(100) NOT NULL,
+    `description` text NOT NULL,
 
     `price` DECIMAL(10,2) NOT NULL,
     `currency` varchar(10) NOT NULL,

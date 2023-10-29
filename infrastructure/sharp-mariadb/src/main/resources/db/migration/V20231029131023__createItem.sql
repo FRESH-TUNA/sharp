@@ -5,8 +5,8 @@ CREATE TABLE IF NOT EXISTS `item` (
 
     `seller_id` bigint(20) NOT NULL,
 
-    `name` varchar(100) NOT NULL,
-    `category` varchar(100) NOT NULL,
+    `name` varchar(300) NOT NULL,
+    `category` varchar(200) NOT NULL,
 
     `sku_id` bigint(20) NOT NULL,
     `description` text NOT NULL,
