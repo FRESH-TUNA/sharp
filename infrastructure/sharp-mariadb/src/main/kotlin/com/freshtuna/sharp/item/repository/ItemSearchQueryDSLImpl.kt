@@ -56,7 +56,6 @@ class ItemSearchDSLImpl(
             .select(item)
             .from(item)
             .innerJoin(item.sku).fetchJoin()
-            .leftJoin(item.policies).fetchJoin()
             .where(item.id.eq(id.toString().toLong()))
             .fetchOne()!!
     }

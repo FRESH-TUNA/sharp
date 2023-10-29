@@ -5,5 +5,5 @@ import com.freshtuna.sharp.item.Item
 
 interface ItemListPort {
 
-    fun findAllByIds(ids: List<SharpID>, sellerID: SharpID): List<Item>
+    fun findAllByIds(ids: List<SharpID>): List<Item>
 }

@@ -12,11 +12,11 @@ class ItemListAdapter(
     private val itemRepository: ItemRepository
 ) : ItemListPort {
 
-    override fun findAllByIds(ids: List<SharpID>, sellerID: SharpID): List<Item> {
+    override fun findAllByIds(ids: List<SharpID>): List<Item> {
         val pks = ids.map(SharpID::longId)
 
         return itemRepository
-            .findAllBySellerIdAndIdIn(sellerID.longId(), pks)
+            .findAllByIdIn(pks)
             .map(ItemEntity::toDomain)
     }
 }

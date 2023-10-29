@@ -10,6 +10,7 @@ import com.freshtuna.sharp.request.item.ItemRequest
 import com.freshtuna.sharp.spec.item.NewItemSpec
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag
+import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
@@ -20,7 +21,7 @@ class NewItemController(
     private val useCase: NewItemUseCase
 ) : NewItemSpec {
 
-    @PutMapping(Url.EXTERNAL.ITEM)
+    @PostMapping(Url.EXTERNAL.ITEM)
     override fun new(
         @RequestBody request: ItemRequest,
         @Parameter(hidden = true) @SharpIDInjection sellerID: SharpID

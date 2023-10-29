@@ -13,7 +13,9 @@ class ItemCommand (
 
     val sku: SkuCommand,
 
-    val composites: List<ItemComboCommand>
+    val isCombo: Boolean,
+
+    val combos: List<ItemComboCommand>
 ) {
 
 }

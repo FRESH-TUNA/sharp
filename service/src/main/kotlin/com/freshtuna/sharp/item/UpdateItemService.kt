@@ -4,8 +4,8 @@ import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.inventory.outgoing.UpdateSkuPort
 import com.freshtuna.sharp.item.command.ItemCommand
 import com.freshtuna.sharp.item.incoming.UpdateItemUseCase
-import com.freshtuna.sharp.item.outgoing.composite.DeleteItemCompositePolicyPort
-import com.freshtuna.sharp.item.outgoing.composite.NewItemComboPort
+import com.freshtuna.sharp.item.outgoing.combo.DeleteItemCompositePolicyPort
+import com.freshtuna.sharp.item.outgoing.combo.NewItemComboPort
 import com.freshtuna.sharp.item.outgoing.ShowItemPort
 import com.freshtuna.sharp.item.outgoing.UpdateItemPort
 import com.freshtuna.sharp.oh.Oh
@@ -35,6 +35,6 @@ class UpdateItemService(
 
         deleteItemCompositePolicyPort.deleteAllByItemId(itemId)
 
-        newItemComboPort.new(command.composites, itemId)
+        newItemComboPort.new(command.combos, itemId)
     }
 }

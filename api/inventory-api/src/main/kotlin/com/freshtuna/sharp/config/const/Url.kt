@@ -41,11 +41,13 @@ class Url {
              */
             const val ITEM = "$ROOT/items"
 
-            const val ITEM_ID = "$ITEM/$ID"
+            const val ITEM_ID = "$ITEM$ID"
 
             const val ITEM_IN = "$ITEM_ID/in"
 
             const val ITEM_OUT = "$ITEM_ID/out"
+
+            const val ITEM_COMBOS = "$ITEM_ID/combos"
         }
     }
 }

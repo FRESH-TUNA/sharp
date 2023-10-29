@@ -21,11 +21,11 @@ class ItemRequest(
     val sku: SkuRequest,
 
     @Schema(description = "세트 아이템인 경우 세트에 해당하는 아이템 추가")
-    private val composites: List<NewItemCompositePolicyRequest>,
+    private val combos: List<NewItemCompositePolicyRequest>,
 ) {
 
     fun toCommand(): ItemCommand {
-        val composites = composites.map { composite -> composite.toCommand() }.toList()
-        return ItemCommand(name, category, description, sku.toCommand(), composites)
+        val combos = combos.map { combo -> combo.toCommand() }.toList()
+        return ItemCommand(name, category, description, sku.toCommand(), combos.isNotEmpty(), combos)
     }
 }

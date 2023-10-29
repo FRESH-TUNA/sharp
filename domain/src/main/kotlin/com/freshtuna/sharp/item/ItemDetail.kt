@@ -17,13 +17,12 @@ class ItemDetail(
 
     val sku: SKU,
 
-    val combos: List<ItemComboDetail>
+    val isCombo: Boolean
 )  {
 
     constructor(
         item: Item,
         sku: SKU,
-        composites: List<ItemComboDetail>
     ): this(
         id = item.id,
         name = item.name,
@@ -31,6 +30,6 @@ class ItemDetail(
         category = item.category,
         description = item.description,
         sku,
-        composites
+        isCombo = item.isCombo
     )
 }

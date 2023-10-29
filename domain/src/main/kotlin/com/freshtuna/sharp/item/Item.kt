@@ -16,7 +16,9 @@ class Item(
 
     val skuId: SharpID,
 
-    val description: String
+    val description: String,
+
+    val isCombo: Boolean
 ) {
 
     fun toSummary(sku: SKU): ItemSummary {
@@ -26,7 +28,8 @@ class Item(
             category = category,
             sellerId = sellerId,
             skuId = skuId,
-            count = sku.count
+            count = sku.count,
+            isCombo = isCombo
         )
     }
 }

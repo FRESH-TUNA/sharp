@@ -26,8 +26,8 @@ class ItemDetailResponse(
     @Schema(description = "SKU, 재고 관리 정보")
     val sku: SKUResponse,
 
-    @Schema(description = "세트 아이템인 경우 표시")
-    val combos: List<ItemComboDetailResponse>
+    @Schema(description = "콤보 상품 여부")
+    val isCombo: Boolean,
 )
 
 fun ItemDetail.toResponse(): ItemDetailResponse {
@@ -38,6 +38,6 @@ fun ItemDetail.toResponse(): ItemDetailResponse {
         category = category,
         description = description,
         sku = sku.toResponse(),
-        combos = combos.map(ItemComboDetail::toResponse)
+        isCombo = isCombo
     )
 }

@@ -9,11 +9,7 @@ import com.freshtuna.sharp.inventory.entity.MariaDBSKU
 import com.freshtuna.sharp.item.Item
 import com.freshtuna.sharp.item.ItemSummary
 import com.freshtuna.sharp.item.command.ItemCommand
-
-import jakarta.persistence.Entity
-import jakarta.persistence.ManyToOne
-import jakarta.persistence.OneToMany
-import jakarta.persistence.Table
+import jakarta.persistence.*
 
 @Entity
 @Table(name = "item")
@@ -24,6 +20,7 @@ class ItemEntity(
 
     var name: String,
 
+    @Enumerated(EnumType.STRING)
     var category: SharpCategory,
 
     @ManyToOne
@@ -31,8 +28,10 @@ class ItemEntity(
 
     var description: String,
 
-    @OneToMany(mappedBy = "rootItem")
-    val policies: List<ItemComboEntity> = mutableListOf()
+    var isCombo: Boolean,
+
+//    @OneToMany(mappedBy = "parentItem")
+//    val combos: List<ItemComboEntity> = mutableListOf()
 ) : MariaDBDefaultEntity() {
 
     fun toDomain(): Item {
@@ -42,7 +41,8 @@ class ItemEntity(
             category = category,
             sellerId = SharpID(seller.id),
             skuId = SharpID(sku.id),
-            description = description
+            description = description,
+            isCombo = isCombo
         )
     }
 
@@ -53,7 +53,8 @@ class ItemEntity(
             category = category,
             sellerId = SharpID(seller.id),
             skuId = SharpID(sku.id),
-            count = count
+            count = count,
+            isCombo = isCombo
         )
     }
 
@@ -69,8 +70,9 @@ class ItemEntity(
  */
 fun ItemCommand.toEntity(seller: MariaDBSeller, sku: MariaDBSKU) = ItemEntity(
     seller = seller,
-    name = this.name,
-    category = this.category,
+    name = name,
+    category = category,
     sku = sku,
-    description = this.description
+    description = description,
+    isCombo = isCombo
 )

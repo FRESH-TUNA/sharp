@@ -4,7 +4,7 @@ import com.freshtuna.sharp.id.SharpID
 import com.freshtuna.sharp.inventory.outgoing.NewSkuPort
 import com.freshtuna.sharp.item.command.ItemCommand
 import com.freshtuna.sharp.item.incoming.NewItemUseCase
-import com.freshtuna.sharp.item.outgoing.composite.NewItemComboPort
+import com.freshtuna.sharp.item.outgoing.combo.NewItemComboPort
 import com.freshtuna.sharp.item.outgoing.NewItemPort
 
 import org.springframework.stereotype.Service
@@ -24,7 +24,7 @@ class NewItemService(
 
         val newItem = newItemPort.new(command, sku.id, sellerID)
 
-        newItemComboPort.new(command.composites, newItem.id)
+        newItemComboPort.new(command.combos, newItem.id)
 
         return newItem
     }

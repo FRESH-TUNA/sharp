@@ -8,6 +8,9 @@ import com.freshtuna.sharp.inventory.outgoing.InventoryOutPort
 import com.freshtuna.sharp.inventory.outgoing.NewInventoryLogPort
 
 import com.freshtuna.sharp.item.incoming.InventoryToItemUseCase
+import com.freshtuna.sharp.item.outgoing.ItemListPort
+import com.freshtuna.sharp.item.outgoing.ShowItemPort
+import com.freshtuna.sharp.item.outgoing.combo.SearchItemComboPort
 import com.freshtuna.sharp.oh.Oh
 
 import org.springframework.stereotype.Service
@@ -16,7 +19,11 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional
 class InventoryInItemService(
-    private val showItemService: ShowItemService,
+    private val showItemPort: ShowItemPort,
+    private val itemListPort: ItemListPort,
+
+    private val itemComboPort: SearchItemComboPort,
+
     private val inventoryInPort: InventoryInPort,
     private val inventoryOutPort: InventoryOutPort,
     private val newInventoryLogPort: NewInventoryLogPort
@@ -24,24 +31,36 @@ class InventoryInItemService(
 
     override fun to(command: InventoryCommand, itemId: SharpID, sellerId: SharpID) {
 
-        val item = showItemService.show(itemId, sellerId)
+        val item = showItemPort.show(itemId)
 
-        val skuId = item.sku.id
+        if(item.sellerId != sellerId)
+            Oh.badRequest()
 
-        for(combo in item.combos) {
-            val child = showItemService.show(combo.item.id, sellerId)
+        inventoryInPort.`in`(command, item.skuId)
 
-            if(child.combos.isNotEmpty())
+        newInventoryLogPort.new(command, item.skuId)
+
+        if(!item.isCombo)
+            return
+
+        val combos = itemComboPort.search(itemId)
+
+        val childItems = itemListPort
+            .findAllByIds(combos.map(ItemCombo::itemId))
+            .associateBy { it.id }
+
+        for(combo in combos) {
+            val child = childItems[combo.itemId]!!
+
+            if(child.isCombo)
                 Oh.badRequest()
 
             val outCommand = InventoryCommand(
                 command.count*combo.amount, InventoryLogReason.SET_EJECTED, command.description)
 
             inventoryOutPort.out(outCommand, child.id)
+
+            newInventoryLogPort.new(outCommand, item.skuId)
         }
-
-        inventoryInPort.`in`(command, skuId)
-
-        newInventoryLogPort.new(command, skuId)
     }
 }

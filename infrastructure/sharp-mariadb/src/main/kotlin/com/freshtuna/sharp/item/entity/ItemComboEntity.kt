@@ -13,15 +13,15 @@ import jakarta.persistence.Table
 class ItemComboEntity(
 
     @ManyToOne
-    var rootItem: ItemEntity,
+    var parentItem: ItemEntity,
 
     @ManyToOne
-    var item: ItemEntity,
+    var comboItem: ItemEntity,
 
     var amount: Long,
 ) : MariaDBDefaultEntity() {
 
     fun toDomain(): ItemCombo {
-        return ItemCombo(SharpID(id), SharpID(item.id), amount)
+        return ItemCombo(SharpID(id), SharpID(comboItem.id), amount)
     }
 }

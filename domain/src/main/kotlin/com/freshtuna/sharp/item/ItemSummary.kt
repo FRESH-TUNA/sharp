@@ -14,6 +14,8 @@ class ItemSummary(
 
     val skuId: SharpID,
 
+    val isCombo: Boolean,
+
     val count: Long
 )
 

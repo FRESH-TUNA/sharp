@@ -20,6 +20,9 @@ class ItemResponse(
     @Schema(description = "카테고리")
     val category: SharpCategory,
 
+    @Schema(description = "콤보 상품 여부")
+    val isCombo: Boolean,
+
     @Schema(description = "재고 수량")
     val count: Long
 ) {
@@ -32,6 +35,7 @@ fun ItemSummary.toResponse(): ItemResponse {
         skuId = skuId.stringId(),
         name = name,
         category = category,
-        count = count
+        count = count,
+        isCombo = isCombo
     )
 }

@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository
 
 interface ItemRepository : JpaRepository<ItemEntity, Long> {
 
-    fun findAllBySellerIdAndIdIn(sellerId: Long, ids: List<Long>): List<ItemEntity>
+    fun findAllByIdIn(ids: List<Long>): List<ItemEntity>
 }
