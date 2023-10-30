@@ -5,7 +5,7 @@ import com.freshtuna.sharp.spec.Spec
 import java.time.LocalDateTime
 
 class SkuCommand(
-    val name: String,
+    val skuId: String,
     val barcode: String,
     val description: String = "",
 
@@ -16,19 +16,4 @@ class SkuCommand(
     val manufactureDate: LocalDateTime
 ) {
 
-//    init {
-//        validate()
-//    }
-//
-//    private fun validate() {
-//        val msgMap = HashMap<String, String>()
-//
-//        if(name.isNullOrEmpty())
-//            msgMap["name"] = "이름을 입력해주세요"
-//        if(barcode.isNullOrEmpty())
-//            msgMap["barcode"] = "바코드를 입력해주세요"
-//
-//        if (msgMap.isNotEmpty())
-//            Oh.formValidationError(msgMap)
-//    }
 }

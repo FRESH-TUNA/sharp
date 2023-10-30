@@ -43,7 +43,7 @@ class UpdateItemControllerSystemTest {
             "description" to "맛있는 피자",
 
             "sku" to mapOf(
-                "name" to "파카리스웨트",
+                "skuId" to "파카리스웨트",
                 "barcode" to "4928428239420",
                 "description" to "",
 

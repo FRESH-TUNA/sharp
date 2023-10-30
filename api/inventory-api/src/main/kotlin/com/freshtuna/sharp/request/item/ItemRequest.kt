@@ -15,7 +15,7 @@ class ItemRequest(
     val category: SharpCategory,
 
     @Schema(description = "설명")
-    val description: String,
+    val description: String = "",
 
     @Schema(description = "SKU 정보 작성")
     val sku: SkuRequest,

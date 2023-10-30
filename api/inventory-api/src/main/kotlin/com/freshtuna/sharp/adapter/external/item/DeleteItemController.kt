@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RestController
 
-@Tag(name = "아이템 삭")
+@Tag(name = "재고 타입 삭제")
 @RestController
 class DeleteItemController(
     private val useCase: DeleteItemUseCase
@@ -21,7 +21,7 @@ class DeleteItemController(
 
     @DeleteMapping(Url.EXTERNAL.ITEM_ID)
     override fun update(
-        @Parameter(description = "SKU 아이디") @PathVariable id: String,
+        @Parameter(description = "아이템 아이디") @PathVariable id: String,
         @Parameter(hidden = true) @SharpIDInjection sellerId: SharpID
     ): BasicResponse {
 

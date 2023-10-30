@@ -50,7 +50,7 @@ class InventoryOutControllerSystemTest {
          * when
          */
         val response = restTemplate.postForEntity(
-            "/sku/1/out", entity, BasicResponse::class.java)
+            "/skus/1/out", entity, BasicResponse::class.java)
 
         /**
          * then

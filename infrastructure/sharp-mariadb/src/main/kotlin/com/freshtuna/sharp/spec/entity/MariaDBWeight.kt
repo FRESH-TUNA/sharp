@@ -12,7 +12,7 @@ import java.math.BigDecimal
 class MariaDBWeight(
 
     @Column(name = "weight_value")
-    val value: BigDecimal,
+    val value: String,
 
     @Enumerated(EnumType.STRING)
     @Column(name = "weight_scale")

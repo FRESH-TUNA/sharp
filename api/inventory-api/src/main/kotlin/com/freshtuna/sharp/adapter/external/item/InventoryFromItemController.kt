@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
-@Tag(name = "아이템 출고")
+@Tag(name = "재고 출고")
 @RestController
 class InventoryFromItemController(
     private val useCase: InventoryFromItemUseCase
@@ -24,7 +24,7 @@ class InventoryFromItemController(
     @PostMapping(Url.EXTERNAL.ITEM_OUT)
     override fun from(
         @RequestBody request: InventoryRequest,
-        @Parameter(description = "SKU 아이디") @PathVariable id: Long,
+        @Parameter(description = "아이템 아이디") @PathVariable id: Long,
         @Parameter(hidden = true) @SharpIDInjection sellerId: SharpID
     ): BasicResponse {
 

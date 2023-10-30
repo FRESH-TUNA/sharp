@@ -34,7 +34,7 @@ class SKUSearchResponse(
 fun SKU.toSearchResponse() = SKUSearchResponse(
     id.toString(),
     sellerId.toString(),
-    name,
+    skuId,
     price,
     barcode,
     description,

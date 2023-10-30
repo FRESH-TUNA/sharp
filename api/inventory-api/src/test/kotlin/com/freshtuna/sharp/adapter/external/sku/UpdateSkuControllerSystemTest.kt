@@ -37,7 +37,7 @@ class UpdateSkuControllerSystemTest {
          */
         val skuId = "/5"
         val requestBody = mapOf(
-            "name" to "머니메이드 주스 자몽맛",
+            "skuId" to "머니메이드 주스 자몽맛",
             "barcode" to "846722345234",
             "description" to "",
 

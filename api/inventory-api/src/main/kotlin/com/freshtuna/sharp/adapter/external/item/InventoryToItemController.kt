@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
-@Tag(name = "아이템 입고")
+@Tag(name = "재고 입고")
 @RestController
 class InventoryToItemController(
     private val useCase: InventoryToItemUseCase
@@ -29,7 +29,7 @@ class InventoryToItemController(
     @PostMapping(Url.EXTERNAL.ITEM_IN)
     override fun to(
         @RequestBody request: InventoryRequest,
-        @Parameter(description = "SKU 아이디") @PathVariable id: Long,
+        @Parameter(description = "아이템 아이디") @PathVariable id: Long,
         @Parameter(hidden = true) @SharpIDInjection sellerId: SharpID
     ): BasicResponse {
 

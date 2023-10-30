@@ -10,7 +10,7 @@ import java.math.BigDecimal
 @Embeddable
 class MariaDBPrice(
 
-    val price: BigDecimal,
+    val price: String,
 
     @Enumerated(EnumType.STRING)
     val currency: Currency

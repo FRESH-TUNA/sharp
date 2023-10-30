@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
-@Tag(name = "아이템 추가")
+@Tag(name = "아이템(재고 타입) 추가")
 @RestController
 class NewItemController(
     private val useCase: NewItemUseCase

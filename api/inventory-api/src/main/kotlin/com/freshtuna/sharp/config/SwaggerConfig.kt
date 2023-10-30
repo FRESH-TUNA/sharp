@@ -40,8 +40,16 @@ class SwaggerConfig {
     @Bean
     fun inventoryGroup(): GroupedOpenApi? {
         return GroupedOpenApi.builder()
-            .group("재고관리")
-            .pathsToMatch("/inventory/**") // .packagesToScan("com.example.swagger") // package 필터 설정
+            .group("SKU 관리")
+            .pathsToMatch("/skus/**") // .packagesToScan("com.example.swagger") // package 필터 설정
+            .build()
+    }
+
+    @Bean
+    fun itemGroup(): GroupedOpenApi? {
+        return GroupedOpenApi.builder()
+            .group("재고 관리")
+            .pathsToMatch("/items/**")
             .build()
     }
 

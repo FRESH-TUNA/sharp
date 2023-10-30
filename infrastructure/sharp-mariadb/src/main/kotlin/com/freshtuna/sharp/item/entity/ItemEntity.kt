@@ -26,12 +26,10 @@ class ItemEntity(
     @ManyToOne
     var sku: MariaDBSKU,
 
-    var description: String,
+    var description: String = "",
 
-    var isCombo: Boolean,
+    var isCombo: Boolean = false,
 
-//    @OneToMany(mappedBy = "parentItem")
-//    val combos: List<ItemComboEntity> = mutableListOf()
 ) : MariaDBDefaultEntity() {
 
     fun toDomain(): Item {
@@ -42,18 +40,6 @@ class ItemEntity(
             sellerId = SharpID(seller.id),
             skuId = SharpID(sku.id),
             description = description,
-            isCombo = isCombo
-        )
-    }
-
-    fun toSummary(count: Long): ItemSummary {
-        return ItemSummary(
-            id = SharpID(this.id),
-            name = name,
-            category = category,
-            sellerId = SharpID(seller.id),
-            skuId = SharpID(sku.id),
-            count = count,
             isCombo = isCombo
         )
     }

@@ -46,7 +46,7 @@ class MariaDBSKUTest {
         val newBarcode = "after"
         val newDescription = "after"
 
-        val newValue = BigDecimal.valueOf(1000)
+        val newValue = BigDecimal.valueOf(1000).toString()
         val newCurrency = Currency.KRW
         val newWeightScale = WeightScale.GRAM
         val newDimensionScale = DimensionScale.CM
@@ -64,7 +64,7 @@ class MariaDBSKUTest {
             description = newDescription,
             price = newBeforePrice,
             spec = newSpecification,
-            name = mockk(),
+            skuId = mockk(),
             expireDate = newExpireDate,
             manufactureDate = newManufactureDate
         )

@@ -29,7 +29,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders
     classes = [StockApiApplication::class]
 )
 @ActiveProfiles("test")
-class InterceptorResolverTest {
+class StockInControllerTest {
 
     private val inventoryInUseCase: InventoryInUseCase = mockk()
 
@@ -68,7 +68,7 @@ class InterceptorResolverTest {
         every { inventoryInUseCase.new(any(), any(), any()) } returns Unit
         // then
         mockMvc.perform(
-            MockMvcRequestBuilders.post("/inventory/sku/1/in")
+            MockMvcRequestBuilders.post("/skus/1/in")
                 .header(HttpHeaders.AUTHORIZATION, accessToken)
                 .content(payload)
                 .contentType(MediaType.APPLICATION_JSON)

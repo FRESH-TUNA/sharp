@@ -31,7 +31,7 @@ class NewSkuServiceTest {
          * given
          */
         val command = SkuCommand(
-            name = "newsku",
+            skuId = "newsku",
             barcode = "barcode",
             description = "description",
             price = Price(BigDecimal.TEN, Currency.KRW),
@@ -47,7 +47,7 @@ class NewSkuServiceTest {
 
         val newSKU = SKU(
             id = SharpID("newId"),
-            name = "newsku",
+            skuId = "newsku",
             barcode = "barcode",
             description = "description",
             price = Price(BigDecimal.TEN, Currency.KRW),

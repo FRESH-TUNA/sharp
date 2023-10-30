@@ -13,12 +13,14 @@ import com.freshtuna.sharp.response.item.toResponse
 import com.freshtuna.sharp.spec.item.SearchItemSpec
 import com.freshtuna.sharp.util.SpringPageableConverter
 import io.swagger.v3.oas.annotations.Parameter
+import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.annotation.Nullable
 import org.springframework.data.domain.Pageable
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.RestController
 
+@Tag(name = "아이템(재고 타입) 검색")
 @RestController
 class SearchItemController(
     private val searchItemUseCase: SearchItemUseCase

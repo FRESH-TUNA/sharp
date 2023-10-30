@@ -49,7 +49,7 @@ class NewItemControllerSystemTest {
             "description" to "맛있는 만두",
 
             "sku" to mapOf(
-                "name" to "바바고/만두/500g",
+                "skuId" to "바바고/만두/500g",
                 "barcode" to "4358345843572",
                 "description" to "",
 

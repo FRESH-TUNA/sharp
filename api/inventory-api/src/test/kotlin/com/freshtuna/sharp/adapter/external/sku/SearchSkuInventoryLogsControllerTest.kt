@@ -43,7 +43,7 @@ class SearchSkuInventoryLogsControllerTest {
         /**
          * when
          */
-        val url = "/sku/1/logs?page=0&size=2"
+        val url = "/skus/1/logs?page=0&size=2"
 
         val response = restTemplate.exchange(
             url,

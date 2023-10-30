@@ -45,7 +45,7 @@ class MariaDBSKU(
         get() = _inventories.toList()
 
     fun update(command: SkuCommand) {
-        name = command.name
+        name = command.skuId
         barcode = command.barcode
         description = command.description
         specification = command.spec.toEntity()
@@ -58,7 +58,7 @@ class MariaDBSKU(
     fun toDomain() = SKU(
         id = SharpID(id),
         sellerId = SharpID(seller.id),
-        name = name,
+        skuId = name,
         barcode = barcode,
         description = description,
         spec = specification.toDomain(),
@@ -75,7 +75,7 @@ class MariaDBSKU(
  * external
  */
 fun SkuCommand.toEntity(seller: MariaDBSeller) = MariaDBSKU(
-    name = this.name,
+    name = this.skuId,
     barcode = this.barcode,
     description = this.description,
     price = this.price.toEntity(),

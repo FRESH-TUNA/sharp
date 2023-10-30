@@ -6,19 +6,18 @@ import jakarta.persistence.Column
 import jakarta.persistence.Embeddable
 import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated
-import java.math.BigDecimal
 
 @Embeddable
 class MariaDBDimension(
 
     @Column(name = "width")
-    val width: BigDecimal,
+    val width: String,
 
     @Column(name = "height")
-    val height: BigDecimal,
+    val height: String,
 
     @Column(name = "depth")
-    val depth: BigDecimal,
+    val depth: String,
 
     @Enumerated(EnumType.STRING)
     @Column(name = "dimension_scale")

@@ -33,7 +33,7 @@ class SKUResponse(
 fun SKU.toResponse() = SKUResponse(
     id.toString(),
     sellerId.toString(),
-    name,
+    skuId,
     price,
     barcode,
     description,

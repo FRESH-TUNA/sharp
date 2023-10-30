@@ -1,8 +1,6 @@
 package com.freshtuna.sharp.price
 
-import java.math.BigDecimal
-
 class Price(
-    val value: BigDecimal,
+    val value: String,
     val currency: Currency
 )

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
-@Tag(name = "아이템 정보 수정")
+@Tag(name = "재고 정보 수정")
 @RestController
 class UpdateItemController(
     private val updateItemUseCase: UpdateItemUseCase
@@ -24,7 +24,7 @@ class UpdateItemController(
     @PutMapping(Url.EXTERNAL.ITEM_ID)
     override fun update(
         @RequestBody request: ItemRequest,
-        @Parameter(description = "SKU 아이디") @PathVariable id: String,
+        @Parameter(description = "아이템 아이디") @PathVariable id: String,
         @Parameter(hidden = true) @SharpIDInjection sellerId: SharpID
     ): BasicResponse {
 

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RestController
 
-@Tag(name = "아이템의 콤보 구성 조회")
+@Tag(name = "재고의 콤보 구성 조회")
 @RestController
 class ItemCombosController(
     private val useCase: ItemCombosUseCase
@@ -22,7 +22,7 @@ class ItemCombosController(
 
     @GetMapping(Url.EXTERNAL.ITEM_COMBOS)
     override fun combos(
-        @Parameter(description = "SKU 아이디") @PathVariable id: String,
+        @Parameter(description = "아이템 아이디") @PathVariable id: String,
         @Parameter(hidden = true) @SharpIDInjection sellerID: SharpID
     ): BasicResponse {
 

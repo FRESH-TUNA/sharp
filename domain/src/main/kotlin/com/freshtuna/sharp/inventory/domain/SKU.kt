@@ -9,7 +9,7 @@ class SKU(
     val id: SharpID,
     val sellerId: SharpID,
 
-    val name: String,
+    val skuId: String,
     val price: Price,
 
     val barcode: String,

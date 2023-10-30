@@ -14,7 +14,7 @@ class SkuInventoriesDto(
     fun toDomain() = SKU(
         id = SharpID(sku.id.toString()),
         sellerId = SharpID(sku.seller.id),
-        name = sku.name,
+        skuId = sku.name,
         barcode = sku.barcode,
         description = sku.description,
         spec = sku.specification.toDomain(),
